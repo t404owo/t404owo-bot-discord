@@ -31,7 +31,6 @@
     "@discordjs/opus": "^0.5.0",
     "node-opus": "^0.3.3",
     "opusscript": "^0.0.8",
-    "captcha-canvas": "^2.3.0",
     "node-superfetch": "^0.2.3"
   },
   "engines": {
