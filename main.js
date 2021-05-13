@@ -305,49 +305,6 @@ var avions = ["WATCHING", "PLAYING", "LISTENING"];
 
 bot.on("message", async(message) =>{
   if (message.author.bot || message.author === bot.user) return;
-  if(message.content.toLowerCase()==='-verify'&&message.channel.id==="726494739880214609"){
-    message.delete();
-    const {CaptchaGenerator}=require('captcha-canvas'),
-          captcha=new CaptchaGenerator() , buffer= await captcha.generate();
-   
-  
-                    
-              const attachment = new discord.MessageAttachment(buffer, 'image.png');
-                    const msg = await message.member.send("Vui lòng ghi ký tự của trong hình captcha như sau:", attachment)
-                    try {
-                      
-                        const response=await msg.channel.awaitMessages(
-        msga => msga.content===captcha.text,
-        {
-          max: 1,
-          maxProcessed: 1,
-          time: 60000,
-          errors: ["time"]
-        }
-      );
-                      
-                        if (response.first() === undefined) {
-     return msg.channel.send("Vui lòng nhập lại `-verify` ở kênh <#"+message.channel.id+"> và nhập lại ký tự captcha mới.")
-      } else {
-                            message.member.roles.add("739513149463461939")
-        message.member.roles.remove("695943907384623124")
-        
-        let ch=bot.channels.cache.get("716271820768018462")
-        ch.send(`> <@!${message.member.id}> đã vào chat!!
-> From Developers Team with love :heart:`)
-                          return console.log("success: the member is verified")
-                        }
-                    } catch (error) {
-                      console.log(error)
-                        return msg.channel.send("Vui lòng nhập lại `-verify` ở kênh <#"+message.channel.id+"> và nhập lại ký tự captcha mới.")
-                    }
-    return
-}
-    else 
-  if(message.content.toLowerCase()==='-verify'&&!message.guild){
-   message.channel.send("Vui lòng dùng lệnh này trong kênh <#726494739880214609> nhé!")
-    return
-}
        
   else
   if(!message.guild){
