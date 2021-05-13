@@ -23,7 +23,7 @@ devDependencies:
   '@types/node': 14.14.37
   '@types/node-fetch': 2.5.8
   '@types/sqlite3': 3.1.7
-  better-sqlite3: 7.1.2
+  better-sqlite3: 7.3.1
   quick.db: 7.1.3
   ts-node-dev: 1.1.6
   typescript: 4.2.3
@@ -270,6 +270,15 @@ packages:
     requiresBuild: true
     resolution:
       integrity: sha512-8FWYnJ6Bx94MBX03J5Ka7sTRlvXXMEm4FW2Op7nM8ErQZeyALYLmSlbMBnfr4cMpS0tj0aYZv0a+26G2YJuIjg==
+  /better-sqlite3/7.3.1:
+    dependencies:
+      bindings: 1.5.0
+      prebuild-install: 6.1.2
+      tar: 6.1.0
+    dev: true
+    requiresBuild: true
+    resolution:
+      integrity: sha512-Io0eWFWEtHsA7KS7Ehm45AGwi5SHeCD1hIHd+b1nj26Tf7rFTBqMltuVDimNMNMJ6f+Oy29RT7XWinv3yWKvIQ==
   /binary-extensions/2.2.0:
     dev: true
     engines:
@@ -1638,6 +1647,12 @@ packages:
     dev: true
     resolution:
       integrity: sha512-smhrivuPqEM3H5LmnY3KU6HfYv0u4QklgAxfFyRNujKUzbUcYZ+Jc2EhukB9SRcD2VpqhxM7n/MIcp1Ua1/JMg==
+  /node-abi/2.26.0:
+    dependencies:
+      semver: 5.7.1
+    dev: true
+    resolution:
+      integrity: sha512-ag/Vos/mXXpWLLAYWsAoQdgS+gW7IwvgMLOgqopm/DbzAjazLltzgzpVMsFlgmo9TzG5hGXeaBZx2AI731RIsQ==
   /node-addon-api/3.1.0:
     dev: false
     resolution:
@@ -1965,6 +1980,28 @@ packages:
     hasBin: true
     resolution:
       integrity: sha512-s8Aai8++QQGi4sSbs/M1Qku62PFK49Jm1CbgXklGz4nmHveDq0wzJkg7Na5QbnO1uNH8K7iqx2EQ/mV0MZEmOg==
+  /prebuild-install/6.1.2:
+    dependencies:
+      detect-libc: 1.0.3
+      expand-template: 2.0.3
+      github-from-package: 0.0.0
+      minimist: 1.2.5
+      mkdirp-classic: 0.5.3
+      napi-build-utils: 1.0.2
+      node-abi: 2.26.0
+      noop-logger: 0.1.1
+      npmlog: 4.1.2
+      pump: 3.0.0
+      rc: 1.2.8
+      simple-get: 3.1.0
+      tar-fs: 2.1.1
+      tunnel-agent: 0.6.0
+    dev: true
+    engines:
+      node: '>=6'
+    hasBin: true
+    resolution:
+      integrity: sha512-PzYWIKZeP+967WuKYXlTOhYBgGOvTRSfaKI89XnfJ0ansRAH7hDU45X+K+FZeI1Wb/7p/NnuctPH3g0IqKUuSQ==
   /prism-media/1.2.9:
     dev: false
     peerDependencies:
@@ -2643,7 +2680,7 @@ specifiers:
   '@types/node': ^14.14.13
   '@types/node-fetch': ^2.5.8
   '@types/sqlite3': ^3.1.6
-  better-sqlite3: ^7.1.2
+  better-sqlite3: ^7.3.1
   captcha-canvas: ^2.3.0
   discord.js: ^12.5.2
   express: ^4.17.1
