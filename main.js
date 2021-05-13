@@ -306,7 +306,7 @@ var avions = ["WATCHING", "PLAYING", "LISTENING"];
 bot.on("message", async(message) =>{
   if (message.author.bot || message.author === bot.user) return;
        
-  else
+ 
   if(!message.guild){
       const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
   const prefix = message.content.match(prefixMention)? message.content.match(prefixMention)[0]: 'e+';
