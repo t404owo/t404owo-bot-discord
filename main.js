@@ -479,8 +479,8 @@ Promise.all(promises)
     console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
 
     status = [
-      `+h for help | ${bot.user.name} | ${totalGuilds} servers | ${totalMembers} members`,
-      `+help for help | ${bot.user.name} | ${totalGuilds} servers | ${totalMembers} members`
+      `+h for help | ${bot.user.username} | ${totalGuilds} servers | ${totalMembers} members`,
+      `+help for help | ${bot.user.username} | ${totalGuilds} servers | ${totalMembers} members`
     ];
   })
   .catch(console.error);
