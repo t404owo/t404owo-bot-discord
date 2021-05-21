@@ -3,8 +3,6 @@ const { RichEmbed } = require('discord.js');
 
 exports.run = (bot, message, args) => {
   let link1 = `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=2146958847`
-  let link2 = `https://discord.com/oauth2/authorize?client_id=767030532269408296&scope=bot+applications.commands&permissions=2146958847`
-    let link3 = `https://discord.com/oauth2/authorize?client_id=789637895916224522&scope=bot+applications.commands&permissions=2146958847`
   let msgembed = new Discord.MessageEmbed()
       .setColor('#0affaf')
       .setTitle("Invite our bot")
