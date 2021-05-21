@@ -3,7 +3,7 @@ let { MessageEmbed } = require('discord.js')
 exports.run = async (bot, message, args) => {
     let module = bot.helps.array();
 let pages =[
-  "**Utillity Commands**\n> `help`, `invite`, `support`, `prefix`, `avatar`, `info`, `userinfo(whois)`", 
+  "**Utillity/misc Commands**\n> `help`, `invite`, `support`, `prefix`, `avatar`, `info`, `userinfo(whois)`", 
             "**Search/query Commands**\n> `say`, `sayembed`, `calculate`, `anime`, `poll`",
             "**Moderation Commands**\n> `kick`, `ban/unban`, `purge`, `setprefix`, `warn`, `warnings`, `mute/unmute`",
             "**Setup Commands**\n> `setprefix`, `setautorole`, `setautorolesystem`, `setmuterole`, `setverifyrole`, `setverifychannel`, `setwelcomemessage`, `setwelcomechannel`, `setleavemessage`, `setleavechannel`, `setwelcomemessagesystem`, `setgoodbyemessagesystem`, `setwelcomeimage`, `setwelcomeembed`, `prefix`, `setwarns`, `setupstatus`, `lvlmsg`",
@@ -14,7 +14,7 @@ let pages =[
             "**Leveling Commands**\n> `rank`, `addxp`, `leaderboard`"
             ];
   let list =[
-  {Category:"**Utillity**", commands:"> `help`, `invite`, `support`, `prefix`, `avatar`, `info`, `userinfo(whois)`"},//1
+  {Category:"**Utillity/misc**", commands:"> `help`, `invite`, `support`, `prefix`, `avatar`, `info`, `userinfo(whois)`"},//1
   {Category:"**Search/query Commands**", commands:"> `say`, `sayembed`, `calculate`, `anime`, `poll`"},//2
             {Category:"**Moderation Commands**", commands:"> `kick`, `ban/unban`, `purge`, `setprefix`, `warn`, `warnings`, `mute/unmute`"},//3
             {Category:"**Setup Commands**", commands:"> `setprefix`, `setautorole`, `setautorolesystem`, `setmuterole`, `setverifyrole`, `setverifychannel`, `setwelcomemessage`, `setwelcomechannel`, `setleavemessage`, `setleavechannel`, `setwelcomemessagesystem`, `setgoodbyemessagesystem`, `setwelcomeimage`, `setwelcomeembed`, `prefix`, `setwarns`, `setupstatus`, `lvlmsg`"},//4
@@ -38,7 +38,7 @@ if(!message.guild){
             
               
                 if(!command){
-                  if(args[0]==="1"||args[0].toLowerCase()==="utillity"||args[0].toLowerCase()==="utillities"||args[0].toLowerCase()==="util"||args[0].toLowerCase()==="utils"){
+                  if(args[0]==="1"||args[0].toLowerCase()==="utillity"||args[0].toLowerCase()==="utillities"||args[0].toLowerCase()==="util"||args[0].toLowerCase()==="utils"||args[0].toLowerCase()==="miscs"||args[0].toLowerCase()==="misc"){
                 page = 1
               }else
                 if(args[0]==="2"||args[0].toLowerCase()==="search"||args[0].toLowerCase()==="query"||args[0].toLowerCase()==="searchs"||args[0].toLowerCase()==="queries"||args[0].toLowerCase()==="search/query"||args[0].toLowerCase()==="query/search"||args[0].toLowerCase()==="searchquery"||args[0].toLowerCase()==="querysearch"){
@@ -255,7 +255,7 @@ about the brackets:
             
               
                 if(!command){
-                  if(args[0]==="1"||args[0].toLowerCase()==="utillity"||args[0].toLowerCase()==="utillities"||args[0].toLowerCase()==="util"||args[0].toLowerCase()==="utils"){
+                  if(args[0]==="1"||args[0].toLowerCase()==="utillity"||args[0].toLowerCase()==="utillities"||args[0].toLowerCase()==="util"||args[0].toLowerCase()==="utils"||args[0].toLowerCase()==="miscs"||args[0].toLowerCase()==="misc"){
                 page = 1
               }else
                 if(args[0]==="2"||args[0].toLowerCase()==="search"||args[0].toLowerCase()==="query"||args[0].toLowerCase()==="searchs"||args[0].toLowerCase()==="queries"||args[0].toLowerCase()==="search/query"||args[0].toLowerCase()==="query/search"||args[0].toLowerCase()==="searchquery"||args[0].toLowerCase()==="querysearch"){

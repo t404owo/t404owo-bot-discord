@@ -1,6 +1,6 @@
 const discord = require('discord.js')
 exports.run = (bot, message, args) => {
-  const version = "1.0.0";
+  const version = "1.0.0(Beta)";
   let embed = new discord.MessageEmbed()
   .setAuthor(bot.user.tag, bot.user.avatarURL)
         .setTitle("Bot Information")

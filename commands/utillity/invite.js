@@ -8,7 +8,7 @@ exports.run = (bot, message, args) => {
   let msgembed = new Discord.MessageEmbed()
       .setColor('#0affaf')
       .setTitle("Invite our bot")
-      .addField("Error404", '[Click here]' + `(${link1})`)
+      .addField("Tairitsu", '[Click here]' + `(${link1})`)
       //.addField("Tairitsu", '[Click here]' + `(${link2})`)
       //.addField("Al!ce (Unstable)", '[Click here]' + `(${link3})`)
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))

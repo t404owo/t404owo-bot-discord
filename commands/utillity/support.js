@@ -1,7 +1,7 @@
 exports.run = (bot, message, args) => {
          const Discord = require("discord.js")
          let link =
-             `https://discord.gg/`
+             `https://discord.gg/ESg2KZcEvH`
          let msgembed = new Discord.MessageEmbed()
       .setColor('#0affaf')
          .setTitle("Supports <:koulove:801419554156445726>")
