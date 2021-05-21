@@ -16,8 +16,6 @@ const util = require("util");
 const fetch = require("node-fetch");
 setInterval(async () => {
   await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`); //main projects site
-  await fetch("https://404-bot-discord.glitch.me");
-  await fetch("https://tairitsu-bot-discord.glitch.me");
 }, 60000);
 bot.db = require("quick.db");
 //bot.translate= require("translate-google")
@@ -27,7 +25,7 @@ bot.on("message", message => {
   if (message.author.bot) return;
   if (message.guild) {
     bot.config = {
-      owners: "770304260919001159, 719500428764774500, 733888373521121350",
+      owners: "user ids here(just for owners, devs, else the others can use it)",
       prefix: bot.db.get(`${message.guild.id}_prefix`) || "+"
     };
     bot.music = {
@@ -51,15 +49,6 @@ function parseTime(time) {
     .join(":"); // Join them back into 'hh:mm:ss'
 }
 bot.on("guildMemberAdd", async member => {
-  if (
-    member.id === "753298841712721961" &&
-    member.guild.id === "723862086622642197"
-  ) {
-    member.ban({
-      reason: `Joined and left the server multi-times || by admin.`
-    });
-    return;
-  }
   if (
     bot.db.get(`${member.guild.id}_autorole`) &&
     !bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)
@@ -490,8 +479,8 @@ Promise.all(promises)
     console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
 
     status = [
-      `+h for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`,
-      `+help for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`
+      `+h for help | ${bot.user.name} | ${totalGuilds} servers | ${totalMembers} members`,
+      `+help for help | ${bot.user.name} | ${totalGuilds} servers | ${totalMembers} members`
     ];
   })
   .catch(console.error);
