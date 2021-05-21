@@ -299,18 +299,18 @@ bot.helps = new discord.Collection();
 bot.cooldowns = new discord.Collection();
 bot.queue = new Map();
 
-fs.readdir("./src/commands/", (err, categories) => {
+fs.readdir("./commands/", (err, categories) => {
   if (err) console.log(err);
   console.log(`Found total ${categories.length} categories.`);
 
   categories.forEach(category => {
-    let moduleConf = require(`./src/commands/${category}/module.json`);
-    moduleConf.path = `./src/commands/${category}`;
+    let moduleConf = require(`./commands/${category}/module.json`);
+    moduleConf.path = `./commands/${category}`;
     moduleConf.cmds = [];
     if (!moduleConf) return;
     bot.helps.set(category, moduleConf);
 
-    fs.readdir(`./src/commands/${category}`, (err, files) => {
+    fs.readdir(`./commands/${category}`, (err, files) => {
       console.log(
         `Found total ${files.length - 1} command(s) from ${category}.`
       );
@@ -319,7 +319,7 @@ fs.readdir("./src/commands/", (err, categories) => {
 
       files.forEach(file => {
         if (!file.endsWith(".js")) return;
-        let prop = require(`./src/commands/${category}/${file}`);
+        let prop = require(`./commands/${category}/${file}`);
         let cmdName = file.split(".")[0];
 
         bot.commands.set(prop.info.name, prop);
