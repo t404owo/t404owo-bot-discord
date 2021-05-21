@@ -1,8 +1,8 @@
-
 const discord = require("discord.js");
 const { promisify } = require("util");
 const ms = require("ms");
-const sleep = promisify(setTimeout);const path = require("path");
+const sleep = promisify(setTimeout);
+const path = require("path");
 const talkedRecently = new Set();
 const bot = new discord.Client();
 const { MessageEmbed, MessageAttachment, Permissions } = require("discord.js");
@@ -13,28 +13,28 @@ const moment = require("moment");
 const botToken = process.env.DISCORD_BOT_TOKEN;
 const util = require("util");
 
-
 const fetch = require("node-fetch");
 setInterval(async () => {
-
- await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`)//main glitch projects site
-}, 60000)
+  await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`); //main projects site
+  await fetch("https://404-bot-discord.glitch.me");
+  await fetch("https://tairitsu-bot-discord.glitch.me");
+}, 60000);
 bot.db = require("quick.db");
 //bot.translate= require("translate-google")
-bot.sleep=promisify(setTimeout);
-bot.vote= new Map()
+bot.sleep = promisify(setTimeout);
+bot.vote = new Map();
 bot.on("message", message => {
-    if(message.author.bot) return
-  if(message.guild){
+  if (message.author.bot) return;
+  if (message.guild) {
     bot.config = {
-    owners: "770304260919001159, 719500428764774500, 733888373521121350",
-    prefix: bot.db.get(`${message.guild.id}_prefix`) || "e+"
-  };
-    bot.music={
-vote: bot.db.get(`${message.guild.id}_vote`) || false
-}
+      owners: "770304260919001159, 719500428764774500, 733888373521121350",
+      prefix: bot.db.get(`${message.guild.id}_prefix`) || "+"
+    };
+    bot.music = {
+      vote: bot.db.get(`${message.guild.id}_vote`) || false
+    };
   }
-  });
+});
 //let serversetting = JSON.parse(fs.readFileSync("./serversetting.json", "utf8"));
 console.defaultLog = console.log.bind(console);
 console.logs = [];
@@ -51,208 +51,254 @@ function parseTime(time) {
     .join(":"); // Join them back into 'hh:mm:ss'
 }
 bot.on("guildMemberAdd", async member => {
-  if(member.id==="753298841712721961"&&member.guild.id==="723862086622642197"){
-    member.ban({reason: `Joined and left the server multi-times || by admin.`});
-    return
+  if (
+    member.id === "753298841712721961" &&
+    member.guild.id === "723862086622642197"
+  ) {
+    member.ban({
+      reason: `Joined and left the server multi-times || by admin.`
+    });
+    return;
   }
-  if(bot.db.get(`${member.guild.id}_autorole`)&&!bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)){
-    if(bot.db.get(`${member.guild.id}_autorolesys`)==="disabled")return
-    let autorole= bot.db.get(`${member.guild.id}_autorole`)
-  member.roles.add(member.guild.roles.cache.find(r => r.id ===autorole)).catch(err=>{
-     bot.db.delete(`${member.guild.id}_autorole`)
-  })
-  member.roles.add(member.guild.roles.cache.find(r => r.id ===autorole).id).catch(err=>{
-     bot.db.delete(`${member.guild.id}_autorole`)
-  })
+  if (
+    bot.db.get(`${member.guild.id}_autorole`) &&
+    !bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)
+  ) {
+    if (bot.db.get(`${member.guild.id}_autorolesys`) === "disabled") return;
+    let autorole = bot.db.get(`${member.guild.id}_autorole`);
+    member.roles
+      .add(member.guild.roles.cache.find(r => r.id === autorole))
+      .catch(err => {
+        bot.db.delete(`${member.guild.id}_autorole`);
+      });
+    member.roles
+      .add(member.guild.roles.cache.find(r => r.id === autorole).id)
+      .catch(err => {
+        bot.db.delete(`${member.guild.id}_autorole`);
+      });
   }
-    let userm = member
-  let targe = member
-let muterole= bot.db.get(`${member.guild.id}_muterole`)
+  let userm = member;
+  let targe = member;
+  let muterole = bot.db.get(`${member.guild.id}_muterole`);
 
-
-   if(bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)){
-    if(!bot.db.get(`${member.guild.id}_muterole`)){
-   let muterale = member.guild.roles.cache.find(r => r.name === 'Muted');
+  if (bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)) {
+    if (!bot.db.get(`${member.guild.id}_muterole`)) {
+      let muterale = member.guild.roles.cache.find(r => r.name === "Muted");
       //bot.db.set(`${message.guild.id}_muterole`,message.guild.roles.cache.find(r => r.name === 'Muted').id);
-  if(!muterale) {
-              try{
-                let muterele = await member.guild.roles.create({
-                  data:{ 
-                  name: "Muted",
-                  color: "#222222",
-                  permissions: []
-                  }
-                })
-                member.guild.channels.cache.forEach(async (channel, id) => {
-                  await channel.updateOverwrite(member.guild.roles.cache.find(r => r.name === 'muted'), {
-                    CREATE_INSTANT_INVITE: true,
-                    ADD_REACTIONS: false,
-                    STREAM: false,
-                    SEND_MESSAGES: false,
-                    SEND_TTS_MESSAGES: false,
-                    ATTACH_FILES: false,
-                    READ_MESSAGE_HISTORY: true,
-                    MENTION_EVERYONE: false,
-                    USE_EXTERNAL_EMOJIS: true,
-                    CONNECT: false,
-                    SPEAK: false,
-                    USE_VAD: false,
-                    CHANGE_NICKNAME: true
-                  })
-                })
+      if (!muterale) {
+        try {
+          let muterele = await member.guild.roles.create({
+            data: {
+              name: "Muted",
+              color: "#222222",
+              permissions: []
+            }
+          });
+          member.guild.channels.cache.forEach(async (channel, id) => {
+            await channel.updateOverwrite(
+              member.guild.roles.cache.find(r => r.name === "muted"),
+              {
+                CREATE_INSTANT_INVITE: true,
+                ADD_REACTIONS: false,
+                STREAM: false,
+                SEND_MESSAGES: false,
+                SEND_TTS_MESSAGES: false,
+                ATTACH_FILES: false,
+                READ_MESSAGE_HISTORY: true,
+                MENTION_EVERYONE: false,
+                USE_EXTERNAL_EMOJIS: true,
+                CONNECT: false,
+                SPEAK: false,
+                USE_VAD: false,
+                CHANGE_NICKNAME: true
               }
-              catch(err) {
-                console.log(`Error :${err}`)
-              }
+            );
+          });
+        } catch (err) {
+          console.log(`Error :${err}`);
+        }
+      }
+      muterole = bot.db.set(
+        `${member.guild.id}_muterole`,
+        member.guild.roles.cache.find(r => r.name === "Muted").id.toString()
+      );
+    }
+    let muteroles = bot.db.set(
+      `${member.guild.id}_${userm.user.id}muteroles`,
+      userm._roles
+    );
+
+    console.log(muterole + "\n" + muteroles);
+
+    setTimeout(function() {
+      targe.roles
+        .add(member.guild.roles.cache.find(r => r.id === muteroles))
+        .catch(() => {
+          targe.roles.add(muteroles);
+          targe.roles.remove(
+            member.guild.roles.cache.find(r => r.id === muterole)
+          );
+          targe.roles.remove(
+            member.guild.roles.cache.find(r => r.id === muterole).id
+          );
+          bot.db.delete(`${member.guild.id}_${userm.user.id}mutetime`);
+          bot.db.delete(`${member.guild.id}_${userm.user.id}muteroles`);
+        });
+
+      targe.roles.remove(member.guild.roles.cache.find(r => r.id === muterole));
+      targe.roles.remove(
+        member.guild.roles.cache.find(r => r.id === muterole).id
+      );
+      bot.db.delete(`${member.guild.id}_${userm.user.id}muteroles`);
+      bot.db.delete(`${member.guild.id}_${userm.user.id}mutetime`);
+
+      if (bot.db.get(`${member.guild.id}_autorole`)) {
+        if (bot.db.get(`${member.guild.id}_autorolesys`) === "disabled") return;
+        let autorole = bot.db.get(`${member.guild.id}_autorole`);
+        member.roles
+          .add(member.guild.roles.cache.find(r => r.id === autorole))
+          .catch(err => {
+            bot.db.delete(`${member.guild.id}_autorole`);
+          });
+        member.roles
+          .add(member.guild.roles.cache.find(r => r.id === autorole).id)
+          .catch(err => {
+            bot.db.delete(`${member.guild.id}_autorole`);
+          });
+      }
+    }, ms(bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)));
+
+    targe.roles.remove(targe.roles.cache);
+    targe.roles.add(member.guild.roles.cache.find(r => r.id === muterole));
+    targe.roles.add(member.guild.roles.cache.find(r => r.id === muterole).id);
   }
-    muterole = bot.db.set(`${member.guild.id}_muterole`,member.guild.roles.cache.find(r => r.name === 'Muted').id.toString());
-            
-}
-  let muteroles=bot.db.set(`${member.guild.id}_${userm.user.id}muteroles`, userm._roles)
-  
-      console.log(muterole+"\n"+muteroles)
 
-
-    
-
-  setTimeout(function(){
-              
-   
-    targe.roles.add(member.guild.roles.cache.find(r => r.id ===muteroles)).catch(()=>{
-      targe.roles.add(muteroles)
-          targe.roles.remove(member.guild.roles.cache.find(r => r.id ===muterole))
-targe.roles.remove(member.guild.roles.cache.find(r => r.id ===muterole).id)
-  bot.db.delete(`${member.guild.id}_${userm.user.id}mutetime`)
-  bot.db.delete(`${member.guild.id}_${userm.user.id}muteroles`)
-  })
-    
-    targe.roles.remove(member.guild.roles.cache.find(r => r.id ===muterole))
-targe.roles.remove(member.guild.roles.cache.find(r => r.id ===muterole).id)
-    bot.db.delete(`${member.guild.id}_${userm.user.id}muteroles`)
-    bot.db.delete(`${member.guild.id}_${userm.user.id}mutetime`)
-    
-    if(bot.db.get(`${member.guild.id}_autorole`)){
-      if(bot.db.get(`${member.guild.id}_autorolesys`)==="disabled")return
-    let autorole= bot.db.get(`${member.guild.id}_autorole`)
-  member.roles.add(member.guild.roles.cache.find(r => r.id ===autorole)).catch(err=>{
-     bot.db.delete(`${member.guild.id}_autorole`)
-  })
-  member.roles.add(member.guild.roles.cache.find(r => r.id ===autorole).id).catch(err=>{
-     bot.db.delete(`${member.guild.id}_autorole`)
-  })
-  }
-             }, ms(bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)))
-  
-  
-targe.roles.remove(targe.roles.cache);
-  targe.roles.add(member.guild.roles.cache.find(r => r.id ===muterole))
-  targe.roles.add(member.guild.roles.cache.find(r => r.id ===muterole).id)
-  
-}
-       
   console.log(`${bot.db.get(`${member.guild.id}_welcomechannel`)}
   ${bot.db.get(`${member.guild.id}_welcomemessage`)}
   ${bot.db.get(`${member.guild.id}_welcomeimg`)}
   ${bot.db.get(`${member.guild.id}_welcomeembed`)}
-${bot.db.get(`${member.guild.id}_welcomemessagesys`)}`)
-  
-  if(bot.db.get(`${member.guild.id}_welcomemessagesys`)||bot.db.get(`${member.guild.id}_welcomeimg`)||bot.db.get(`${member.guild.id}_welcomeembed`)||bot.db.get(`${member.guild.id}_welcomemessage`)||bot.db.get(`${member.guild.id}_welcomechannel`)){
-    if(!bot.db.get(`${member.guild.id}_welcomemessagesys`)){bot.db.set(`${member.guild.id}_welcomemessagesys`, "yes")}
-  if(!bot.db.get(`${member.guild.id}_welcomemessage`)){bot.db.set(`${member.guild.id}_welcomemessage`, "Welcome to $SERVER$, $MENTION$!")}
-    if(!bot.db.get(`${member.guild.id}_welcomeimg`)){bot.db.set(`${member.guild.id}_welcomeimg`, "no")}
-    if(!bot.db.get(`${member.guild.id}_welcomeembed`)){bot.db.set(`${member.guild.id}_welcomeembed`, "no")}
-    if(!bot.db.get(`${member.guild.id}_welcomechannel`))return;
-  const msg = bot.db.get(`${member.guild.id}_welcomemessage`)
-    .replace(/\$MEMBER\$/g, member.user.username)
-    .replace(/\$MENTION\$/g, "<@!"+member.id+">")
-    .replace(/\$SERVER\$/g, member.guild.name)||`Welcome to ${member.guild.id}, <@!${member.id}>!`;
+${bot.db.get(`${member.guild.id}_welcomemessagesys`)}`);
 
-    
-  if (bot.db.get(`${member.guild.id}_welcomemessagesys`) !== "yes") {
-    return;
-  }
-
-  if (bot.db.get(`${member.guild.id}_welcomeimg`) === "no") {
-    if (bot.db.get(`${member.guild.id}_welcomeembed`) === "no") {
-      return bot.channels.cache
-        .get(bot.db.get(`${member.guild.id}_welcomechannel`))
-        .send(msg);
+  if (
+    bot.db.get(`${member.guild.id}_welcomemessagesys`) ||
+    bot.db.get(`${member.guild.id}_welcomeimg`) ||
+    bot.db.get(`${member.guild.id}_welcomeembed`) ||
+    bot.db.get(`${member.guild.id}_welcomemessage`) ||
+    bot.db.get(`${member.guild.id}_welcomechannel`)
+  ) {
+    if (!bot.db.get(`${member.guild.id}_welcomemessagesys`)) {
+      bot.db.set(`${member.guild.id}_welcomemessagesys`, "yes");
     }
-    const Embed = new discord.MessageEmbed()
-      .setThumbnail(member.user.avatarURL({ dynamic: true }))
-      .setDescription(msg)
-      .setColor("RANDOM");
-    bot.channels.cache
-      .get(bot.db.get(`${member.guild.id}_welcomechannel`))
-      .send(Embed);
-    return;
-  }
+    if (!bot.db.get(`${member.guild.id}_welcomemessage`)) {
+      bot.db.set(
+        `${member.guild.id}_welcomemessage`,
+        "Welcome to $SERVER$, $MENTION$!"
+      );
+    }
+    if (!bot.db.get(`${member.guild.id}_welcomeimg`)) {
+      bot.db.set(`${member.guild.id}_welcomeimg`, "no");
+    }
+    if (!bot.db.get(`${member.guild.id}_welcomeembed`)) {
+      bot.db.set(`${member.guild.id}_welcomeembed`, "no");
+    }
+    if (!bot.db.get(`${member.guild.id}_welcomechannel`)) return;
+    const msg =
+      bot.db
+        .get(`${member.guild.id}_welcomemessage`)
+        .replace(/\$MEMBER\$/g, member.user.username)
+        .replace(/\$MENTION\$/g, "<@!" + member.id + ">")
+        .replace(/\$SERVER\$/g, member.guild.name) ||
+      `Welcome to ${member.guild.id}, <@!${member.id}>!`;
 
-  if (bot.db.get(`${member.guild.id}_welcomeimg`) === "yes") {
-    var list = [
-      "https://i.imgur.com/UcGioIH.gif",
-      "https://i.imgur.com/AqK6ipr.gif",
-      "https://i.imgur.com/aUwimFa.gif",
-      "https://i.imgur.com/TXlp1YT.gif",
-      "https://i.imgur.com/5SABV1P.gif",
-      "https://i.imgur.com/EpeiJq8.gif",
-      "https://i.imgur.com/fFNLyAx.gif",
-      "https://i.imgur.com/5s8vsTH.gif"
-    ];
-    var rand = list[Math.floor(Math.random() * list.length)];
-    console.log(rand);
-    const image = new discord.MessageAttachment(rand, "welcome.gif");
+    if (bot.db.get(`${member.guild.id}_welcomemessagesys`) !== "yes") {
+      return;
+    }
 
-    if (bot.db.get(`${member.guild.id}_welcomeembed`) === "yes") {
+    if (bot.db.get(`${member.guild.id}_welcomeimg`) === "no") {
+      if (bot.db.get(`${member.guild.id}_welcomeembed`) === "no") {
+        return bot.channels.cache
+          .get(bot.db.get(`${member.guild.id}_welcomechannel`))
+          .send(msg);
+      }
       const Embed = new discord.MessageEmbed()
+        .setThumbnail(member.user.avatarURL({ dynamic: true }))
         .setDescription(msg)
-        .setColor("RANDOM")
-        .setImage(rand)
-        .setThumbnail(member.user.avatarURL({ dynamic: true }));
-      console.log(rand);
+        .setColor("RANDOM");
       bot.channels.cache
         .get(bot.db.get(`${member.guild.id}_welcomechannel`))
         .send(Embed);
       return;
     }
 
-    bot.channels.cache
-      .get(bot.db.get(`${member.guild.id}_welcomechannel`))
-      .send(msg, image);
-    return;
-  }
+    if (bot.db.get(`${member.guild.id}_welcomeimg`) === "yes") {
+      var list = [
+        "https://i.imgur.com/UcGioIH.gif",
+        "https://i.imgur.com/AqK6ipr.gif",
+        "https://i.imgur.com/aUwimFa.gif",
+        "https://i.imgur.com/TXlp1YT.gif",
+        "https://i.imgur.com/5SABV1P.gif",
+        "https://i.imgur.com/EpeiJq8.gif",
+        "https://i.imgur.com/fFNLyAx.gif",
+        "https://i.imgur.com/5s8vsTH.gif"
+      ];
+      var rand = list[Math.floor(Math.random() * list.length)];
+      console.log(rand);
+      const image = new discord.MessageAttachment(rand, "welcome.gif");
+
+      if (bot.db.get(`${member.guild.id}_welcomeembed`) === "yes") {
+        const Embed = new discord.MessageEmbed()
+          .setDescription(msg)
+          .setColor("RANDOM")
+          .setImage(rand)
+          .setThumbnail(member.user.avatarURL({ dynamic: true }));
+        console.log(rand);
+        bot.channels.cache
+          .get(bot.db.get(`${member.guild.id}_welcomechannel`))
+          .send(Embed);
+        return;
+      }
+
+      bot.channels.cache
+        .get(bot.db.get(`${member.guild.id}_welcomechannel`))
+        .send(msg, image);
+      return;
+    }
   }
 });
 bot.on("guildMemberRemove", async member => {
-  
-  
-
   console.log(`${bot.db.get(`${member.guild.id}_leavechannel`)}
   ${bot.db.get(`${member.guild.id}_leavemessage`)}
-${bot.db.get(`${member.guild.id}_goodbyemessagesys`)}`)
-  
-  if(bot.db.get(`${member.guild.id}_goodbyemessagesys`)||bot.db.get(`${member.guild.id}_leavemessage`)||bot.db.get(`${member.guild.id}_leavechannel`)){
-    if(!bot.db.get(`${member.guild.id}_goodbyemessagesys`)){bot.db.set(`${member.guild.id}_goobyemessagesys`, "yes")}
-  if(!bot.db.get(`${member.guild.id}_leavemessage`)){bot.db.set(`${member.guild.id}_leavemessage`, "Goodbye, $MEMBER$!")}
-    if(!bot.db.get(`${member.guild.id}_leavechannel`))return;
-  const msg = bot.db.get(`${member.guild.id}_leavemessage`)
-    .replace(/\$MEMBER\$/g, member.user.username)
-    .replace(/\$MENTION\$/g, "<@!"+member.id+">")
-    .replace(/\$SERVER\$/g, member.guild.name)||`Goodbye ${member.guild.id}, <@!${member.id}>!`;
+${bot.db.get(`${member.guild.id}_goodbyemessagesys`)}`);
 
-    
-  if (bot.db.get(`${member.guild.id}_goodbyemessagesys`) !== "yes") {
-    return;
-  }
+  if (
+    bot.db.get(`${member.guild.id}_goodbyemessagesys`) ||
+    bot.db.get(`${member.guild.id}_leavemessage`) ||
+    bot.db.get(`${member.guild.id}_leavechannel`)
+  ) {
+    if (!bot.db.get(`${member.guild.id}_goodbyemessagesys`)) {
+      bot.db.set(`${member.guild.id}_goobyemessagesys`, "yes");
+    }
+    if (!bot.db.get(`${member.guild.id}_leavemessage`)) {
+      bot.db.set(`${member.guild.id}_leavemessage`, "Goodbye, $MEMBER$!");
+    }
+    if (!bot.db.get(`${member.guild.id}_leavechannel`)) return;
+    const msg =
+      bot.db
+        .get(`${member.guild.id}_leavemessage`)
+        .replace(/\$MEMBER\$/g, member.user.username)
+        .replace(/\$MENTION\$/g, "<@!" + member.id + ">")
+        .replace(/\$SERVER\$/g, member.guild.name) ||
+      `Goodbye ${member.guild.id}, <@!${member.id}>!`;
 
+    if (bot.db.get(`${member.guild.id}_goodbyemessagesys`) !== "yes") {
+      return;
+    }
 
-      return bot.channels.cache
-        .get(bot.db.get(`${member.guild.id}_leavechannel`))
-        .send(msg);
-   
+    return bot.channels.cache
+      .get(bot.db.get(`${member.guild.id}_leavechannel`))
+      .send(msg);
   }
 });
-
 
 bot.commands = new discord.Collection();
 bot.aliases = new discord.Collection();
@@ -260,202 +306,200 @@ bot.songs = new discord.Collection();
 bot.packs = new discord.Collection();
 bot.packaliases = new discord.Collection();
 bot.songaliases = new discord.Collection();
-    bot.helps = new discord.Collection();
+bot.helps = new discord.Collection();
 bot.cooldowns = new discord.Collection();
 bot.queue = new Map();
 
-fs.readdir("./commands/", (err, categories) => {
-    if (err) console.log(err) 
-    console.log(`Found total ${categories.length} categories.`);
-    
-    categories.forEach(category => {
-      let moduleConf = require(`./commands/${category}/module.json`);
-      moduleConf.path = `./commands/${category}`;
-      moduleConf.cmds = [];
-      if (!moduleConf) return; 
-      bot.helps.set(category, moduleConf);
-      
-      fs.readdir(`./commands/${category}`, (err, files) => {
-        
-        console.log(`Found total ${files.length - 1} command(s) from ${category}.`);
-        if (err) console.log(err);
-        let commands = new Array();
-        
-        files.forEach(file => {
-          if (!file.endsWith(".js")) return; 
-          let prop = require(`./commands/${category}/${file}`);
-          let cmdName = file.split(".")[0];
-          
-          bot.commands.set(prop.info.name, prop)
-          
-          prop.info.aliases.forEach(alias => {
-            bot.aliases.set(alias, prop.info.name);
-          })
-          
-          bot.helps.get(category).cmds.push(prop.info.name);
-          
-        })
-      })
-    })
-  })
+fs.readdir("./src/commands/", (err, categories) => {
+  if (err) console.log(err);
+  console.log(`Found total ${categories.length} categories.`);
+
+  categories.forEach(category => {
+    let moduleConf = require(`./src/commands/${category}/module.json`);
+    moduleConf.path = `./src/commands/${category}`;
+    moduleConf.cmds = [];
+    if (!moduleConf) return;
+    bot.helps.set(category, moduleConf);
+
+    fs.readdir(`./src/commands/${category}`, (err, files) => {
+      console.log(
+        `Found total ${files.length - 1} command(s) from ${category}.`
+      );
+      if (err) console.log(err);
+      let commands = new Array();
+
+      files.forEach(file => {
+        if (!file.endsWith(".js")) return;
+        let prop = require(`./src/commands/${category}/${file}`);
+        let cmdName = file.split(".")[0];
+
+        bot.commands.set(prop.info.name, prop);
+
+        prop.info.aliases.forEach(alias => {
+          bot.aliases.set(alias, prop.info.name);
+        });
+
+        bot.helps.get(category).cmds.push(prop.info.name);
+      });
+    });
+  });
+});
 
 
-var avions = ["WATCHING", "PLAYING", "LISTENING"];
 
-
-bot.on("message", async(message) =>{
+bot.on("message", async message => {
   if (message.author.bot || message.author === bot.user) return;
-       
- 
-  if(!message.guild){
-      const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
-  const prefix = message.content.match(prefixMention)? message.content.match(prefixMention)[0]: 'e+';
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  bot.emit('experience', message);
-
-  // If the user doesn't doing any to the bot, return it.
-  if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())&&!message.content.toLowerCase().startsWith("/")) return;
-  
-  let args = message.content.slice(prefix.length).trim().split(/ +/g);
-  let msg = message.content.toLowerCase();
-  let cmd = args.shift().toLowerCase();
-  let sender = message.author;
-  
-
-  message.flags = []
-  while (args[0] && args[0][0] === "-") {
-    message.flags.push(args.shift().slice(1)); 
-  }
-  
-  let commandFile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-  if (!commandFile) return;
-  
-  const member = message.member,
-        now = Date.now(),
-        timestamps = bot.cooldowns.get(commandFile.info.name),
-        cooldownAmount = (commandFile.conf.cooldown || 3) * 1000;
-  
-  
-  try {
-    if (!commandFile) return;
-    if(commandFile.conf.dm==="no") return
-    commandFile.run(bot, message, args);
-  } catch (error) {
-    console.log(error.message);
-  } finally {
-    // If you want to really know, who is typing or using your bot right now.
-    console.log(`${sender.tag} (${sender.id}) ran a command: ${cmd}`);
-  } return
-  }
-  
-  
-  else
-  
-  
-  
-  //message.guild
-  {
+  if (!message.guild) {
     const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
-  const prefix = message.content.match(prefixMention)? message.content.match(prefixMention)[0]: bot.config.prefix;
-  
-  
-  
-  
-    
-  
-  
-  
-  
-  bot.emit('experience', message);
-  
- 
-  if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
-  
-  let args = message.content.slice(prefix.length).trim().split(/ +/g);
-  let msg = message.content.toLowerCase();
-  let cmd = args.shift().toLowerCase();
-  let sender = message.author;
-  
+    const prefix = message.content.match(prefixMention)
+      ? message.content.match(prefixMention)[0]
+      : "+";
 
-  message.flags = []
-  while (args[0] && args[0][0] === "-") {
-    message.flags.push(args.shift().slice(1));
-  }
-  
-  let commandFile = bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
-  if (!commandFile) return; 
-  
-   if (!bot.cooldowns.has(commandFile.info.name)) bot.cooldowns.set(commandFile.info.name, new discord.Collection());
-  
-  const member = message.member,
-        now = Date.now(),
-        timestamps = bot.cooldowns.get(commandFile.info.name),
-        cooldownAmount = (commandFile.conf.cooldown || 3) * 1000;
-  
-  if (!timestamps.has(member.id)) {
-    if (!bot.config.owners.includes(message.author.id)) {
-      
-      timestamps.set(member.id, now);
+    bot.emit("experience", message);
+
+    // If the user doesn't doing any to the bot, return it.
+    if (
+      !message.content.toLowerCase().startsWith(prefix.toLowerCase()) &&
+      !message.content.toLowerCase().startsWith("/")
+    )
+      return;
+
+    let args = message.content
+      .slice(prefix.length)
+      .trim()
+      .split(/ +/g);
+    let msg = message.content.toLowerCase();
+    let cmd = args.shift().toLowerCase();
+    let sender = message.author;
+
+    message.flags = [];
+    while (args[0] && args[0][0] === "-") {
+      message.flags.push(args.shift().slice(1));
     }
-  } else {
-    const expirationTime = timestamps.get(member.id) + cooldownAmount;
-    
-    if (now < expirationTime) {
-      const timeLeft = (expirationTime - now) / 1000;
-      return message.channel.send(`<:botno:766649381411618837> | <@!${message.member.id}>, please wait **${timeLeft.toFixed(1)}** seconds to try the command again.`);
-    }
-    
-    timestamps.set(member.id, now);
-    setTimeout(() => timestamps.delete(member.id), cooldownAmount); 
-  }
-  
-  try {
+
+    let commandFile =
+      bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
     if (!commandFile) return;
-    commandFile.run(bot, message, args);
-  } catch (error) {
-    console.log(error.message);
-  } finally {
-    
-    console.log(`${sender.tag} (${sender.id}) ran a command: ${cmd}`);
+
+    const member = message.member,
+      now = Date.now(),
+      timestamps = bot.cooldowns.get(commandFile.info.name),
+      cooldownAmount = (commandFile.conf.cooldown || 3) * 1000;
+
+    try {
+      if (!commandFile) return;
+      if (commandFile.conf.dm === "no") return;
+      commandFile.run(bot, message, args);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      // If you want to really know, who is typing or using your bot right now.
+      console.log(`${sender.tag} (${sender.id}) ran a command: ${cmd}`);
+    }
+    return;
   }
+
+  //message.guild
+  else {
+    const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
+    const prefix = message.content.match(prefixMention)
+      ? message.content.match(prefixMention)[0]
+      : bot.config.prefix;
+
+    bot.emit("experience", message);
+
+    if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
+
+    let args = message.content
+      .slice(prefix.length)
+      .trim()
+      .split(/ +/g);
+    let msg = message.content.toLowerCase();
+    let cmd = args.shift().toLowerCase();
+    let sender = message.author;
+
+    message.flags = [];
+    while (args[0] && args[0][0] === "-") {
+      message.flags.push(args.shift().slice(1));
+    }
+
+    let commandFile =
+      bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
+    if (!commandFile) return;
+
+    if (!bot.cooldowns.has(commandFile.info.name))
+      bot.cooldowns.set(commandFile.info.name, new discord.Collection());
+
+    const member = message.member,
+      now = Date.now(),
+      timestamps = bot.cooldowns.get(commandFile.info.name),
+      cooldownAmount = (commandFile.conf.cooldown || 3) * 1000;
+
+    if (!timestamps.has(member.id)) {
+      if (!bot.config.owners.includes(message.author.id)) {
+        timestamps.set(member.id, now);
+      }
+    } else {
+      const expirationTime = timestamps.get(member.id) + cooldownAmount;
+
+      if (now < expirationTime) {
+        const timeLeft = (expirationTime - now) / 1000;
+        return message.channel.send(
+          `<:botno:766649381411618837> | <@!${
+            message.member.id
+          }>, please wait **${timeLeft.toFixed(
+            1
+          )}** seconds to try the command again.`
+        );
+      }
+
+      timestamps.set(member.id, now);
+      setTimeout(() => timestamps.delete(member.id), cooldownAmount);
+    }
+
+    try {
+      if (!commandFile) return;
+      commandFile.run(bot, message, args);
+    } catch (error) {
+      console.log(error.message);
+    } finally {
+      console.log(`${sender.tag} (${sender.id}) ran a command: ${cmd}`);
+    }
   }
-})
+});
 
 const promises = [
-	bot.shard.fetchClientValues('guilds.cache.size'),
-	bot.shard.broadcastEval('this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)'),
+  bot.shard.fetchClientValues("guilds.cache.size"),
+  bot.shard.broadcastEval(
+    "this.guilds.cache.reduce((acc, guild) => acc + guild.memberCount, 0)"
+  )
 ];
 
-let status; 
-let guildssize=[], memberssize=[]
-let totalGuilds,totalMembers
+let status;
+var actions = ["WATCHING", "PLAYING", "LISTENING"];
+let guildssize = [],
+  memberssize = [];
+let totalGuilds, totalMembers;
 Promise.all(promises)
-	.then(results => {
-		 totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
-		 totalMembers = results[1].reduce((acc, memberCount) => acc + memberCount, 0);
-		console.log(
-	`Server count: ${totalGuilds}\nMember count: ${totalMembers}`
-    )
-  status= [
-  'Error code [404]: File not found',
-  'Error code [403]: Forbidden: During to Error[404]: File not found'
-    ]
-	})
-	.catch(console.error);
+  .then(results => {
+    totalGuilds = results[0].reduce((acc, guildCount) => acc + guildCount, 0);
+    totalMembers = results[1].reduce(
+      (acc, memberCount) => acc + memberCount,
+      0
+    );
+    console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
+
+    status = [
+      `+h for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`,
+      `+help for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`
+    ];
+  })
+  .catch(console.error);
 //bot.shard.fetchClientValues('guilds.cache.size')
 
 bot.on("ready", () => {
-
   console.log("Ok it works!!!");
-  var randt = avions[Math.floor(Math.random() * avions.length)];
+  var randt = actions[Math.floor(Math.random() * actions.length)];
   var randstatus = status[Math.floor(Math.random() * status.length)];
   //console.log(randstatus)
   bot.user
@@ -465,21 +509,6 @@ bot.on("ready", () => {
     })
     .catch(console.error);
 });
-
-bot.on("ready", () => {
-  setInterval(() => {
-    var randt = avions[Math.floor(Math.random() * avions.length)];
-    var randstatus = status[Math.floor(Math.random() * status.length)];
-    //console.log(randstatus)
-    bot.user
-      .setActivity(randstatus, {
-        type: randt,
-        url: "https://www.twitch.tv/"
-      })
-      .catch(console.error);
-  }, 30000);
-});
-
 
 function pad(n) {
   return parseInt(n) < 10 // If number less than 10
@@ -501,16 +530,15 @@ function seconds(seconds) {
 }
 
 bot.on("message", async message => {
-
-  if (message.author.bot||message.guild===null) return;
+  if (message.author.bot || message.guild === null) return;
   xp(message);
 
   serverxp(message);
 
-
-
   const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
-  const prefix = message.content.match(prefixMention)? message.content.match(prefixMention)[0]: bot.config.prefix;
+  const prefix = message.content.match(prefixMention)
+    ? message.content.match(prefixMention)[0]
+    : bot.config.prefix;
 
   if (message.content.indexOf(prefix) !== 0 || message.author.bot) return;
   const args = message.content
@@ -518,16 +546,9 @@ bot.on("message", async message => {
     .trim()
     .split(/ +/g);
   const command = args.shift().toLowerCase();
-
-  
-  
- 
-  
-  
 });
 
 function xp(message) {
-  
   let xp = bot.db.add(
     `xp_${message.author.id}`,
     Math.floor(Math.random() * 5) + 3
@@ -539,7 +560,13 @@ function xp(message) {
     bot.db.set(`level_xp_${message.author.id}`, 1);
   if (level > lvl) {
     let newLevel = bot.db.set(`level_${message.author.id}`, level);
-    if (message.guild.id === "264445053596991498"||message.guild.id==='808770886718193705'||message.guild.id === "264445053596991498"||bot.db.get(`${message.guild.id}_lvlupmsg`)=== "no") return;
+    if (
+      message.guild.id === "264445053596991498" ||
+      message.guild.id === "808770886718193705" ||
+      message.guild.id === "264445053596991498" ||
+      bot.db.get(`${message.guild.id}_lvlupmsg`) === "no"
+    )
+      return;
     message.channel
       .send(`${message.author.toString()} is now on level ${newLevel}!`)
       .then(ms => {
@@ -560,7 +587,13 @@ function serverxp(message) {
     bot.db.set(`${a}level_${a}xp_${message.author.id}`, 1);
   if (level > lvl) {
     let newLevel = bot.db.set(`${a}level_${message.author.id}`, level);
-    if (message.guild.id === "264445053596991498"||message.guild.id==='808770886718193705'||message.guild.id === "264445053596991498"||bot.db.get(`${message.guild.id}_lvlupmsg`)=== "no") return;
+    if (
+      message.guild.id === "264445053596991498" ||
+      message.guild.id === "808770886718193705" ||
+      message.guild.id === "264445053596991498" ||
+      bot.db.get(`${message.guild.id}_lvlupmsg`) === "no"
+    )
+      return;
     message.channel
       .send(
         `${message.author.toString()} is now on level ${newLevel} in this server!`
