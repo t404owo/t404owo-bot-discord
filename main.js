@@ -434,7 +434,7 @@ bot.on("message", async message => {
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
         return message.channel.send(
-          `<:botno:766649381411618837> | <@!${
+          `<:tairitsuno:801419553933492245> | <@!${
             message.member.id
           }>, please wait **${timeLeft.toFixed(
             1
