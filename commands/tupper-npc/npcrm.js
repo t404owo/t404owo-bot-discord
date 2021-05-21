@@ -1,23 +1,56 @@
-let error=require("../../util/error")
-let success=require("../../util/success")
-exports.conf={
+let error = require("../../util/error");
+let success = require("../../util/success");
+exports.conf = {
   cooldown: 0,
   dm: "no"
-}
-module.exports.run=async(bot,message,args)=>{
+};
+module.exports.run = async (bot, message, args) => {
   if (!args[0])
-      return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, Please give a Name to find the character/npc/Tupper");
+    return message.channel.send(
+      "<:tairitsuno:801419553933492245> | <@!" +
+        message.member.id +
+        ">, Please give a Name to find the character/npc/Tupper"
+    );
   let a = args.slice().join(" ");
-    let tupper = bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`);
-     if (!tupper)return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
-    bot.db.delete(`${message.guild.id}npcname_${a.toLowerCase()}`)
-    bot.db.delete(`${message.guild.id}npcav_${a.toLowerCase()}`)
-    success(`**${tupper}** is removed!`, message.channel);
-}
+  let tupper = bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`);
+  if (!tupper)
+    return message.channel.send(
+      "<:tairitsuno:801419553933492245> | <@!" +
+        message.member.id +
+        ">, This Tupper/npc is not existing in this server!"
+    );
+  bot.db.delete(`${message.guild.id}npcname_${a.toLowerCase()}`);
+  bot.db.delete(`${message.guild.id}npcav_${a.toLowerCase()}`);
+  bot.db.delete(`${message.guild.id}npcdesc_${a.toLowerCase()}`);
+  success(`**${tupper}** is removed!`, message.channel);
+};
 module.exports.info = {
   name: "npcremove",
   description: "Delete a mentioned Tupper/npc",
   usage: "<npc_name>",
-  aliases: ["npcrm","npc-rm","rmnpc","rm-npc","npc-remove","removenpc","remove-npc", "npcdelete", "npc-delete", "deletenpc", "delete-npc",
-            "tupperremove","tupperrm","tupper-rm","rmtupper","rm-tupper","tupper-remove","removetupper","remove-tupper", "tupperdelete", "tupper-delete", "deletetupper", "delete-tupper"]
-}; 
+  aliases: [
+    "npcrm",
+    "npc-rm",
+    "rmnpc",
+    "rm-npc",
+    "npc-remove",
+    "removenpc",
+    "remove-npc",
+    "npcdelete",
+    "npc-delete",
+    "deletenpc",
+    "delete-npc",
+    "tupperremove",
+    "tupperrm",
+    "tupper-rm",
+    "rmtupper",
+    "rm-tupper",
+    "tupper-remove",
+    "removetupper",
+    "remove-tupper",
+    "tupperdelete",
+    "tupper-delete",
+    "deletetupper",
+    "delete-tupper"
+  ]
+};
