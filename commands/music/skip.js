@@ -71,7 +71,7 @@ vote.vote++
 
     serverQueue.skip = true
     serverQueue.connection.dispatcher.end("Skiped the music");
-    message.react("766664525356204092")
+    message.react("801419553841741904")
 }
  // } 
       

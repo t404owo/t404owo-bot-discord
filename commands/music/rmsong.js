@@ -42,6 +42,6 @@ module.exports = {
     
     
     serverQueue.songs.splice(args[0] - 1, 1)
-    sendSuccess("<:botyes:766664525356204092> | Song is removed sucessfully!", message.channel)
+    sendSuccess("<:hikariok:801419553841741904> | Song is removed sucessfully!", message.channel)
   }
 };

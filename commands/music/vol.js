@@ -23,7 +23,7 @@ module.exports = {
     serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 100);;
     if(isNaN(args[0]))return sendError("Please use Numerical Values only", message.channel)
     let xd = new MessageEmbed()
-    .setDescription(`<:botyes:766664525356204092> | I set the volume to: **${args[0]}/100**`)
+    .setDescription(`<:hikariok:801419553841741904> | I set the volume to: **${args[0]}/100**`)
     .setTitle("Server Volume Manager")
     .setColor("BLUE")
     return message.channel.send(xd);

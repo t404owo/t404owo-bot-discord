@@ -18,8 +18,8 @@ module.exports = {
     const channel = message.member.voice.channel
     if (!channel)return sendError("I'm sorry but you need to be in a voice channel to use this command!", message.channel);
     await channel.leave();
-    message.react("766664525356204092")
-    sendSuccess("<:botyes:766664525356204092> | Disconnected Successfully!", message.channel);
+    message.react("801419553841741904")
+    sendSuccess("<:hikariok:801419553841741904> | Disconnected Successfully!", message.channel);
     const serverQueue = message.client.queue.get(message.guild.id);
 
     serverQueue.songs = [];
