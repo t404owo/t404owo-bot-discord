@@ -67,7 +67,7 @@ module.exports = {
       req: message.author
     };
 
-    if (serverQueue) {
+    if (serverQueue&&serverQueue.songs!==null) {
       message.channel.stopTyping();
       serverQueue.songs.push(song);
       let thing = new MessageEmbed()
