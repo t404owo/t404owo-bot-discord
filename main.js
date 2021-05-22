@@ -448,7 +448,7 @@ bot.on("message", async message => {
 
     try {
       if (!commandFile) return;
-      commandFile.run(bot, message, args);
+      commandFile.run(bot, message, args).replace(/\<\:tairitsuno\:801419553933492245\>/g, process.env.DISCORD_BOT_EMOTE_NO);
     } catch (error) {
       console.log(error.message);
     } finally {
