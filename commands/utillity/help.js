@@ -8,7 +8,7 @@ let pages =[
             "**Moderation Commands**\n> `kick`, `ban/unban`, `purge`, `setprefix`, `warn`, `warnings`, `mute/unmute`",
             "**Setup Commands**\n> `setprefix`, `setautorole`, `setautorolesystem`, `setmuterole`, `setverifyrole`, `setverifychannel`, `setwelcomemessage`, `setwelcomechannel`, `setleavemessage`, `setleavechannel`, `setwelcomemessagesystem`, `setgoodbyemessagesystem`, `setwelcomeimage`, `setwelcomeembed`, `prefix`, `setwarns`, `setupstatus`, `lvlmsg`",
             "**Economy Commands**\n> `balance`, `daily`, `dice(roll)`, `bet(gamble)`, `transfer`", 
-            "**Music Commands**\n> `play`, `np`, `lyrics`, `pause/continue`, `search-song(search)`, `queue`, `skip`, `loop`, `volume`, `disconnect`", 
+            "**Music Commands**\n> `join`, `play`, `np`, `lyrics`, `pause/continue`, `search-song(search)`, `queue`, `skip`, `loop`, `volume`, `disconnect`", 
             "**Npc/Tupper/roleplay Commands**\n> `npc`, `npccreate`, `npcname`, `npclist`, `npcinfo`, `npcdesc`, `npcremove`, `npcavatar`",
             "**Fun Commands**\n> `kiss`, `hug`, `pat`, `slap`, `wink`, `cuddle`, `neko`, `foxgirl`", 
             "**Leveling Commands**\n> `rank`, `addxp`, `leaderboard`"
@@ -19,7 +19,7 @@ let pages =[
             {Category:"**Moderation Commands**", commands:"> `kick`, `ban/unban`, `purge`, `setprefix`, `warn`, `warnings`, `mute/unmute`"},//3
             {Category:"**Setup Commands**", commands:"> `setprefix`, `setautorole`, `setautorolesystem`, `setmuterole`, `setverifyrole`, `setverifychannel`, `setwelcomemessage`, `setwelcomechannel`, `setleavemessage`, `setleavechannel`, `setwelcomemessagesystem`, `setgoodbyemessagesystem`, `setwelcomeimage`, `setwelcomeembed`, `prefix`, `setwarns`, `setupstatus`, `lvlmsg`"},//4
             {Category:"**Economy Commands**", commands:"> `balance`, `daily`, `dice(roll)`, `bet(gamble)`, `transfer`"}, //5
-            {Category:"**Music Commands**", commands:"> `play`, `np`, `lyrics`, `pause/continue`, `search-song(search)`, `queue`, `skip`, `loop`, `volume`, `disconnect`"}, //6
+            {Category:"**Music Commands**", commands:"> `join`, `play`, `np`, `lyrics`, `pause/continue`, `search-song(search)`, `queue`, `skip`, `loop`, `volume`, `disconnect`"}, //6
             {Category:"**Npc/Tupper/roleplay Commands**", commands:"> `npc`, `npccreate`, `npcname`, `npclist`, `npcinfo`, `npcdesc`, `npcremove`, `npcavatar`"},//7
             {Category:"**Fun Commands**", commands:"> `kiss`, `hug`, `pat`, `slap`, `wink`, `cuddle`, `neko`, `foxgirl`"}, //8
             {Category:"**Leveling Commands**", commands:"> `rank`, `addxp`, `leaderboard`"}
