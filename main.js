@@ -25,8 +25,8 @@ bot.on("message", message => {
   if (message.author.bot) return;
   if (message.guild) {
     bot.config = {
-      owners: "Your ID here, you can add developers here too",
-      prefix: bot.db.get(`${message.guild.id}_prefix`) || "+"
+      owners: process.env.DISCORD_BOT_OWNER, //Your ID here, you can add developers here too
+      prefix: bot.db.get(`${message.guild.id}_prefix`) || process.env.DISCORD_BOT_PREFIX
     };
     bot.music = {
       vote: bot.db.get(`${message.guild.id}_vote`) || false
@@ -479,8 +479,8 @@ Promise.all(promises)
     console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
 
     status = [
-      `+h for help | ${totalGuilds} servers | ${totalMembers} members`,
-      `+help for help | ${totalGuilds} servers | ${totalMembers} members`
+      `${process.env.DISCORD_BOT_PREFIX}h for help | ${process.env.DISCORD_BOT_USERNAME} | ${totalGuilds} servers | ${totalMembers} members`||`${process.env.DISCORD_BOT_PREFIX}h for help | ${totalGuilds} servers | ${totalMembers} members`,
+      `${process.env.DISCORD_BOT_PREFIX}help for help | ${process.env.DISCORD_BOT_USERNAME} | ${totalGuilds} servers | ${totalMembers} members`||`${process.env.DISCORD_BOT_PREFIX}+help for help | ${totalGuilds} servers | ${totalMembers} members`
     ];
   })
   .catch(console.error);
