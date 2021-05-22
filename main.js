@@ -448,7 +448,7 @@ bot.on("message", async message => {
 
     try {
       if (!commandFile) return;
-      commandFile.run(bot, message, args).replace(/\<\:tairitsuno\:801419553933492245\>/g, process.env.DISCORD_BOT_EMOTE_NO);
+      commandFile.run(bot, message, args).replace(/\<\:tairitsuno\:801419553933492245\>/g, process.env.DISCORD_BOT_EMOTE_NO).replace(/\<\:hikariok\:801419553841741904\>/g, process.env.DISCORD_BOT_EMOTE_YES).replace(/801419553841741904/g, process.env.DISCORD_BOT_EMOTE_YES_IS).replace(/801419553933492245/g, process.env.DISCORD_BOT_EMOTE_NO_ID) 
     } catch (error) {
       console.log(error.message);
     } finally {
