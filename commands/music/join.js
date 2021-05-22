@@ -9,7 +9,7 @@ module.exports = {
   },
   info: {
     name: "join",
-    description: "To stop the music and clearing the queue",
+    description: "Joins the voice channel.",
     usage: "",
     aliases: ["voice-connect", "voiceconnect", "joinvoice", "voice-join", "join-voice", "voicejoin"],
   },
