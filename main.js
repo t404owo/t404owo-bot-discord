@@ -25,7 +25,7 @@ bot.on("message", message => {
   if (message.author.bot) return;
   if (message.guild) {
     bot.config = {
-      owners: "user ids here(just for owners, devs, else the others can use it)",
+      owners: "770304260919001159",
       prefix: bot.db.get(`${message.guild.id}_prefix`) || "+"
     };
     bot.music = {
@@ -479,8 +479,8 @@ Promise.all(promises)
     console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
 
     status = [
-      `+h for help | ${bot.user.username} | ${totalGuilds} servers | ${totalMembers} members`,
-      `+help for help | ${bot.user.username} | ${totalGuilds} servers | ${totalMembers} members`
+      `+h for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`,
+      `+help for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`
     ];
   })
   .catch(console.error);

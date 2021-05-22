@@ -8,20 +8,21 @@ module.exports = {
   dm: "no"
   },
   info: {
-    name: "stop",
+    name: "join",
     description: "To stop the music and clearing the queue",
     usage: "",
-    aliases: ["end", "finish", "leave", "disconnect"],
+    aliases: ["voice-connect", "voiceconnect", "joinvoice", "voice-join", "join-voice", "voicejoin"],
   },
 //checked
   run: async function (client, message, args) {
     const channel = message.member.voice.channel
     if (!channel)return sendError("I'm sorry but you need to be in a voice channel to use this command!", message.channel);
-    await channel.leave();
+    await channel.join();
+    
     message.react("801419553841741904")
-    sendSuccess("<:hikariok:801419553841741904> | Disconnected Successfully!", message.channel);
+    sendSuccess("<:hikariok:801419553841741904> | Joined Successfully!", message.channel);
     const serverQueue = message.client.queue.get(message.guild.id);
 
-    if(serverQueue){serverQueue.songs = null;console.log("disconnected")}
+    if(serverQueue){serverQueue.songs = null;console.log('Connected')}
   },
 };
