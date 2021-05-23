@@ -30,7 +30,7 @@ module.exports = {
     try {
       serverQueue.songs.splice(0, args[0]-1);
       serverQueue.connection.dispatcher.end("Skiped the music");
-
+message.react("801419553841741904")
       return;
     } catch {
       serverQueue.connection.dispatcher.end();
