@@ -30,7 +30,6 @@ module.exports = {
     } catch {
       serverQueue.connection.dispatcher.end();
       await channel.leave();
-      return message.channel.send("PLEASE TRY AGAIN");
     }
   }
 };
