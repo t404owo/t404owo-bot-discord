@@ -16,7 +16,8 @@ module.exports = {
 //checked, adding something...
   run: async function (client, message, args) {
     const channel = message.member.voice.channel
-    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to play music!", message.channel);
+    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message.channel);
+    if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message.channel);
     const serverQueue = message.client.queue.get(message.guild.id);
     if (!serverQueue)return sendError("There is nothing playing that I could skip for you.", message.channel);
     /*let{vote}=client

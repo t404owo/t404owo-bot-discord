@@ -16,7 +16,7 @@ module.exports = {
   run: async function (client, message, args) {
     
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue) return sendError("There is nothing playing in this server.", message.channel);
+    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message.channel);
     let song = serverQueue.songs[0]
     let thing = new MessageEmbed()
       .setAuthor("Now Playing", song.req.displayAvatarURL({ dynamic: true }))

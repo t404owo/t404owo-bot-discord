@@ -16,7 +16,7 @@ module.exports = {
 //checked
   run: async function (client, message, args) {
     const channel = message.member.voice.channel
-    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to use this command!", message.channel);
+    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message.channel);
     await channel.join();
     
     message.react("801419553841741904")

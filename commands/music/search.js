@@ -27,12 +27,7 @@ module.exports = {
   //checked, only the error on ${song.ago} because or topic-user's song, collection and the others are ok
   run: async function(client, message, args) {
     const channel = message.member.voice.channel;
-    if (!channel)
-      return sendError(
-        "I'm sorry but you need to be in a voice channel to play music!",
-        message.channel
-      );
-
+    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message.channel);
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT"))
       return sendError(

@@ -28,16 +28,17 @@ module.exports = {
   run: (bot, message, args) => {
     
     const channel = message.member.voice.channel
-    if (!channel)return sendError("I'm sorry but you need to be in a voice channel to use this command!", message.channel);
+    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message.channel);
+    if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message.channel);
 
     const serverQueue = message.client.queue.get(message.guild.id);
 
-    if (!serverQueue)return sendError("There is nothing playing that I could stop for you.", message.channel);
-     if(isNaN(args[0]))return sendError("Please use Numerical Values only", message.channel)
-    if(args[0]<2)return sendError("Please give a number that is higher than 1", message.channel)
+    if (!serverQueue)return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message.channel);
+     if(isNaN(args[0]))return sendError("<:tairitsuno:801419553933492245> | Please use Numerical Values only", message.channel)
+    if(args[0]<2)return sendError("<:tairitsuno:801419553933492245> | Please give a number that is higher than 1", message.channel)
    
     if(args[0] > serverQueue.songs.length) {
-      return sendError("Unable to find this song", message.channel)
+      return sendError("<:tairitsuno:801419553933492245> | Unable to find this song", message.channel)
     }
     
     

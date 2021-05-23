@@ -50,7 +50,7 @@ if(message.guild!== null){
     
       const serverQueue = message.client.queue.get(message.guild.id);
       if(!serverQueue){
-         return message.channel.send("Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!")
+         return message.channel.send("<:tairitsuno:801419553933492245> | Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!")
          }
       const ly = serverQueue.songs[0].title.toString()
       const results = await G.songs.search(ly); 

@@ -15,7 +15,7 @@ module.exports = {
 //checked, only the error on ${song.ago} because or topic-user's song
   run: async function (client, message, args) {
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue) return sendError("There is nothing playing in this server.", message.channel);
+    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message.channel);
 
     let queue = new MessageEmbed()
     .setTitle("Server Songs Queue")
