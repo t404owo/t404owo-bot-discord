@@ -25,8 +25,8 @@ bot.on("message", message => {
   if (message.author.bot) return;
   if (message.guild) {
     bot.config = {
-      owners: process.env.DISCORD_BOT_OWNER, //Your ID here, you can add developers here too
-      prefix: bot.db.get(`${message.guild.id}_prefix`) || process.env.DISCORD_BOT_PREFIX
+      owners: "770304260919001159",
+      prefix: bot.db.get(`${message.guild.id}_prefix`) || "+"
     };
     bot.music = {
       vote: bot.db.get(`${message.guild.id}_vote`) || false
@@ -448,7 +448,7 @@ bot.on("message", async message => {
 
     try {
       if (!commandFile) return;
-      commandFile.run(bot, message, args).replace(/\<\:tairitsuno\:801419553933492245\>/g, process.env.DISCORD_BOT_EMOTE_NO).replace(/\<\:hikariok\:801419553841741904\>/g, process.env.DISCORD_BOT_EMOTE_YES).replace(/801419553841741904/g, process.env.DISCORD_BOT_EMOTE_YES_IS).replace(/801419553933492245/g, process.env.DISCORD_BOT_EMOTE_NO_ID) 
+      commandFile.run(bot, message, args);
     } catch (error) {
       console.log(error.message);
     } finally {
@@ -479,8 +479,8 @@ Promise.all(promises)
     console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
 
     status = [
-      `${process.env.DISCORD_BOT_PREFIX}h for help | ${process.env.DISCORD_BOT_USERNAME} | ${totalGuilds} servers | ${totalMembers} members`||`${process.env.DISCORD_BOT_PREFIX}h for help | ${totalGuilds} servers | ${totalMembers} members`,
-      `${process.env.DISCORD_BOT_PREFIX}help for help | ${process.env.DISCORD_BOT_USERNAME} | ${totalGuilds} servers | ${totalMembers} members`||`${process.env.DISCORD_BOT_PREFIX}+help for help | ${totalGuilds} servers | ${totalMembers} members`
+      `+h for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`,
+      `+help for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`
     ];
   })
   .catch(console.error);
