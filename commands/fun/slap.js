@@ -31,7 +31,7 @@ return message.reply('<:tairitsuno:801419553933492245> | Remember to mention a v
     
          
     let embed = new discord.MessageEmbed()
-    .setTitle(`${author.username} slaps ${userm.username}, ouch!!!`)
+    .setTitle(`${author.username} slaps ${usern.username}, ouch!!!`)
     .setImage(mat.url)
     .setColor('RANDOM')
     .setTimestamp()
