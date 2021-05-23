@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args, tools) => {
     .setTitle("This is your Fox Girl OwU")
     .setImage(mat.url);
   
-  
+  message.channel.send(embed)
  
 };
 
