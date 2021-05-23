@@ -35,7 +35,7 @@ module.exports = {
     } catch {
       serverQueue.connection.dispatcher.end();
       await channel.leave();
-      return message.channel.send("PLEASE TRY AGAIN");
+      return sendError("<:tairitsuno:801419553933492245> | Please try this command again, if it still don't work, report the owner.");
     }
   }
 };
