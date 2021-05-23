@@ -1,17 +1,12 @@
+
 exports.run = async (bot, message, args) => {
-    let discord = require('discord.js')
- 
-  const fetch= require("node-fetch"),main = await fetch("https://nekos.life/api/v2/img/slap"), mat = await main.json();
- 
-     let userm;
-  let author;
-  let use;
-  let usern;
- 
+let discord=require('discord.js')
+
 let userm;
   let author;
   let use;
   let usern;
+  const fetch= require("node-fetch"),main = await fetch("https://nekos.life/api/v2/img/slap"), mat = await main.json();
 if (args[0]=== "me"||args[0]=== `<@!${message.author.id}>`) {
       userm = message.author
       usern= message.author
