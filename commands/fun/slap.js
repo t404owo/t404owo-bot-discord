@@ -8,21 +8,26 @@ exports.run = async (bot, message, args) => {
   let use;
   let usern;
  
+let userm;
+  let author;
+  let use;
+  let usern;
+  const fetch= require("node-fetch"),main = await fetch("https://nekos.life/api/v2/img/hug"), mat = await main.json();
 if (args[0]=== "me"||args[0]=== `<@!${message.author.id}>`) {
       userm = message.author
       usern= message.author
       author = bot.user
     } else if(args[0]){
       if(!message.guild) return;
-      userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.channel.send("<:tairitsuno:801419553933492245> | Remember to mention a valid user to hug!") })
+      userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.channel.send("<:botno:766649381411618837> | Remember to mention a valid user to hug!") })
       usern =userm.user
       //userm =use.user
       author = message.author
     }
   
-    if(!userm||!args[0]) {
-  return message.reply('<:tairitsuno:801419553933492245> | Remember to mention a valid user to slap!');
-  }
+  if(!userm||!args[0]) {
+return message.reply('<:tairitsuno:801419553933492245> | Remember to mention a valid user to slap!');
+}
     
          
     let embed = new discord.MessageEmbed()
