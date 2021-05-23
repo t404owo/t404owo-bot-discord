@@ -6,8 +6,8 @@ module.exports = {
   },
   info: {
     name: "skipall",
-    description: "To skip to the specified song",
-    usage: "<number>",
+    description: "To skip all the songs in the queue and play the last song",
+    usage: "",
     aliases: ["skip-all"],
   },
 
