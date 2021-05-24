@@ -26,7 +26,7 @@ bot.on("message", message => {
   if (message.author.bot) return;
   if (message.guild) {
     bot.config = {
-      owners: process.env.DISCORD_BOT_OWNER,
+      owners: process.env.DISCORD_BOT_OWNER_ID,
       prefix: bot.db.get(`${message.guild.id}_prefix`) || process.env.DISCORD_BOT_PREFIX
     };
     bot.music = {
