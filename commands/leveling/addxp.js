@@ -1,7 +1,7 @@
 const { MessageAttachment, MessageEmbed } = require("discord.js");
 module.exports.run = async (bot, message, args) => {
   if (!message.member.hasPermission("MANAGE_GUILD")&&!message.member.hasPermission("ADMINISTRATOR"))
-      return message.reply(
+      return message.mentionReply(
         "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
       );
   let userm;
@@ -17,7 +17,7 @@ if (args[0]=== "me"||args[0]=== `<@!${message.author.id}>`) {
       message.mention= message.author
       message.xpadd= args[0];
         
-        message.channel.send("<:hikariok:801419553841741904> | EXP added successfully!")
+        message.noMentionReply("<:hikariok:801419553841741904> | EXP added successfully!")
         let a = message.guild.id;
   let xp = bot.db.add(`${a}xp_${message.mention.id}`, message.xpadd);
   let level = Math.floor(0.3 * Math.sqrt(xp));

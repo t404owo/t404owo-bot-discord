@@ -42,7 +42,7 @@ exports.run = async (client, message, args) => {
             }
           );
 
-          message.channel.send(
+          message.noMentionReply(
             `<:hikariok:801419553841741904> | I set my stream Status to :\n\`\`\`${args
               .slice(2)
               .join(" ")
@@ -82,7 +82,7 @@ exports.run = async (client, message, args) => {
               type: stat
             }
           );
-          message.channel.send(
+          message.noMentionReply(
             `<:hikariok:801419553841741904> | I set my ${stat.toLowerCase()} Status to :\n\`\`\`${args
               .slice(1)
               .join(" ")

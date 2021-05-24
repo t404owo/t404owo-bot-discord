@@ -10,7 +10,7 @@ exports.run = (bot, message, args) => {
     let a = new MessageEmbed()
     .setColor('#0affaf')
     .setDescription("The bot has started for " + uptime)
-    message.channel.send(a)
+    message.noMentionReply(a)
   };
   
  exports.info = {

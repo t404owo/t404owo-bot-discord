@@ -7,7 +7,7 @@ exports.conf = {
 module.exports.run = async (bot, message, args) => {
   let { MessageEmbed } = require("discord.js");
   if (!args[0])
-    return message.channel.send(
+    return message.mentionReply(
       "<:tairitsuno:801419553933492245> | <@!" +
         message.member.id +
         ">, Please give a Name to find the character/npc/Tupper"
@@ -17,12 +17,12 @@ module.exports.run = async (bot, message, args) => {
   let embed = new MessageEmbed(),
     tupper = bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`);
   if (!tupper)
-    return message.channel.send(
+    return message.mentionReply(
       "<:tairitsuno:801419553933492245> | <@!" +
         message.member.id +
         ">, This Tupper/npc is not existing in this server!"
     );
-  message.channel.send(
+  message.noMentionReply(
     embed
       .setColor("#0affaf")
       .setTitle(`__${bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`)}__'s info`)

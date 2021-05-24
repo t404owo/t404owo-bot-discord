@@ -16,11 +16,11 @@ module.exports = {
 //checked
   run: async function (client, message, args) {
     const channel = message.member.voice.channel
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message.channel);
+    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
     await channel.join();
     
     message.react("801419553841741904")
-    sendSuccess("<:hikariok:801419553841741904> | Joined Successfully!", message.channel);
+    sendSuccess("<:hikariok:801419553841741904> | Joined Successfully!", message);
     const serverQueue = message.client.queue.get(message.guild.id);
 
     if(serverQueue){serverQueue.songs = null;console.log('Connected')}

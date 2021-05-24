@@ -3,12 +3,12 @@ const Discord = require('discord.js')
 exports.run = async (bot, message, args) => {
   
  const permissions = message.channel.permissionsFor(message.client.user);
-  if(!permissions.has("BAN_MEMBERS")) return message.channel.send("<:koucry:801419554311241728> | <@!"+message.author.id+">, I don't have permission to unban!!!");
+  if(!permissions.has("BAN_MEMBERS")) return message.mentionReply("<:koucry:801419554311241728> | I don't have permission to unban!!!");
  if (!message.member.hasPermission("BAN_MEMBERS")&&!message.member.hasPermission("MANAGE_MEMBERS")&&!message.member.hasPermission("MANAGE_GUILD")&&!message.member.hasPermission("ADMINISTRATOR"))
-        return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.author.id+">, You don't have permission to unban!!!");
+        return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to unban!!!");
   if(!args[0]){return}
   let bannedMember = args[0].replace("<@!", "").replace(">", "").replace("<@", "")
-  if(!bannedMember)return message.reply("⚠ |Please mention the person who you want to unban");
+  if(!bannedMember)return message.mentionReply("⚠ |Please mention the person who you want to unban");
   
   let reason = args.slice(1).join(" ");
       if (!reason) reason = "-";
@@ -21,10 +21,10 @@ exports.run = async (bot, message, args) => {
     console.log(error)
   }
     if(reasonb){
-      message.channel.send(`<:hikariok:801419553841741904> | Unbanned successfully **|** ${reason}`);
+      message.noMentionReply(`<:hikariok:801419553841741904> | Unbanned successfully **|** ${reason}`);
     }
     if(!reasonb){
-    message.channel.send(`<:hikariok:801419553841741904> | Unbanned successfully`);
+    message.noMentionReply(`<:hikariok:801419553841741904> | Unbanned successfully`);
     }
   return
 }

@@ -27,16 +27,16 @@ let totalSeconds = (timeObj / 1000);
                 ss = pad_zero(timeObj.seconds).padStart(2, "0");
 
             let finalTime = `**${hours}:${mins}:${secs}**`;
-            return message.channel.send(`Sorry, you cannot collect your dailies too early. Please wait ${finalTime}.`);
+            return message.mentionReply(`<:tairitsuno:801419553933492245> | You cannot collect your dailies too early. Please wait ${finalTime}.`);
         } else {
            client.db.set(`lastDaily.${message.author.id}`, Date.now());
             client.db.add(`account.${message.author.id}.balance`, amount);
-            return message.channel.send(`Great **${message.author.tag}!** You've been received $1000 as daily!`);
+            return message.noMentionReply(`Great **${message.author.tag}!** You've been received $1000 as daily!`);
         }
 
     } catch (error) {
         console.log(error);
-        return message.channel.send(`Oopsie, unknown error I guess: ${error}`);
+        return message.noMentionReply(`Oopsie, unknown error I guess: ${error}`);
     }
 }
 

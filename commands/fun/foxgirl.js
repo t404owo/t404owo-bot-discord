@@ -9,14 +9,14 @@ module.exports.run = async (bot, message, args, tools) => {
   
   
 
-  if(message.channel.nsfw!== true) return message.channel.send("<:tairitsuno:801419553933492245> | This is not a NSFW channel!")
+  if(message.channel.nsfw!== true) return message.mentionReply("<:tairitsuno:801419553933492245> | This is not a NSFW channel!")
   const mat = await neko.sfw.foxGirl();
   const embed = new Discord.MessageEmbed()
     .setColor("#ff9900")
     .setTitle("This is your Fox Girl OwU")
     .setImage(mat.url);
   
-  message.channel.send(embed)
+  message.noMentionReply(embed)
  
 };
 

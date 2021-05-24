@@ -28,7 +28,7 @@ let x;
 card.setColor(x.displayHexColor === "#000000" ? "#ffffff" : x.displayHexColor)
      if(x.displayAvatarURL()) card.setThumbnail(x.displayAvatarURL({ dynamic: true }))
   
-  return message.channel.send(card);
+  return message.noMentionReply(card);
 }
 
 if(!message.guild) return;
@@ -59,7 +59,7 @@ let x;
 card.setColor(x.displayHexColor === "#000000" ? "#ffffff" : x.displayHexColor)
      if(x.displayAvatarURL()) card.setThumbnail(x.displayAvatarURL({ dynamic: true }))
   
-  return message.channel.send(card);
+  return message.noMentionReply(card);
 };
 
 module.exports.info = {

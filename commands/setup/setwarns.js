@@ -13,7 +13,7 @@ exports.run = (bot, message, args) => {
      
       bot.db.set(`${message.guild.id}_warnmute`, setup)
       
-      message.channel.send(
+      message.noMentionReply(//noMentionReply
         `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **muted** if he/she gets **${args[1]}** warns`
       );
       return;
@@ -24,7 +24,7 @@ exports.run = (bot, message, args) => {
       
       bot.db.set(`${message.guild.id}_warnkick`, setup)
       
-      message.channel.send(
+      message.noMentionReply(
         `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **kicked** if he/she gets **${args[1]}** warns`
       );
       return;
@@ -35,7 +35,7 @@ exports.run = (bot, message, args) => {
       
       bot.db.set(`${message.guild.id}_warnban`, setup)
       
-      message.channel.send(
+      message.noMentionReply(
         `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **banned** if he/she gets **${args[1]}** warns`
       );
       return;
@@ -49,7 +49,7 @@ exports.run = (bot, message, args) => {
      
       bot.db.set(`${message.guild.id}_warnmute`, setup)
       
-      message.channel.send(
+      message.noMentionReply(
         `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **muted** if he/she gets **${args[0]}** warns`
       );
       return;
@@ -60,7 +60,7 @@ exports.run = (bot, message, args) => {
       
       bot.db.set(`${message.guild.id}_warnkick`, setup)
       
-      message.channel.send(
+      message.noMentionReply(
         `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **kicked** if he/she gets **${args[0]}** warns`
       );
       return;
@@ -71,7 +71,7 @@ exports.run = (bot, message, args) => {
       
       bot.db.set(`${message.guild.id}_warnban`, setup)
       
-      message.channel.send(
+      message.noMentionReply(
         `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **banned** if he/she gets **${args[0]}** warns`
       );
       return;

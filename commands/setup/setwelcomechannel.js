@@ -6,7 +6,7 @@ if (message.member.hasPermission("MANAGE_GUILD")||message.member.hasPermission("
   let setup= args[0]
       if (!args[0]||isNaN(args[0].replace("<#", "").replace(">", "")))setup = message.channel.id
       bot.db.set(`${message.guild.id}_welcomechannel`, setup.replace("<#", "").replace(">", ""))
-      message.channel.send(`<:hikariok:801419553841741904> | Successfully setup welcome message send place`);
+      message.noMentionReply(`<:hikariok:801419553841741904> | Successfully setup welcome message send place`);
       return;
 }
 }

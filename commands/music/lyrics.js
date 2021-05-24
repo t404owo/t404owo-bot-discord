@@ -28,7 +28,7 @@ if(message.guild!== null){
           .setDescription(`[Link]`+ `(${song.url})`);
         
           
-        return message.channel.send(lyricsEmbo);
+        return message.noMentionReply(lyricsEmbo);
         
       }
       
@@ -38,7 +38,7 @@ if(message.guild!== null){
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
-        return message.channel.send(lyricsEmbed);
+        return message.noMentionReply(lyricsEmbed);
       }
   
     
@@ -50,7 +50,7 @@ if(message.guild!== null){
     
       const serverQueue = message.client.queue.get(message.guild.id);
       if(!serverQueue){
-         return message.channel.send("<:tairitsuno:801419553933492245> | Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!")
+         return sendError("<:tairitsuno:801419553933492245> | Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!", message)
          }
       const ly = serverQueue.songs[0].title.toString()
       const results = await G.songs.search(ly); 
@@ -63,7 +63,7 @@ if(message.guild!== null){
           .setDescription(`[Link]`+ `(${song.url})`);
         
           
-        return message.channel.send(lyricsEmbo);
+        return message.noMentionReply(lyricsEmbo);
         
       }
       
@@ -73,7 +73,7 @@ if(message.guild!== null){
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
-        return message.channel.send(lyricsEmbed);
+        return message.noMentionReply(lyricsEmbed);
       }
   
     
@@ -96,7 +96,7 @@ if(message.guild!== null){
           .setDescription(`[Link]`+ `(${song.url})`);
         
           
-        return message.channel.send(lyricsEmbo);
+        return message.noMentionReply(lyricsEmbo);
         
       }
       
@@ -106,7 +106,7 @@ if(message.guild!== null){
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
-        return message.channel.send(lyricsEmbed);
+        return message.noMentionReply(lyricsEmbed);
       }
   
     
@@ -116,7 +116,7 @@ if(message.guild!== null){
     
     
 } else {
-  return sendError("You're in my DM, not in a server, please give a name of the song to let me search and send you!", message.channel)
+  return sendError("<:tairitsuno:801419553933492245> | You're in my DM, not in a server, please give a name of the song to let me search and send you!", message)
              }
   }
 };

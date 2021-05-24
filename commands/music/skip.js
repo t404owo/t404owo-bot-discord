@@ -16,10 +16,10 @@ module.exports = {
 //checked, adding something...
   run: async function (client, message, args) {
     const channel = message.member.voice.channel
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message.channel);
-    if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message.channel);
+    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
+    if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message);
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue)return sendError("There is nothing playing that I could skip for you.", message.channel);
+    if (!serverQueue)return sendError("There is nothing playing that I could skip for you.", message);
     /*let{vote}=client
     const vcvote = Math.floor(message.guild.me.voice.channel.members.size / 2)
     const okie = Math.floor(message.guild.me.voice.channel.members.size / 2 - 1)
@@ -38,7 +38,7 @@ module.exports = {
        }
        
        if(vote.voters.includes(message.author.id)) {
-         return message.channel.send("You already voted for this song")
+         return message.mentionReply("<:tairitsuno:801419553933492245> | You already voted for this song")
        }
        
        if(vcvote === 2) {
@@ -56,7 +56,7 @@ module.exports = {
        
 vote.vote++
        vote.voters.push(message.author.id)
-       return message.channel.send(`Thanks for vote, we currently need ${Math.floor(vcvote - vote.vote)} votes more to skip`)
+       return message.noMentionReply(`Thanks for vote, we currently need ${Math.floor(vcvote - vote.vote)} votes more to skip`)
     
      
      

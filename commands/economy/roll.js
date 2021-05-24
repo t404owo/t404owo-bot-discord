@@ -28,7 +28,7 @@ exports.run = async (client, message, args) => {
     client.db.add(`account.${message.author.id}.balance`, money)
     
   }
-  message.channel.send(result) 
+  message.noMentionReply(result) 
   console.log(lucky + roll + "\n" + lucky + money);//Ok bro
 };
 

@@ -4,8 +4,8 @@ exports.run = (bot, message, args) => {
     if (message.member.hasPermission("MANAGE_GUILD")||message.member.hasPermission("MANAGE_CHANNELS")||message.member.hasPermission("ADMINISTRATOR")){
       const setup = args.slice().join(" ");
       if (!setup)
-        return message.channel.send(
-          `<:tairitsuno:801419553933492245> | <@!${message.author.id}>, Please send a welcome message with this format\`` +
+        return message.mentionReply(
+          `<:tairitsuno:801419553933492245> | Please send a welcome message with this format\`` +
             bot.config.prefix +
             `setwelcomemessage [welcome message] ` +
           'To mention the new member\'s name, use $MEMBER$\nTo mention the new member, use $MENTION$\nTo mention the server name, use $SERVER$'+  
@@ -13,7 +13,7 @@ exports.run = (bot, message, args) => {
             "/"
         );
       bot.db.set(`${message.guild.id}_welcomemessage`, setup)
-      message.channel.send(
+      message.noMentionReply(
         `<:hikariok:801419553841741904> | Successfully setup welcome message`
       );
       return;

@@ -22,8 +22,8 @@ exports.run = async (bot, message, args) => {
           .replace(">", "")
       )
       .catch(err => {
-        return message.channel.send(
-          "<:botno:766649381411618837> | Remember to mention a valid user to hug!"
+        return message.mentionReply(
+          "<:tairitsuno:801419553933492245> | Remember to mention a valid user to hug!"
         );
       });
     usern = userm.user;
@@ -32,7 +32,7 @@ exports.run = async (bot, message, args) => {
   }
 
   if (!userm || !args[0]) {
-    return message.reply(
+    return message.mentionReply(
       "<:tairitsuno:801419553933492245> | Remember to mention a valid user to hug!"
     );
   }
