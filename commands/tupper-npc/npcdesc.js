@@ -8,7 +8,7 @@ module.exports.run = async (bot, message, args) => {
  
   let channel = message.channel;
   if (!args[0])
-    return channel.send(
+    return message.mentionReply(
       "<:tairitsuno:801419553933492245> | <@!" +
         message.member.id +
         ">, Tupper/npc is not specified."
@@ -18,7 +18,7 @@ module.exports.run = async (bot, message, args) => {
     
   if (!tupper){ 
       tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`);
-   if (!tupper)return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
+   if (!tupper)return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
     }
 
   let a = args.slice(1).join(" ");
@@ -26,7 +26,7 @@ module.exports.run = async (bot, message, args) => {
   if (bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase() + " " + args[1].toLowerCase()}`)) {
      a= args.slice(2).join(" ")
     if (!args[2])     
-return channel.send(
+return message.mentionReply(
       "<:tairitsuno:801419553933492245> | <@!" +
         message.member.id +
         ">, Description not specified. Please type -delete if you want to remove the description."
@@ -34,14 +34,14 @@ return channel.send(
     if (args[2]==="-delete")
        {
 bot.db.delete(`${message.guild.id}npcdesc_${args[0].toLowerCase()+ " " + args[1].toLowerCase()}`)
-       return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+ " " + args[1].toLowerCase()}`)}**'s description is reseted successfully!`,message.channel);
+       return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+ " " + args[1].toLowerCase()}`)}**'s description is reseted successfully!`,message);
 }  
   bot.db.set(`${message.guild.id}npcdesc_${args[0].toLowerCase()+ " " + args[1].toLowerCase()}`, a)
-return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+ " " + args[1].toLowerCase()}`)}**'s description is now \`${a}\`!`,message.channel);
+return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+ " " + args[1].toLowerCase()}`)}**'s description is now \`${a}\`!`,message);
   }
   if (bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)) {
        if (!args[1])     
-return channel.send(
+return message.mentionReply(
       "<:tairitsuno:801419553933492245> | <@!" +
         message.member.id +
         ">, Description not specified. Please type -delete if you want to remove the description."
@@ -49,10 +49,10 @@ return channel.send(
     if (args[1]==="-delete")
        {
 bot.db.delete(`${message.guild.id}npcdesc_${args[0].toLowerCase()}`)
-         return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}**'s description is reseted successfully!`,message.channel);
+         return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}**'s description is reseted successfully!`,message);
 }
     bot.db.set(`${message.guild.id}npcdesc_${args[0].toLowerCase()}`, a)
- return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}**'s description is now \`${a}\`!`,message.channel);
+ return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}**'s description is now \`${a}\`!`,message);
   }
   };
 module.exports.info = {

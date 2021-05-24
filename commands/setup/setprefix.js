@@ -7,7 +7,7 @@ module.exports.info = {
 module.exports.run=async(bot,message,args)=>{
   if (message.member.hasPermission("MANAGE_GUILD")||message.member.hasPermission("MANAGE_CHANNELS")||message.member.hasPermission("ADMINISTRATOR")){
     if (!args[0]) {
-        return message.channel.send(
+        return message.mentionReply(
           "<:tairitsuno:801419553933492245> | Please add a new prefix!"
         );
       }
@@ -17,7 +17,7 @@ module.exports.run=async(bot,message,args)=>{
 
       console.log(prefix);
 
-      message.channel.send(`<:hikariok:801419553841741904> | Prefix set to \`${prefix}\`!`);
+      message.noMentionReply(`<:hikariok:801419553841741904> | Prefix set to \`${prefix}\`!`);
 
       return;
     } else return;

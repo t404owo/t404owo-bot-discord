@@ -8,12 +8,12 @@ exports.run = async (bot, message, args) => {
       use = message.member;
     } else {
       if(!message.guild) return;
-      use = await message.guild.members.fetch(args[0].replace("<@!","").replace("<@", "").replace(">","")).catch(err => { return message.channel.send("<:tairitsuno:801419553933492245> | Please Mention a correct user or give a correct id of the user!") })
+      use = await message.guild.members.fetch(args[0].replace("<@!","").replace("<@", "").replace(">","")).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Please Mention a correct user or give a correct id of the user!") })
     
     }
 
     if (!use) {
-      return message.channel.send("<:tairitsuno:801419553933492245> | Unable to find this person!")
+      return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this person!")
     }
   if(message.author.id === "770304260919001159"){
    
@@ -27,7 +27,7 @@ exports.run = async (bot, message, args) => {
   .setDescription(`[Avatar link]`+`(${use.user.avatarURL({dynamic: true, size: 1024})})`)
   .setImage(`${use.user.avatarURL({dynamic: true, size: 1024})}`)
   .setColor(use.displayHexColor === "#000000" ? "#ffffff" : use.displayHexColor)
-  message.channel.send(embed)
+  message.noMentionReply(embed)
   
 }
 exports.info = {

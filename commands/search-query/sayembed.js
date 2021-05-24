@@ -6,10 +6,8 @@ exports.conf = {
 exports.run = (bot, message, args) => {
   const permissions = message.channel.permissionsFor(message.client.user);
   if (!permissions.has("MANAGE_MESSAGES"))
-    return message.channel.send(
-      "<:botno:766649381411618837> | <@!" +
-        message.author.id +
-        ">, I don't have permission to run this command, I need Manage Messages perm!!!"
+    return message.mentionReply(
+      "<:tairitsuno:801419553933492245> | I don't have permission to run this command, I need Manage Messages perm!!!"
     );
   if (
     message.member.hasPermission("MANAGE_MESSAGES") ||

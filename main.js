@@ -1,4 +1,5 @@
 const discord = require("discord.js");
+require('discord-inline-replys')
 const { promisify } = require("util");
 const ms = require("ms");
 const sleep = promisify(setTimeout);
@@ -433,7 +434,7 @@ bot.on("message", async message => {
 
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
-        return message.channel.send(
+        return message.mentionReply(
           `<:tairitsuno:801419553933492245> | <@!${
             message.member.id
           }>, please wait **${timeLeft.toFixed(
@@ -479,8 +480,8 @@ Promise.all(promises)
     console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
 
     status = [
-      `+h for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`,
-      `+help for help | Tairitsu | ${totalGuilds} servers | ${totalMembers} members`
+      `+h for help | Tairitsu`,
+      `+help for help | Tairitsu`
     ];
   })
   .catch(console.error);
@@ -493,8 +494,7 @@ bot.on("ready", () => {
   //console.log(randstatus)
   bot.user
     .setActivity(randstatus, {
-      type: randt,
-      url: "https://www.twitch.tv/"
+      type: randt
     })
     .catch(console.error);
 });

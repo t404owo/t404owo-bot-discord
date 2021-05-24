@@ -19,9 +19,9 @@ const bot = client
       if (typeof evaled !== "string")
         evaled = require("util").inspect(evaled);
  
-      message.channel.send(clean(evaled), {code:"xl"});
+      message.noMentionReply(clean(evaled), {code:"xl"});
     } catch (err) {
-      message.channel.send(`\`\`\`xl\n${clean(err)}\n\`\`\``);
+      message.mentionReply(`\`\`\`xl\n${clean(err)}\n\`\`\``);
     }
     }
 }

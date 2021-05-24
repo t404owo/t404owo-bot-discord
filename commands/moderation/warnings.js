@@ -3,15 +3,15 @@ const Discord = require("discord.js");
 
 module.exports.run = async (bot, message, args) => {
 
-  let wUser = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.channel.send("<:botno:766649381411618837> | Remember to mention a valid user to warn!") })
+  let wUser = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Remember to mention a valid user to warn!") })
   
   
-  if(!wUser) return message.reply("I couldn't find this member!");
+  if(!wUser) return message.mentionReply("I couldn't find this member!");
   
   
   let warnlevel = bot.db.get(`${wUser.user.id}_${message.guild.id}_warns`)||0;
 
-  message.channel.send(`<@${wUser.id}> has ${warnlevel} warnings.`);
+  message.noMentionReply(`<@${wUser.id}> has ${warnlevel} warnings.`);
 
 }
 

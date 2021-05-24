@@ -5,16 +5,16 @@ exports.run = async(bot, message, args) => {
      const permissions = message.channel.permissionsFor(message.client.user);
   if(!permissions.has("MANAGE_ROLES")) return
   if(!message.member.hasPermission("MANAGE_ROLES")&&!message.member.hasPermission("MANAGE_MEMBERS")&&!message.member.hasPermission("MANAGE_GUILD")&&!message.member.hasPermission("ADMINISTRATOR"))return
-  if(!args[0])return message.channel.send(
+  if(!args[0])return message.mentionReply(
           "⚠ |Please mention the person who you want to unmute"
         );
-  let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.channel.send("<:tairitsuno:801419553933492245>  | Unable to find this Person") })
+  let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.mentionReply("<:tairitsuno:801419553933492245>  | Unable to find this Person") })
     
         let target = bot.users.cache.get(args[0].replace("<@!", "").replace("<@", "").replace(">", ""));
  
 const targe =  message.guild.member(target)
 if (target === !args[0]) {
-        return message.channel.send(
+        return message.mentionReply(
           "⚠ |Please mention the person who you want to unmute"
         );
       }
@@ -54,7 +54,7 @@ let muterole= bot.db.get(`${message.guild.id}_muterole`)
                 })
               }
               catch(err) {
-                message.channel.send(`Error : ${err}`)
+                message.mentionReply(`Error : ${err}`)
               }
   }
     muterole = bot.db.set(`${message.guild.id}_muterole`,message.guild.roles.cache.find(r => r.name === 'Muted').id.toString());
@@ -67,7 +67,7 @@ let muterole= bot.db.get(`${message.guild.id}_muterole`)
       console.log(muterole+"\n"+muteroles)
 
       if(!targe.roles.cache.has(muterole)){
-        return message.channel.send("<:tairitsuno:801419553933492245> | This user is not muted!")
+        return message.mentionReply("<:tairitsuno:801419553933492245> | This user is not muted!")
       }
     
 
@@ -91,10 +91,10 @@ targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
   bot.db.delete(`${message.guild.id}_${userm.user.id}muteroles`)
  let reasonb = args.slice(1).join(" ");
   if(!reasonb) {
-  message.channel.send("<:hikariok:801419553841741904> | Unmuted Sucessfully!")
+  message.noMentionReply("<:hikariok:801419553841741904> | Unmuted Sucessfully!")
   }
   if(reasonb) {
-  message.channel.send("<:hikariok:801419553841741904> | Unmuted Sucessfully! **|** " + reason)
+  message.noMentionReply("<:hikariok:801419553841741904> | Unmuted Sucessfully! **|** " + reason)
   }
   
 }

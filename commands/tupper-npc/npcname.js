@@ -5,26 +5,26 @@ exports.conf={
   dm: "no"
 }
 module.exports.run=async(bot,message,args)=>{
-  //message.channel.send("<:tairitsuno:801419553933492245> |"+message.member.id+", 
+  
     if (!args[0])
-      return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, Please give a Name to find your character");
+      return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, Please give a Name to find your character");
     
      let tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)
     
   if (!tupper){ 
       tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`);
-   if (!tupper)return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
+   if (!tupper)return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
     }
     
     if(bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)){
-      if(!args[1])return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, You need to add a new name for this npc/tupper!")
+      if(!args[1])return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, You need to add a new name for this npc/tupper!")
 
 
       if(args[2]){
     bot.db.set(`${message.guild.id}npcav_${args[1].toLowerCase()+" "+args[2].toLowerCase()}`, bot.db.get(`${message.guild.id}npcav_${args[0].toLowerCase()}`));
     bot.db.set(`${message.guild.id}npcname_${args[1].toLowerCase()+" "+args[2].toLowerCase()}`,args[1]+" "+args[2]);
     bot.db.delete(`${message.guild.id}npcav_${args[0].toLowerCase()}`)
-    success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}** is now changed to **${args[1]+" "+args[2]}**`,message.channel);
+    success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}** is now changed to **${args[1]+" "+args[2]}**`, message);
         bot.db.delete(`${message.guild.id}npcname_${args[0].toLowerCase()}`)
       
       return
@@ -33,7 +33,7 @@ module.exports.run=async(bot,message,args)=>{
     bot.db.set(`${message.guild.id}npcav_${args[1].toLowerCase()}`, bot.db.get(`${message.guild.id}npcav_${args[0].toLowerCase()}`));
     bot.db.set(`${message.guild.id}npcname_${args[1].toLowerCase()}`,args[1]);
     bot.db.delete(`${message.guild.id}npcav_${args[0].toLowerCase()}`)
-    success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}** is now changed to **${args[1]}**`,message.channel);
+    success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)}** is now changed to **${args[1]}**`, message);
       bot.db.delete(`${message.guild.id}npcname_${args[0].toLowerCase()}`)
       
       return
@@ -42,14 +42,14 @@ module.exports.run=async(bot,message,args)=>{
     else if(bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`)){
       
       
-      if(!args[2])return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, You need to add a new name for this npc/tupper!")
+      if(!args[2])return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, You need to add a new name for this npc/tupper!")
       
      if(args[3]){ 
     bot.db.set(`${message.guild.id}npcav_${args[2]+" "+args[3]}`,
                bot.db.get(`${message.guild.id}npcav_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`))
      bot.db.set(`${message.guild.id}npcname_${args[2].toLowerCase()+" "+args[3].toLowerCase()}`, args[2]+" "+args[3]);
     bot.db.delete(`${message.guild.id}npcav_${args[0]+" "+args[1]}`)
-    success(`**${args[0]} ${args[1]}** is now changed to **${args[2]+" "+args[3]}**`,message.channel);
+    success(`**${args[0]} ${args[1]}** is now changed to **${args[2]+" "+args[3]}**`, message);
 bot.db.delete(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`)
       
       return
@@ -60,13 +60,13 @@ bot.db.delete(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].to
                bot.db.get(`${message.guild.id}npcav_${args[0]+" "+args[1]}`))
      bot.db.set(`${message.guild.id}npcname_${args[2]}`, args[2]);
     bot.db.delete(`${message.guild.id}npcav_${args[0]+" "+args[1]}`)
-    success(`**${args[0]} ${args[1]}** is now changed to **${args[2]}**`,message.channel);
+    success(`**${args[0]} ${args[1]}** is now changed to **${args[2]}**`, message);
         bot.db.delete(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`)
       
       return
                   
       }else {
-        message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, The npc/Tupper may not exist in this server!")
+        message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, The npc/Tupper may not exist in this server!")
         return
 
       }

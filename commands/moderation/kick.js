@@ -3,32 +3,32 @@ const Discord = require('discord.js')
 exports.run = async (bot, message, args) => {
   //console.log(message.member)
  const permissions = message.channel.permissionsFor(message.client.user);
-  if(!permissions.has("KICK_MEMBERS")) return message.channel.send("<:koucry:801419554311241728> | <@!"+message.author.id+">, I don't have permission to kick!!!");
+  if(!permissions.has("KICK_MEMBERS")) return message.mentionReply("<:koucry:801419554311241728> | I don't have permission to kick!!!");
  if (!message.member.hasPermission("KICK_MEMBERS")&&!message.member.hasPermission("MANAGE_GUILD")&&!message.member.hasPermission("MANAGE_MEMBERS")&&!message.member.hasPermission("ADMINISTRATOR"))
-        return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.author.id+">, You don't have permission to kick!!!");
+        return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to kick!!!");
   if (!args[0]) {
-        return message.channel.send(
+        return message.mentionReply(
           "⚠ |Please mention or give the id of the person who you want to kick"
         );
       } 
       let target = bot.users.cache.get(args[0].replace("<@!", "").replace("<@", "").replace(">", ""));
 
       if (target === !args[0]) {
-        return message.channel.send(
+        return message.mentionReply(
           "⚠ |Please mention the person who you want to kick"
         );
       }
      const targe =  message.guild.member(target)
       
       if (targe.id === message.author.id) {
-        return message.channel.send("<:tairitsuno:801419553933492245> | You can not kick yourself");
+        return message.mentionReply("<:tairitsuno:801419553933492245> | You cannot kick yourself");
       }
       if(targe.hasPermission("ADMINISTRATOR")){
-        return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.author.id+">, The user you want to kick is a moderator/administrator, I can't do that,try to kick him/her/them yourself...");
+        return message.mentionReply("<:tairitsuno:801419553933492245> | The user you want to kick is a moderator/administrator, I can't do that,try to kick him/her/them yourself...");
   }
       let reason = args.slice(1).join(" ");
       if (!reason) reason = "-";
-      message.channel.send("kicking...")
+      message.noMentionReply("kicking...")
   
       .then(msg => {
         let reasonb= args.slice(1).join(" ");

@@ -10,7 +10,7 @@ message.delete()
   let vote = args.join(" ").replace(args[0], "").trim()
   if(!time) {
     let pollEmbedFall = new discord.MessageEmbed()
-    .setDescription("Please type the command correctly:\n*vote <time> <Vote Description>")
+    .setDescription("<:tairitsuno:801419553933492245> | Please type the command correctly:\n*vote <time> <Vote Description>")
   }
   if(args[0].toLowerCase().includes("s".toLowerCase())||args[0].toLowerCase().includes("m".toLowerCase())||args[0].toLowerCase().includes("ms".toLowerCase())||args[0].toLowerCase().includes("h".toLowerCase())||args[0].toLowerCase().includes("d".toLowerCase())) {
     if(args.join(" ").length < 1) {

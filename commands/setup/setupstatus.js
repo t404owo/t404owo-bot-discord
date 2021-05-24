@@ -39,7 +39,7 @@ ${mute} : mute role
 ${verifychannel} : verify channel
 ${verifyrole} :verified role`)
         .setTimestamp();
-      message.channel.send(embed);
+      message.noMentionReply(embed);
       return;
   }
 }

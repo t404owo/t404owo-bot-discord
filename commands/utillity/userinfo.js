@@ -10,14 +10,14 @@ exports.run = async (bot, message, args) => {
     let userm;
 
     if (!args[0]) {
-      userm = await message.guild.members.fetch(message.member.id).catch(err => { return message.channel.send("<:tairitsuno:801419553933492245> | Unable to find this Person") });
+      userm = await message.guild.members.fetch(message.member.id).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") });
     } else {
       if(!message.guild) return;
-      userm = message.mentions.members.last() || await message.guild.members.fetch(args[0]).catch(err => { return message.channel.send("<:tairitsuno:801419553933492245> | Unable to find this Person") })
+      userm = message.mentions.members.last() || await message.guild.members.fetch(args[0]).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") })
     }
 
     if (!userm) {
-      return message.channel.send("<:tairitsuno:801419553933492245> | Unable to find this person!")
+      return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this person!")
     }
 const flags = {
 	DISCORD_EMPLOYEE: 'Discord Employee',
@@ -88,9 +88,9 @@ else embed.setAuthor(userm.user.tag, "https://cdn.glitch.com/0e253384-8c9d-4a84-
 
 
 console.log(userm._roles)
-//  message.channel.send(userm.user.tag)
-      return message.channel.send(embed).catch(err => {
-        return message.channel.send("Error : " + err)
+//  message.noMentionReply(userm.user.tag)
+      return message.noMentionReply(embed).catch(err => {
+        return message.mentionReply("Error : " + err)
       })
 
 

@@ -15,7 +15,7 @@ module.exports = {
 //checked, only the error on ${song.ago} because or topic-user's song
   run: async function (client, message, args) {
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message.channel);
+    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message);
 
     let queue = new MessageEmbed()
     .setTitle("Server Songs Queue")
@@ -29,6 +29,6 @@ module.exports = {
     }).join("\n"))
     .setFooter("Currently Server Volume is "+serverQueue.volume)
     if(serverQueue.songs.length < 1)queue.setDescription(`No songs to play next add songs by \`\`${client.config.prefix}play <song_name>\`\``)
-    message.channel.send(queue)
+    message.noMentionReply(queue)
   },
 }

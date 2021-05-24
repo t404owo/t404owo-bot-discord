@@ -11,23 +11,23 @@ exports.run = async (client, message, args) => {
 
     let balance = db.get(`account.${message.author.id}.balance`);
 
-    if (!user) return message.channel.send("Please mention the user or input the user ID.");
-    if (user.bot || user === client.user) return message.channel.send("This user is a bot.");
-    if (user.id === message.author.id || user === message.author) return message.channel.send("Why you want to transfer a credit to yourself? <:koulaugh:801419553220984862>");
+    if (!user) return message.mentionReply("<:tairitsuno:801419553933492245> | Please mention the user or input the user ID.");
+    if (user.bot || user === client.user) return message.mentionReply("<:koulaugh:801419553220984862> | This user is a bot.");
+    if (user.id === message.author.id || user === message.author) return message.mentionReply("Why you want to transfer a credit to yourself? <:koulaugh:801419553220984862>");
 
     let amount = parseInt(args[1]);
-    if (!amount) return message.channel.send("Please input a credits that you want to transfer it.");
-    if (isNaN(amount)) return message.channel.send("Please input a valid number.");
+    if (!amount) return message.mentionReply("<:tairitsuno:801419553933492245> | Please input a credits that you want to transfer it.");
+    if (isNaN(amount)) return message.mentionReply("<:tairitsuno:801419553933492245> | Please input a valid number.");
     // isNaN = is Not a Number.
 
-    if (!balance || balance == 0) return message.channel.send("Your wallet is empty. <:tairitsuno:801419553933492245>");
-    if (amount > balance) return message.channel.send("You don't have an enough credits to transfer. That is way too much.");
-    if (amount === 0) return message.channel.send("You transfer, nothing? No. You cannot.");
+    if (!balance || balance == 0) return message.mentionReply("<:tairitsuno:801419553933492245> | Your wallet is empty.");
+    if (amount > balance) return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have an enough credits to transfer. That is way too much.");
+    if (amount === 0) return message.mentionReply("<:tairitsuno:801419553933492245> | You transfer, nothing? No. You cannot.");
 
     await db.add(`account.${user.id}.balance`, amount);
     await db.subtract(`account.${message.author.id}.balance`, amount);
 
-    return message.channel.send(`You've been transferred to your friends (${user.tag}) $${amount} credits!`);
+    return message.noMentionReply(`You've been transferred to your friends (${user.tag}) $${amount} credits!`);
 }
 
 exports.info = {

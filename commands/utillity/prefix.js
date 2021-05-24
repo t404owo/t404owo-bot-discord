@@ -15,11 +15,11 @@ module.exports.run=async(bot,message,args)=>{
 
       console.log(prefix);
 
-      message.channel.send(`<:hikariok:801419553841741904> | Prefix set to \`${prefix}\`!`);
+      message.noMentionReply(`<:hikariok:801419553841741904> | Prefix set to \`${prefix}\`!`);
 
       return;
-    } else return message.channel.send(`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`)
-      }else message.channel.send(`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`)
+    } else return message.noMentionReply(`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`)
+      }else message.noMentionReply(`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`)
 }
 exports.conf={
   cooldown: 0,

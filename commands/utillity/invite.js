@@ -12,7 +12,7 @@ exports.run = (bot, message, args) => {
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
       
   
-      message.channel.send('Generating...')
+      message.noMentionReply('Generating...')
     .then(msg => {
       msg.edit("", msgembed);
     });   

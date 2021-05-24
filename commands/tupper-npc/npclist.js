@@ -7,7 +7,7 @@ exports.conf={
 module.exports.run=async(bot,message,args)=>{
   const {MessageEmbed}= require("discord.js")
   let data = bot.db.all().filter(i => i.ID.startsWith(`${message.guild.id}npcname_`)).sort((a, b) => b.data - a.data);
-    if (data.length < 1) return message.channel.send("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, There's no npc/Tupper saved here");
+    if (data.length < 1) return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, There's no npc/Tupper saved here");
     
     data.length = 100;
     let lb = [];
@@ -27,7 +27,7 @@ module.exports.run=async(bot,message,args)=>{
       // a= `•`+d.user.id
     
   embed.setDescription(lb.join("\n"))
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
       
 
 }

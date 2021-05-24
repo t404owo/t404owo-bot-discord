@@ -7,7 +7,7 @@ exports.run = (bot, message, args) => {
          .setTitle("Supports <:koulove:801419554156445726>")
       .setDescription('My main support server: [Click here]' + `(${link})`)
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
-       message.channel.send("Generating support servers invites...")
+       message.noMentionReply("Generating support servers invites...")
         .then(msg => {
           msg.edit("", msgembed)
        });

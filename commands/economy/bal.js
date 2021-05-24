@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     }
 
     if (user.bot || user === client.user) {
-        return message.channel.send("<:koulaugh:801419553220984862> | This user is a bot.");
+        return message.noMentionReply("<:koulaugh:801419553220984862> | This user is a bot.");
         // If the user was a bot, ignore it.
     }
 
@@ -27,7 +27,7 @@ exports.run = async (client, message, args) => {
     .addField("Credits", `$${(balance).toLocaleString()}`)
     .setThumbnail(user.displayAvatarURL({size: 4096, dynamic: true}))
     .setTimestamp(new Date) 
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
 }
 
 exports.info = {

@@ -1,6 +1,6 @@
 exports.run = (bot, message, args) => {
    
-        message.channel.send('Ping?')
+        message.noMentionReply('Ping?')
       .then(msg => {
           
         msg.edit(`<:hikariok:801419553841741904> | Pong! \`Latency: ${Date.now()- message.createdTimestamp}ms, Message Latency: ${Date.now()- msg.createdTimestamp}ms, API Latency: ${Math.round(bot.ws.ping)}ms\``);

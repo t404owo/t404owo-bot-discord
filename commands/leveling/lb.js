@@ -11,7 +11,7 @@ module.exports.run = async (client, message, args) => {
     if (data.length < 1) {
       client.sleep(2000)
 message.channel.stopTyping();
-return message.channel.send("No leaderboard");}
+return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard");}
     let myrank = data.map(m => m.ID).indexOf(`xp_${message.author.id}`) + 1 || "N/A";
     data.length = 10;
     let lb = [];
@@ -41,15 +41,15 @@ return message.channel.send("No leaderboard");}
     embed.setFooter(`Your Position: #${myrank}`);
       client.sleep(2000);
       message.channel.stopTyping();
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
     } else {
       
 let data = client.db.all().filter(i => i.ID.startsWith("xp_")).sort((a, b) => b.data - a.data).splice(10 * (parseInt(args[1]) - 1), 10 * parseInt(args[1]));
-      if(parseInt(args[1])> Math.ceil(Object.keys(data).length / 10)){client.sleep(2000);message.channel.stopTyping();return message.channel.send("No leaderboard")}
+      if(parseInt(args[1])> Math.ceil(Object.keys(data).length / 10)){client.sleep(2000);message.channel.stopTyping();return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard")}
     if (data.length < 1) {
       client.sleep(2000)
 message.channel.stopTyping();
-return message.channel.send("No leaderboard");}
+return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard");}
       let data2 = client.db.all().filter(i => i.ID.startsWith("xp_")).sort((a, b) => b.data - a.data)
     let myrank = data2.map(m => m.ID).indexOf(`xp_${message.author.id}`) + 1 || "N/A";
     data.length = 10;
@@ -80,7 +80,7 @@ return message.channel.send("No leaderboard");}
     embed.setFooter(`Your Position: #${myrank}`);
       client.sleep(2000)
       message.channel.stopTyping();
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
       
     }
   }
@@ -88,7 +88,7 @@ let data = client.db.all().filter(i => i.ID.startsWith("xp_")).sort((a, b) => b.
     if (data.length < 1) {
       client.sleep(2000)
 message.channel.stopTyping();
-return message.channel.send("No leaderboard");
+return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard");
     }
     let myrank = data.map(m => m.ID).indexOf(`xp_${message.author.id}`) + 1 || "N/A";
     data.length = 10;
@@ -118,7 +118,7 @@ return message.channel.send("No leaderboard");
     });
     embed.setFooter(`Your Position: #${myrank}`);client.sleep(2000)
     message.channel.stopTyping();
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
 
 }
   //server
@@ -129,7 +129,7 @@ return message.channel.send("No leaderboard");
       let data = client.db.all().filter(i => i.ID.startsWith(`${ao}xp_`)).sort((a, b) => b.data - a.data);
     if (data.length < 1) {
       client.sleep(2000)
-      message.channel.stopTyping();return message.channel.send("No leaderboard");}
+      message.channel.stopTyping();return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard");}
     let myrank = data.map(m => m.ID).indexOf(`${ao}xp_${message.author.id}`) + 1 || "N/A";
     data.length = 10;
     let lb = [];
@@ -159,12 +159,12 @@ return message.channel.send("No leaderboard");
     embed.setFooter(`Your Position: #${myrank}`);
       client.sleep(2000)
       message.channel.stopTyping();
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
     } else {
  let data = client.db.all().filter(i => i.ID.startsWith(`${ao}xp_`)).sort((a, b) => b.data - a.data).splice(10 * (parseInt(args[0]) - 1), 10 * parseInt(args[0]));
-   if(parseInt(args[0])> Math.ceil(Object.keys(data).length / 10)){client.sleep(2000);message.channel.stopTyping();return message.channel.send("No leaderboard!")}
+   if(parseInt(args[0])> Math.ceil(Object.keys(data).length / 10)){client.sleep(2000);message.channel.stopTyping();return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard!")}
       let data2 = client.db.all().filter(i => i.ID.startsWith(`${ao}xp_`)).sort((a, b) => b.data - a.data);
-      if (data.length < 1) {client.sleep(2000);message.channel.stopTyping();return message.channel.send("No leaderboard");}
+      if (data.length < 1) {client.sleep(2000);message.channel.stopTyping();return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard");}
     let myrank = data2.map(m => m.ID).indexOf(`${ao}xp_${message.author.id}`) + 1 || "N/A";
     data.length = 10;
     let lb = [];
@@ -194,12 +194,12 @@ return message.channel.send("No leaderboard");
     embed.setFooter(`Your Position: #${myrank}`);
       client.sleep(2000)
       message.channel.stopTyping();
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
     }
   }
     
    let data = client.db.all().filter(i => i.ID.startsWith(`${ao}xp_`)).sort((a, b) => b.data - a.data);
-    if (data.length < 1) {client.sleep(2000);message.channel.stopTyping();return message.channel.send("No leaderboard");}
+    if (data.length < 1) {client.sleep(2000);message.channel.stopTyping();return message.mentionReply("<:tairitsuno:801419553933492245> | No leaderboard");}
     let myrank = data.map(m => m.ID).indexOf(`${ao}xp_${message.author.id}`) + 1 || "N/A";
     data.length = 10;
     let lb = [];
@@ -228,7 +228,7 @@ return message.channel.send("No leaderboard");
     });
     embed.setFooter(`Your Position: #${myrank}`);client.sleep(2000)
   message.channel.stopTyping();
-    return message.channel.send(embed);
+    return message.noMentionReply(embed);
 };
 
 module.exports.info = {
