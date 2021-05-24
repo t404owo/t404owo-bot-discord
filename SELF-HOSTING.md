@@ -34,5 +34,5 @@ PROJECT_DOMAIN=the project's name if you use it on glitch
 Then create a `.env` file and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
 (For guys who hosts it on PC:start the bot with `npm start` in the console(terminal, shell what ever you call)
-The bot is now set up finished
+The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`
 
