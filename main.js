@@ -480,8 +480,8 @@ Promise.all(promises)
     console.log(`Server count: ${totalGuilds}\nMember count: ${totalMembers}`);
 
     status = [
-      `+h for help | Tairitsu`,
-      `+help for help | Tairitsu`
+      `+h for help | ${process.env.DISCORD_BOT_USERNAME}`,
+      `+help for help | ${process.env.DISCORD_BOT_USERNAME}`
     ];
   })
   .catch(console.error);
