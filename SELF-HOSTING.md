@@ -22,8 +22,8 @@ For PC users, make sure you install all the packages im package.json using `npm 
 once you finished doing that, copy the code:
 ```env
 DISCORD_BOT_TOKEN=token here
-GENIUS=
-DISCORD_BOT_USERNAME=
+GENIUS=token for genius lyrics
+DISCORD_BOT_USERNAME=bot's name here
 DISCORD_BOT_OWNER_ID="user id here"
 DISCORD_BOT_OWNER='your username and tag'
 DISCORD_BOT_PREFIX=prefix here(+, -,...)
