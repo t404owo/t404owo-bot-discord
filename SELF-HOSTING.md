@@ -29,7 +29,7 @@ DISCORD_BOT_OWNER="your username and tag(in this string)"
 DISCORD_BOT_PREFIX="prefix here(+, -,...)"
 DISCORD_BOT_INVITE="the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)"
 VERSION="version number here(default:1.0.0)(in this string)"
-PROJECT_DOMAIN=the project's name if you use it on glitch
+PROJECT_DOMAIN="the project's name if you use it on glitch"
 ```
 Then create a `.env` file and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
