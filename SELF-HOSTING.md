@@ -21,14 +21,14 @@ For PC users, make sure you install all the packages im package.json using `npm 
 
 once you finished doing that, copy the code:
 ```env
-DISCORD_BOT_TOKEN=token here
+DISCORD_BOT_TOKEN="token here"
 GENIUS="token for genius lyrics"
-DISCORD_BOT_USERNAME=bot's name here
+DISCORD_BOT_USERNAME="bot's name here"
 DISCORD_BOT_OWNER_ID="user id here"
-DISCORD_BOT_OWNER='your username and tag'
-DISCORD_BOT_PREFIX=prefix here(+, -,...)
-DISCORD_BOT_INVITE=the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)
-VERSION=''
+DISCORD_BOT_OWNER="your username and tag(in this string)"
+DISCORD_BOT_PREFIX="prefix here(+, -,...)"
+DISCORD_BOT_INVITE="the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)"
+VERSION="version number here(default:1.0.0)(in this string)"
 PROJECT_DOMAIN=the project's name if you use it on glitch
 ```
 Then create a `.env` file and put the code in it
