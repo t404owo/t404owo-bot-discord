@@ -30,12 +30,12 @@ module.exports = {
     const channel = message.member.voice.channel;
     if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
     const permissions = channel.permissionsFor(message.client.user);
-    if (!permissions.has("CONNECT"))
+    if (!permissions.has("CONNECT")&&!permissions.has("ADMINISTRATOR"))
       return sendError(
         "<:tairitsuno:801419553933492245> | I cannot connect to your voice channel, make sure I have the proper permissions!",
         message
       );
-    if (!permissions.has("SPEAK"))
+    if (!permissions.has("SPEAK")&&!permissions.has("ADMINISTRATOR"))
       return sendError(
         "<:tairitsuno:801419553933492245> | I cannot speak in this voice channel, make sure I have the proper permissions!",
         message
@@ -168,6 +168,7 @@ message.channel.stopTyping()
     if (serverQueue&&serverQueue.songs!==null) {
       message.channel.stopTyping();
       serverQueue.songs.push(song);
+      if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message);
       let thing = new MessageEmbed()
         .setAuthor(
           "Song has been added to queue",
@@ -178,7 +179,7 @@ message.channel.stopTyping()
         .addField("Name", `[${song.title}]` + `(${song.url})`)
         .addField("Duration", song.duration)
         .addField("Requested by", song.req.tag)
-        .setFooter(`Views: ${song.views} | ${song.ago}`);
+        .setFooter(`Views: ${song.views} | ${song.ago||'Unknown'}`);
       message.channel.stopTyping();
       //if(songEmbed)return songEmbed.edit("",thing);
       return message.noMentionReply(thing);
@@ -204,9 +205,10 @@ message.channel.stopTyping()
         message.client.queue.delete(message.guild.id);
         return;
       }
+      console.log(song.url)
 
       const dispatcher = queue.connection
-        .play(ytdl(song.url))
+        .play(ytdl(song.url, {filter:"audioonly"}))
         .on("finish", () => {
           if (queue.loop === true) {
             queue.songs.push(queue.songs.shift());
@@ -227,7 +229,7 @@ message.channel.stopTyping()
             queue.skip = false;
           }
 
-          const command = args.shift().toLowerCase();
+          //const command = args.shift().toLowerCase();
         }) //thynk
         .on("error", error => console.error(error));
       dispatcher.setVolumeLogarithmic(queueConstruct.volume / 100);
@@ -238,7 +240,7 @@ message.channel.stopTyping()
         .addField("Name", `[${song.title}]` + `(${song.url})`)
         .addField("Duration", song.duration, true)
         .addField("Requested by", song.req.tag, true)
-        .setFooter(`Views: ${song.views} | Ago: ${song.ago}`);
+        .setFooter(`Views: ${song.views} | Ago: ${song.ago||'Unknown'}`);
       queue.textChannel.send(thing);
       message.channel.stopTyping();
 

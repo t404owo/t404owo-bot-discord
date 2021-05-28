@@ -23,6 +23,6 @@ module.exports = {
     sendSuccess("<:hikariok:801419553841741904> | Disconnected Successfully!", message);
     const serverQueue = message.client.queue.get(message.guild.id);
 
-    if(serverQueue){serverQueue.songs = null;console.log("disconnected")}
+    if(serverQueue){message.client.queue.delete(message.guild.id);console.log("disconnected")}
   },
 };
