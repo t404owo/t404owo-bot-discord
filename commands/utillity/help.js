@@ -9,8 +9,8 @@ let pages =[
             "**Setup Commands**\n> `setprefix`, `setautorole`, `setautorolesystem`, `setmuterole`, `setverifyrole`, `setverifychannel`, `setwelcomemessage`, `setwelcomechannel`, `setleavemessage`, `setleavechannel`, `setwelcomemessagesystem`, `setgoodbyemessagesystem`, `setwelcomeimage`, `setwelcomeembed`, `prefix`, `setwarns`, `setupstatus`, `lvlmsg`",
             "**Economy Commands**\n> `balance`, `daily`, `dice(roll)`, `bet(gamble)`, `transfer`", 
             "**Music Commands**\n> `join`, `play`, `np`, `lyrics`, `pause/continue`, `search-song(search)`, `queue`, `skip`,`skipto`, `skipall`, `loop`, `volume`, `disconnect`", 
-            "**Npc/Tupper/roleplay Commands**\n> `npc`, `npccreate`, `npcname`, `npclist`, `npcinfo`, `npcdesc`, `npcremove`, `npcavatar`",
-            "**Fun Commands**\n> `kiss`, `hug`, `pat`, `slap`, `wink`, `cuddle`, `neko`, `foxgirl`", 
+            "**Npc/Tupper Commands**\n> `npc`, `npccreate`, `npcname`, `npclist`, `npcinfo`, `npcdesc`, `npcremove`, `npcavatar`",
+            "**Fun/roleplay Commands**\n> `kiss`, `hug`, `pat`, `slap`, `wink`, `cuddle`, `neko`, `foxgirl`", 
             "**Leveling Commands**\n> `rank`, `addxp`, `leaderboard`"
             ];
   let list =[
@@ -20,8 +20,8 @@ let pages =[
             {Category:"**Setup Commands**", commands:"> `setprefix`, `setautorole`, `setautorolesystem`, `setmuterole`, `setverifyrole`, `setverifychannel`, `setwelcomemessage`, `setwelcomechannel`, `setleavemessage`, `setleavechannel`, `setwelcomemessagesystem`, `setgoodbyemessagesystem`, `setwelcomeimage`, `setwelcomeembed`, `prefix`, `setwarns`, `setupstatus`, `lvlmsg`"},//4
             {Category:"**Economy Commands**", commands:"> `balance`, `daily`, `dice(roll)`, `bet(gamble)`, `transfer`"}, //5
             {Category:"**Music Commands**", commands:"> `join`, `play`, `np`, `lyrics`, `pause/continue`, `search-song(search)`, `queue`, `skip`, `skipto`, `skipall`, `loop`, `volume`, `disconnect`"}, //6
-            {Category:"**Npc/Tupper/roleplay Commands**", commands:"> `npc`, `npccreate`, `npcname`, `npclist`, `npcinfo`, `npcdesc`, `npcremove`, `npcavatar`"},//7
-            {Category:"**Fun Commands**", commands:"> `kiss`, `hug`, `pat`, `slap`, `wink`, `cuddle`, `neko`, `foxgirl`"}, //8
+            {Category:"**Npc/Tupper Commands**", commands:"> `npc`, `npccreate`, `npcname`, `npclist`, `npcinfo`, `npcdesc`, `npcremove`, `npcavatar`"},//7
+            {Category:"**Fun/roleplay Commands**", commands:"> `kiss`, `hug`, `pat`, `slap`, `wink`, `cuddle`, `neko`, `foxgirl`"}, //8
             {Category:"**Leveling Commands**", commands:"> `rank`, `addxp`, `leaderboard`"}
             ];
   
@@ -59,7 +59,7 @@ if(!message.guild){
                 if(args[0]==="7"||args[0].toLowerCase()==="npc"||args[0].toLowerCase()==="tupper"||args[0].toLowerCase()==="npcs"||args[0].toLowerCase()==="tuppers"||args[0].toLowerCase()==="npc/tupper"||args[0].toLowerCase()==="tupper/npc"||args[0].toLowerCase()==="npctupper"||args[0].toLowerCase()==="tuppernpc"||args[0].toLowerCase()==="npcs/tuppers"||args[0].toLowerCase()==="tuppers/npcs"){
                 page = 7
               }else
-                if(args[0]==="8"||args[0].toLowerCase()==="fun"){
+                if(args[0]==="8"||args[0].toLowerCase()==="fun"||args[0].toLowerCase()==="roleplay"){
                 page = 8
               }else
                 if(args[0]==="9"||args[0].toLowerCase()==="leveling"){
@@ -276,7 +276,7 @@ about the brackets:
                 if(args[0]==="7"||args[0].toLowerCase()==="npc"||args[0].toLowerCase()==="tupper"||args[0].toLowerCase()==="npcs"||args[0].toLowerCase()==="tuppers"||args[0].toLowerCase()==="npc/tupper"||args[0].toLowerCase()==="tupper/npc"||args[0].toLowerCase()==="npctupper"||args[0].toLowerCase()==="tuppernpc"||args[0].toLowerCase()==="npcs/tuppers"||args[0].toLowerCase()==="tuppers/npcs"){
                 page = 7
               }else
-                if(args[0]==="8"||args[0].toLowerCase()==="roleplay"){
+                if(args[0]==="8"||args[0].toLowerCase()==="fun"||args[0].toLowerCase()==="roleplay"){
                 page = 8
               }else
                 if(args[0]==="9"||args[0].toLowerCase()==="leveling"){
