@@ -1,4 +1,4 @@
-const sendError = require("../../util/error");
+
 const fs = require("fs")
 //const skipreq = JSON.parse(fs.readFileSync("./skipreq.json", "utf8"));
 
@@ -15,6 +15,7 @@ module.exports = {
   },
 //checked, adding something...
   run: async function (client, message, args) {
+    const sendError = require("../../util/error");
     const channel = message.member.voice.channel
     if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
     if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message);
@@ -73,6 +74,68 @@ vote.vote++
     serverQueue.skip = true
     serverQueue.connection.dispatcher.end("Skiped the music");
     message.react("801419553841741904")
+},
+  options:[],
+  interaction: async function (client, message, args) {
+    const sendError = require("../../util/slash/error"),sendSuccess = require("../../util/slash/success");
+    const channel = client.guilds.cache.get(message.guild_id).members.cache.get(message.member.user.id).voice.channel
+    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
+    if (client.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message);
+    const serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
+    if (!serverQueue)return sendError("There is nothing playing that I could skip for you.", message);
+    /*let{vote}=client
+    const vcvote = Math.floor(client.guilds.cache.get(message.guild_id).me.voice.channel.members.size / 2)
+    const okie = Math.floor(client.guilds.cache.get(message.guild_id).me.voice.channel.members.size / 2 - 1)
+    console.log(client.guilds.cache.get(message.guild_id).me.voice.channel.members.size)
+    if(!client.guilds.cache.get(message.guild_id).members.cache.get(message.member.user.id).hasPermission("ADMINISTRATOR")&&client.music.vote===true) {
+       if(vote.vote > okie) {
+         const shiffed = serverQueue.songs.shift();
+            if (serverQueue.loop === true) {
+                serverQueue.songs.push(shiffed);
+            };
+    //serverQueue.songs.shift()
+    serverQueue.skip = !serverQueue.skip
+    serverQueue.connection.dispatcher.end("Skiped the music");
+    
+    return sendSuccess(`<:hikariok:801419553841741904> | Skipped the song!`)
+       }
+       
+       if(vote.voters.includes(message.member.user.id)) {
+         return message.mentionReply("<:tairitsuno:801419553933492245> | You already voted for this song")
+       }
+       
+       if(vcvote === 2) {
+          const shiffed = serverQueue.songs.shift();
+            if (serverQueue.loop === true) {
+                serverQueue.songs.push(shiffed);
+            };
+    //serverQueue.songs.shift()
+    serverQueue.skip = !serverQueue.skip
+    serverQueue.connection.dispatcher.end("Skiped the music");
+    return sendSuccess(`<:hikariok:801419553841741904> | Skipped the song!`)
+       }
+       
+       
+       
+vote.vote++
+       vote.voters.push(message.author.id)
+       return sendSuccess(`<:hikariok:801419553841741904> | Thanks for vote, we currently need ${Math.floor(vcvote - vote.vote)} votes more to skip`, message, client)
+    
+     
+     
+     
+     }else{*/
+    
+     const shiffed = serverQueue.songs.shift();
+            if (serverQueue.loop === true) {
+                serverQueue.songs.push(shiffed);
+            };
+    //serverQueue.songs.shift()
+    console.log(serverQueue.loop === true ? "enabled" : "disabled"+ ": !true")
+
+    serverQueue.skip = true
+    serverQueue.connection.dispatcher.end("Skiped the music");
+    sendSuccess('<:hikariok:801419553841741904> | Skipped the song!', message, client)
 }
  // } 
       
