@@ -19,7 +19,7 @@ setInterval(async () => {
   await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`); //main projects site
 }, 60000);
 bot.db = require("quick.db");
-//bot.translate= require("translate-google")
+
 bot.sleep = promisify(setTimeout);
 bot.vote = new Map();
 bot.on("message", message => {
@@ -34,6 +34,16 @@ bot.on("message", message => {
     };
   }
 });
+
+   
+
+bot.createAPIMessage= async(interaction, content)=> {
+    const apiMessage = await discord.APIMessage.create(bot.channels.resolve(interaction.channel_id), content)
+        .resolveData()
+        .resolveFiles();
+    
+    return { ...apiMessage.data, files: apiMessage.files };
+}
 //let serversetting = JSON.parse(fs.readFileSync("./serversetting.json", "utf8"));
 console.defaultLog = console.log.bind(console);
 console.logs = [];
@@ -335,7 +345,61 @@ fs.readdir("./commands/", (err, categories) => {
   });
 });
 
+bot.on('ready', () =>{
+  
+  bot.guilds.cache.forEach(guild=>{
+  fs.readdir("./commands/", (err, categories) => {
+	if (err) console.log(err);
+  categories.forEach(category => {
+    let moduleConf = require(`./commands/${category}/module.json`);
+    moduleConf.path = `./commands/${category}`;
+    moduleConf.cmds = [];
+    if (!moduleConf) return;
+    bot.helps.set(category, moduleConf);
 
+    fs.readdir(`./commands/${category}`, (err, files) => {
+      if (err) console.log(err);
+
+      files.forEach(file => {
+        if (!file.endsWith(".js")) return;
+        let prop = require(`./commands/${category}/${file}`);
+        let cmdName = file.split(".")[0];
+        if(!prop.options||!prop.interaction)return
+        
+      
+
+        bot.helps.get(category).cmds.push(prop.info.name);
+
+bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
+        data: {
+            name: prop.info.name,
+            description: prop.info.description,
+	     options:prop.options
+        }
+    });//command for slash
+//console.log('Finished expoerted slash command!')
+ })
+})
+})
+}) 
+    
+  })
+  console.log('Finished exported slash command!')
+bot.ws.on('INTERACTION_CREATE', async interaction => {
+  
+        const command = interaction.data.name.toLowerCase();
+        const args = interaction.data.options;
+  
+bot.config={
+  prefix:bot.db.get(`${interaction.guild_id}_prefix`) || process.env.DISCORD_BOT_PREFIX
+}
+        if(bot.commands.get(command.toLowerCase())){
+          
+          bot.commands.get(command).interaction(bot, interaction, args);
+          
+        }
+    });
+});
 
 bot.on("message", async message => {
   if (message.author.bot || message.author === bot.user) return;
@@ -520,9 +584,9 @@ function seconds(seconds) {
 
 bot.on("message", async message => {
   if (message.author.bot || message.guild === null) return;
-  xp(message);
+  //xp(message);
 
-  serverxp(message);
+  //serverxp(message);
 
   const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
   const prefix = message.content.match(prefixMention)
@@ -553,6 +617,7 @@ function xp(message) {
       message.guild.id === "264445053596991498" ||
       message.guild.id === "808770886718193705" ||
       message.guild.id === "264445053596991498" ||
+      
       bot.db.get(`${message.guild.id}_lvlupmsg`) === "no"
     )
       return;

@@ -21,6 +21,18 @@ module.exports.run=async(bot,message,args)=>{
     } else return message.noMentionReply(`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`)
       }else message.noMentionReply(`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`)
 }
+exports.options=[]
+module.exports.interaction=async(bot,message,args)=>{
+  let interaction=message
+      bot.api.interactions(interaction.id, interaction.token).callback.post({
+                data: {
+                    type: 4,
+                    data: {
+                      content:`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`
+                    }
+                }
+            })
+}
 exports.conf={
   cooldown: 0,
   dm: "yes"

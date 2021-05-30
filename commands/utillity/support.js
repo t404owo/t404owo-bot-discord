@@ -12,6 +12,23 @@ exports.run = (bot, message, args) => {
           msg.edit("", msgembed)
        });
   }
+exports.interaction = async(bot, interaction, args) => {
+         const Discord = require("discord.js")
+         let link =
+             `https://discord.gg/${process.env.DISCORD_BOT_INVITE}`
+         let embed = new Discord.MessageEmbed()
+      .setColor('#0affaf')
+      .setTitle("Supports <:koulove:801419554156445726>")
+      .setDescription('My main support server: [Click here]' + `(${link})`)
+      .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
+       bot.api.interactions(interaction.id, interaction.token).callback.post({
+                data: {
+                    type: 4,
+                    data: await bot.createAPIMessage(interaction, embed)
+                }
+            });
+  }
+exports.options=[]
   exports.info = {
     name: 'support',
   aliases:[],
