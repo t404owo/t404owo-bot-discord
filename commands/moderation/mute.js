@@ -3,8 +3,9 @@ const ms = require("ms")
 exports.run = async(bot, message, args) => {
 
     const permissions = message.channel.permissionsFor(message.client.user);
+  let perm=message.channel.permissionsFor(message.member)//perm.has()
   if(!permissions.has("MANAGE_ROLES")) return
-  if(!message.member.hasPermission("MANAGE_ROLES")&&!message.member.hasPermission("MANAGE_GUILD")&&!message.member.hasPermission("MANAGE_MEMBERS")&&!message.member.hasPermission("ADMINISTRATOR"))return
+  if(!perm.has("MANAGE_ROLES")&&!perm.has("MANAGE_GUILD")&&!perm.has("MANAGE_MEMBERS")&&!perm.has("ADMINISTRATOR"))return
    if (!args[0]) {
         return message.mentionReply(
           "⚠ |Please mention or give the id of the person who you want to mute"
@@ -12,15 +13,15 @@ exports.run = async(bot, message, args) => {
       }
     let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") })
     
-        let target = bot.users.cache.get(args[0].replace("<@!", "").replace("<@", "").replace(">", ""));
+        let target = userm
   if (target === !args[0]) {
         return message.mentionReply(
           "⚠ |Please mention the person who you want to mute"
         );
       }
   
-const targe =  message.guild.member(target)
-if (targe.hasPermission("ADMINISTRATOR")){
+let tar=message.channel.permissionsFor(userm)//perm.has()
+if (tar.has("ADMINISTRATOR")){
         return message.mentionReply("<:tairitsuno:801419553933492245> | The user you want to mute is a moderator/administrator I can't do that,try to ban him/her/them yourself..");
   }
 
@@ -82,25 +83,25 @@ bot.db.set(`${message.guild.id}_${userm.user.id}mutetime`, time)
 
   setTimeout(function(){
   
-    targe.roles.add(message.guild.roles.cache.find(r => r.id ===muteroles)).catch(()=>{
-      targe.roles.add(muteroles)
-          targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
-targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
+    target.roles.add(message.guild.roles.cache.find(r => r.id ===muteroles)).catch(()=>{
+      target.roles.add(muteroles)
+          target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
+target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
   bot.db.delete(`${message.guild.id}_${userm.user.id}mutetime`)
   bot.db.delete(`${message.guild.id}_${userm.user.id}muteroles`)
   })
     
 
-    targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
-targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
+    target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
+target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
     bot.db.delete(`${message.guild.id}_${userm.user.id}mutetime`)
     bot.db.delete(`${message.guild.id}_${userm.user.id}muteroles`)
              }, ms(bot.db.get(`${message.guild.id}_${userm.user.id}mutetime`)))
   
   
-targe.roles.remove(targe.roles.cache);
-  targe.roles.add(message.guild.roles.cache.find(r => r.id ===muterole))
-  targe.roles.add(message.guild.roles.cache.find(r => r.id ===muterole).id)
+target.roles.remove(target.roles.cache);
+  target.roles.add(message.guild.roles.cache.find(r => r.id ===muterole))
+  target.roles.add(message.guild.roles.cache.find(r => r.id ===muterole).id)
  let reasonb = args.slice(2).join(" ");
   if(!reasonb){
         message.noMentionReply(`<:hikariok:801419553841741904> | Muted sucessfully`)

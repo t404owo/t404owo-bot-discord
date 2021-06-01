@@ -25,7 +25,8 @@ module.exports = {
     const vcvote = Math.floor(message.guild.me.voice.channel.members.size / 2)
     const okie = Math.floor(message.guild.me.voice.channel.members.size / 2 - 1)
     console.log(message.guild.me.voice.channel.members.size)
-    if(!message.member.hasPermission("ADMINISTRATOR")&&client.music.vote===true) {
+    let perm=message.channel.permissionsFor(message.member)//perm.has()
+    if(!perm.has("ADMINISTRATOR")&&client.music.vote===true) {
        if(vote.vote > okie) {
          const shiffed = serverQueue.songs.shift();
             if (serverQueue.loop === true) {
@@ -87,7 +88,7 @@ vote.vote++
     const vcvote = Math.floor(client.guilds.cache.get(message.guild_id).me.voice.channel.members.size / 2)
     const okie = Math.floor(client.guilds.cache.get(message.guild_id).me.voice.channel.members.size / 2 - 1)
     console.log(client.guilds.cache.get(message.guild_id).me.voice.channel.members.size)
-    if(!client.guilds.cache.get(message.guild_id).members.cache.get(message.member.user.id).hasPermission("ADMINISTRATOR")&&client.music.vote===true) {
+    if(!client.guilds.cache.get(message.guild_id).channels.cache.get(message.channel_id).permissionsFor(client.guilds.cache.get(message.guild_id).members.cache.get(message.member.user.id)).has("ADMINISTRATOR")&&client.music.vote===true) {
        if(vote.vote > okie) {
          const shiffed = serverQueue.songs.shift();
             if (serverQueue.loop === true) {

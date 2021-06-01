@@ -6,7 +6,11 @@ exports.conf={
 }
 exports.run = (bot, message, args) => {
   
-    if (message.member.hasPermission("MANAGE_GUILD")||message.member.hasPermission("MANAGE_CHANNELS")||message.member.hasPermission("ADMINISTRATOR")){
+    let perm=message.channel.permissionsFor(message.member)//perm.has()
+      if (!perm.has("MANAGE_GUILD")&&!bot.config.owners.includes(message.author.id)&&!perm.has("MANAGE_CHANNELS")&&!perm.has("ADMINISTRATOR"))
+      return message.mentionReply(
+        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
+      );
       const setup = args.slice().join(" ");
     
       if(isNaN(args[0].replace("m", "").replace("d", "").replace("ms", "").replace("h", "").replace("s", ""))){
@@ -19,7 +23,7 @@ exports.run = (bot, message, args) => {
       );
       return;
 }
-}
+
 exports.info = {
 name: 'setmutetime',
   aliases:["mutetime"],

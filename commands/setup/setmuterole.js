@@ -5,7 +5,11 @@ exports.conf={
   dm: "no"
 }
 exports.run = (bot, message, args) => {
-    if (message.member.hasPermission("MANAGE_GUILD")||message.member.hasPermission("MANAGE_CHANNELS")||message.member.hasPermission("ADMINISTRATOR")){
+    let perm=message.channel.permissionsFor(message.member)//perm.has()
+      if (!perm.has("MANAGE_GUILD")&&!bot.config.owners.includes(message.author.id)&&!perm.has("MANAGE_CHANNELS")&&!perm.has("ADMINISTRATOR"))
+      return message.mentionReply(
+        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
+      );
       const setup = args.slice().join(" ");
     
       if (!setup||isNaN(setup.replace("<@&", "").replace("<@", "").replace(">", "")))
@@ -19,7 +23,7 @@ exports.run = (bot, message, args) => {
       );
       return;
 }
-}
+
 exports.info = {
 name: 'setmuterole',
   aliases:["muterole"],

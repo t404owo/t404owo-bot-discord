@@ -7,11 +7,12 @@ module.exports.info = {
 module.exports.run=async(bot,message,args)=>{
       if (args[0]) {
         if(!message.guild) return;
-  if (message.member.hasPermission("ADMINISTRATOR")||message.member.hasPermission("MANAGE_SERVER")) {
+        let perm=message.channel.permissionsFor(message.member)//perm.has()
+  if (perm.has("ADMINISTRATOR")||perm.has("MANAGE_SERVER")) {
         
 
       let prefix = bot.db.set(`${message.guild.id}_prefix`, args.slice().join(" ").toLowerCase());
-
+if(args.slice().join(" ").toLowerCase()==='+')bot.db.delete(`${message.guild.id}_prefix`)
 
       console.log(prefix);
 

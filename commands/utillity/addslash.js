@@ -2,11 +2,15 @@ const { MessageEmbed } = require("discord.js");
 
 const sendError =require("../../util/success"), fs=require('fs')
 exports.run = (bot, message, args) => {
-  
-      if (message.member.hasPermission("MANAGE_GUILD")||bot.config.owners.includes(message.author.id)||message.member.hasPermission("MANAGE_CHANNELS")||message.member.hasPermission("ADMINISTRATOR")||message.guild){
-
-      
-    fs.readdir("./commands/", (err, categories) => {
+  let perm=message.channel.permissionsFor(message.member)//perm.has()
+      if (!perm.has("MANAGE_GUILD")&&!bot.config.owners.includes(message.author.id)&&!perm.has("MANAGE_CHANNELS")&&!perm.has("ADMINISTRATOR"))
+      return message.mentionReply(
+        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
+      );
+      else{
+if(!message.guild)return
+        
+        fs.readdir("./commands/", (err, categories) => {
 	if (err) console.log(err);
   categories.forEach(category => {
     let moduleConf = require(`../${category}/module.json`);
@@ -28,7 +32,7 @@ exports.run = (bot, message, args) => {
 
         bot.helps.get(category).cmds.push(prop.info.name);
 
-bot.api.applications(bot.user.id).commands.post({
+bot.api.applications(bot.user.id).guilds(message.guild.id).commands.post({
         data: {
             name: prop.info.name,
             description: prop.info.description,
@@ -43,9 +47,7 @@ bot.api.applications(bot.user.id).commands.post({
    return message.noMentionReply(
         `<:hikariok:801419553841741904> | Slash command succesfully exported!`
       );
-      } else return message.mentionReply(
-        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
-      );
+      }
 }
 exports.info = {
 name: 'addslash',

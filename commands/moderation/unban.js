@@ -3,8 +3,9 @@ const Discord = require('discord.js')
 exports.run = async (bot, message, args) => {
   
  const permissions = message.channel.permissionsFor(message.client.user);
+  let perm=message.channel.permissionsFor(message.member)//perm.has()
   if(!permissions.has("BAN_MEMBERS")) return message.mentionReply("<:koucry:801419554311241728> | I don't have permission to unban!!!");
- if (!message.member.hasPermission("BAN_MEMBERS")&&!message.member.hasPermission("MANAGE_MEMBERS")&&!message.member.hasPermission("MANAGE_GUILD")&&!message.member.hasPermission("ADMINISTRATOR"))
+ if (!perm.has("BAN_MEMBERS")&&!perm.has("MANAGE_MEMBERS")&&!perm.has("MANAGE_GUILD")&&!perm.has("ADMINISTRATOR"))
         return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to unban!!!");
   if(!args[0]){return}
   let bannedMember = args[0].replace("<@!", "").replace(">", "").replace("<@", "")
