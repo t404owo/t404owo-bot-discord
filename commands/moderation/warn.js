@@ -5,12 +5,13 @@ exports.run = async(bot, message, args) => {
     //   let warning = JSON.parse(fs.readFileSync("./warnings.json", "utf8"));
     const permissions = message.channel.permissionsFor(message.client.user);
   if(!permissions.has("MANAGE_MEMBERS")) return message.mentionReply("<:koucry:801419554311241728> | You don't have permission to ban!!!");
-
-  if(!message.member.hasPermission("MANAGE_MEMBERS")&&!message.member.hasPermission("MANAGE_GUILD")&&!message.member.hasPermission("ADMINISTRATOR")) return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to warn!!!");
+const perm=message.channel.permissionsFor(message.member)//perm.has()
+  if(!perm.has("MANAGE_MEMBERS")&&!perm.has("MANAGE_GUILD")&&!perm.has("ADMINISTRATOR")) return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to warn!!!");
   let wUser = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Remember to mention a valid user to warn!") })
   if(!wUser) return message.mentionReply("I couldn't find the user!");
   if(wUser.user.id === message.author.id)return message.mentionReply("<:tairitsuno:801419553933492245> | You can't warn yourself!")
-  if(wUser.hasPermission("ADMINISTRATOR")) return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to warn an admin/mod!!!");
+ let pUser = message.channel.permissionsFor(wUser)//perm.has()
+  if(pUser.has("ADMINISTRATOR")) return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to warn an admin/mod!!!");
   let reason = args.slice(1).join(" ");
       if (!reason) reason = "";
       let a=bot.db.get(`${wUser.user.id}_${message.guild.id}_warns`)||0
@@ -28,23 +29,20 @@ console.log(warnings)
 
   
       if(a>e-1){
-         let target = bot.users.cache.get(args[0].replace("<@!", "").replace("<@", "").replace(">", ""));
-const targe =  message.guild.member(target)
-      
+         let target = wUser
    
         
-        targe.ban({reason: `get too much warns`});
+        target.ban({reason: `get too much warns`});
        
        return message.noMentionReply(`<:hikariok:801419553841741904> | Banned sucessfully **|** get too much warns`)
 }   
   else
   if(a > d-1){
-    let target = bot.users.cache.get(args[0].replace("<@!", "").replace("<@", "").replace(">", ""));
-const targe =  message.guild.member(target)
+    let target = wUser
       
    
         
-        targe.kick({reason: `get too much warns`});
+        target.kick({reason: `get too much warns`});
        
        return message.noMentionReply(`<:hikariok:801419553841741904> | Kicked sucessfully **|** get too much warns`)
 }  
@@ -54,13 +52,13 @@ const targe =  message.guild.member(target)
   
     let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") })
     
-        let target = bot.users.cache.get(args[0].replace("<@!", "").replace("<@", "").replace(">", ""));
+        let target = userm
   
   
   const permissions = message.channel.permissionsFor(message.client.user);
  
   
-const targe =  message.guild.member(target)
+
       
 
 
@@ -119,22 +117,22 @@ bot.db.set(`${message.guild.id}_${userm.user.id}mutetime`, time)
 
   setTimeout(function(){
               
-  targe.roles.add(message.guild.roles.cache.find(r => r.id ===muteroles)).catch(()=>{
-      targe.roles.add(muteroles)
-          targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
-targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
+  target.roles.add(message.guild.roles.cache.find(r => r.id ===muteroles)).catch(()=>{
+      target.roles.add(muteroles)
+          target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
+target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
   bot.db.delete(`${message.guild.id}_${userm.user.id}mutetime`)
   bot.db.delete(`${message.guild.id}_${userm.user.id}muteroles`)})
-    targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
-targe.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
+    target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole))
+target.roles.remove(message.guild.roles.cache.find(r => r.id ===muterole).id)
     bot.db.delete(`${message.guild.id}_${userm.user.id}mutetime`)
     bot.db.delete(`${message.guild.id}_${userm.user.id}muteroles`)
              }, ms(bot.db.get(`${message.guild.id}_${userm.user.id}mutetime`)))
   
   
-targe.roles.remove(targe.roles.cache);
-  targe.roles.add(message.guild.roles.cache.find(r => r.id ===muterole))
-  targe.roles.add(message.guild.roles.cache.find(r => r.id ===muterole).id)
+target.roles.remove(target.roles.cache);
+  target.roles.add(message.guild.roles.cache.find(r => r.id ===muterole))
+  target.roles.add(message.guild.roles.cache.find(r => r.id ===muterole).id)
  
   
   message.noMentionReply("<:hikariok:801419553841741904> | Muted Sucessfully! **|** Get too much warns")
