@@ -37,7 +37,7 @@ let song=[]
   interaction: async function (client, message, args) {
     const sendError = require("../../util/slash/error");
     const serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
-    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message);
+    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message, client);
 let song=[];
     
     let embed = new MessageEmbed()
