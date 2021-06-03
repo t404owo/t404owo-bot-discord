@@ -505,7 +505,7 @@ queueConstruct.songs.push(song);
           .client.queue.delete(interaction.guild_id);
         return;
       }
-      console.log(song);
+      console.log(song.url);
       const dispatcher = queue.connection
         .play(ytdl(song.url, { filter: "audioonly" }))
         .on("finish", () => {
