@@ -484,7 +484,7 @@ queueConstruct.songs.push(song);
           .addField("Duration", song.duration)
           .addField("Requested by", song.req.tag)
           .setFooter(`Views: ${song.views} | ${song.ago || "Unknown"}`);
-        client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.channel_id).stopTyping();
+        client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id).stopTyping();
         //if(songEmbed)return songEmbed.edit("",thing)
         return client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id).send(thing);
       }
