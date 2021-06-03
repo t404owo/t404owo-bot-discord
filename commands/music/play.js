@@ -73,7 +73,7 @@ module.exports = {
         message
       );
     }
-    console.log(searched);
+    //console.log(searched);
     if (searchString.match(playlisturl)) {
       
       let ytsc=await yti.getPlaylist(searched.playlists[0].listId)
@@ -96,7 +96,7 @@ song.push({
 serverQueue.songs.push(song[i])
       }
       let playlist=ytsc
-       console.log(ytsc)
+       //console.log(ytsc)
       const list = {
         id: playlist.id,
         title: playlist.title,
@@ -143,7 +143,7 @@ song = {
 queueConstruct.songs.push(song);
       }
       let playlist=ytsc
-       console.log(ytsc)
+      // console.log(ytsc)
       const list = {
         id: playlist.id,
         title: playlist.title,
@@ -363,11 +363,11 @@ var searched = await yts.search(searchString);
         interaction, client
       );
     }
-    console.log(searched);
+    //console.log(searched);
     if (searchString.match(playlisturl)) {
       let ytsc=await yti.getPlaylist(searched.playlists[0].listId)
       let playlist=ytsc
-       console.log(ytsc)
+       //console.log(ytsc)
       const list = {
         id: playlist.id,
         title: playlist.title,
@@ -433,7 +433,7 @@ song = {
 queueConstruct.songs.push(song);
       }
       let playlist=ytsc
-       console.log(ytsc)
+       //console.log(ytsc)
       //console.log("pong");
       let thing = new MessageEmbed()
         .setAuthor(
