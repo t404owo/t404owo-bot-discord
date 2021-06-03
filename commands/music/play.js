@@ -452,7 +452,7 @@ queueConstruct.songs.push(song);
       }
     } else {
       
-      var songInfo = searched.songs[0];
+      var songInfo = searched.videos[0];
 
       song = {
         id: songInfo.videoId,
