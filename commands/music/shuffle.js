@@ -24,12 +24,19 @@ module.exports = {
     if (!Queue)
       return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message);
     
-    const Current = await Queue.songs.shift();
+     const Current = await Queue.songs.shift();
     
+   let q=[]
+    Queue.songs.forEach((it)=>q.push(it))
+    q.sort(() => Math.random() - 0.5)
+    console.log(q)
+Queue.songs.splice(0, Queue.songs.length)
+    for(let i=0;i<q.length;i++){
+      Queue.songs.push(q[i])
+    }
     
-      Queue.songs = Queue.songs.sort(song => song[Math.floor(Math.random()*Queue.songs.size)]);
     await Queue.songs.unshift(Current);
-    //message.react("801419553841741904")
+    message.react("801419553841741904")
     sendSuccess("<:hikariok:801419553841741904> | Queue Has Been Shuffled", message, client)
 
   },
@@ -50,7 +57,15 @@ module.exports = {
     
     const Current = await Queue.songs.shift();
     
-          Queue.songs = Queue.songs.sort(song => song[Math.floor(Math.random()*Queue.songs.size)]);
+   let q=[]
+    Queue.songs.forEach((it)=>q.push(it))
+    q.sort(() => Math.random() - 0.5)
+    console.log(q)
+Queue.songs.splice(0, Queue.songs.length)
+    for(let i=0;i<q.length;i++){
+      Queue.songs.push(q[i])
+    }
+    
     await Queue.songs.unshift(Current);
     //message.react("801419553841741904")
     sendSuccess("<:hikariok:801419553841741904> | Queue Has Been Shuffled", message, client)
