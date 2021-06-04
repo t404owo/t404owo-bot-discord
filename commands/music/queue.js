@@ -19,6 +19,7 @@ module.exports = {
     if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message);
     if(!args[0])args=[1]
     if(isNaN(args[0]))return sendError("<:tairitsuno:801419553933492245> | Please use Numerical Values only", message, client)
+    if(parseInt(args[0])<2)return sendError(`<:tairitsuno:801419553933492245> | Please give a number that is higher than **1**!`, message, client)
     if(parseInt(args[0])> Math.ceil(Object.keys(serverQueue.songs).length / 10)) return sendError(`<:tairitsuno:801419553933492245> | The queue currently only has \`${Math.ceil(Object.keys(serverQueue.songs).length / 10)}\` pages!`, message, client)
 let song=[],qu=[],data=[],page=args[0]
 serverQueue.songs.forEach((s)=>{
@@ -64,6 +65,7 @@ serverQueue.songs.forEach((s)=>{
     const serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
     if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message, client);
 if(isNaN(args[0]))return sendError("<:tairitsuno:801419553933492245> | Please use Numerical Values only", message, client)
+    if(parseInt(args[0])<2)return sendError(`<:tairitsuno:801419553933492245> | Please give a number that is higher than **1**!`, message, client)
     if(parseInt(args[0])> Math.ceil(Object.keys(serverQueue.songs).length / 10)) return sendError(`<:tairitsuno:801419553933492245> | The queue currently only has \`${Math.ceil(Object.keys(serverQueue.songs).length / 10)}\` pages!`, message, client)
 let song=[],qu=[],data=[],page=args[0]
 serverQueue.songs.forEach((s)=>{
