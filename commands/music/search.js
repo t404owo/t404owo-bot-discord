@@ -174,7 +174,7 @@ client.guilds.cache
     try {
       client.guilds.cache
       .get(interaction.guild_id).channels.cache.get(interaction.channel_id).stopTyping();
-      var songInfo = searched.videos[videoIndex - 1];
+      var songInfo = await yts({videoId:searched.videos[videoIndex - 1].videoId});
      
     } catch (err) {
       client.guilds.cache
@@ -424,7 +424,7 @@ message.channel.stopTyping()
       return songEmbed.delete();
     try {
       message.channel.stopTyping();
-      var songInfo = searched.videos[videoIndex - 1];
+      var songInfo = await yts({videoId:searched.videos[videoIndex - 1].videoId});
       if (songEmbed) songEmbed.delete();
     } catch (err) {
       message.channel.stopTyping();
