@@ -2,6 +2,7 @@ const { Util, MessageEmbed } = require("discord.js");
 const ytdl = require("ytdl-core");
 const y = require("youtubei"), yti= new y.Client(), yts = require("yt-search");
 let playlisturl = /list=([a-zA-Z0-9-_]+)&?/g;
+//let yturl=/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/g;
 let csec=require('convert-seconds')
 module.exports = {
   conf: {
@@ -51,7 +52,9 @@ module.exports = {
     message.channel.startTyping();
     var serverQueue = message.client.queue.get(message.guild.id);
 
-    var searched = await yts.search(searchString);
+    var searched, murl=/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\//g;
+    
+    searched= await yts({videoId:searchString.replace(murl,"")}).catch(async()=>searched=await yts(searchString))
     let song=[]
       let queueConstruct = {
         textChannel: message.channel,
@@ -61,35 +64,38 @@ module.exports = {
         volume: 100,
         playing: true
       };
-    
+    if(!searched.videos&&!searched.lists&&!searched.playlists)
+      {
+        console.log(searchString.replace(murl,""))
+      }else{
     if (
       searched.videos.length === 0 &&
       searched.lists.length === 0 &&
       searched.playlists.length === 0
     ) {
+      
       message.channel.stopTyping();
       return sendError(
         "<:tairitsuno:801419553933492245> | Looks like I was unable to find the song on YouTube",
         message
       );
     }
+      }
     //console.log(searched);
     if (searchString.match(playlisturl)) {
       
       let ytsc=await yti.getPlaylist(searched.playlists[0].listId)
       if (serverQueue && serverQueue.songs !== null){
         for (var i=0;i<ytsc.videos.length;i++){
-let songInfo=await yti.getVideo(ytsc.videos[i].id)
-let min=csec(songInfo.duration).minutes,sec=csec(songInfo.duration).seconds
-  let duration=`${songInfo.duration} seconds (${min}:${sec})`
+let songInfo=await yts({videoId:ytsc.videos[i].id})
 song.push({
-        id: songInfo.id,
-        title: songInfo.title,
-        views: songInfo.viewCount,
-        url: `https://youtu.be/${songInfo.id}`,
+        id: songInfo.videoId,
+        title: Util.escapeMarkdown(songInfo.title),
+        views: String(songInfo.views).padStart(1, " "),
+        url: songInfo.url,
         ago: songInfo.ago,
-        duration: duration,
-        img: songInfo.thumnail||songInfo.thumbnails[0].url,
+        duration: songInfo.duration.toString(),
+        img: songInfo.image,
         req: message.author
       })
         
@@ -126,23 +132,23 @@ serverQueue.songs.push(song[i])
       }else{
       message.client.queue.set(message.guild.id, queueConstruct);
       for (var i=0;i<ytsc.videos.length;i++){
-let songInfo=await yti.getVideo(ytsc.videos[i].id)
-let min=csec(songInfo.duration).minutes,sec=csec(songInfo.duration).seconds
-  let duration=`${songInfo.duration} seconds (${min}:${sec})`
-song = {
-        id: songInfo.id,
-        title: songInfo.title,
-        views: songInfo.viewCount,
-        url: `https://youtu.be/${songInfo.id}`,
+let songInfo=await yts({videoId:ytsc.videos[i].id})
+song.push({
+        id: songInfo.videoId,
+        title: Util.escapeMarkdown(songInfo.title),
+        views: String(songInfo.views).padStart(1, " "),
+        url: songInfo.url,
         ago: songInfo.ago,
-        duration: duration,
-        img: songInfo.thumnail||songInfo.thumbnails[0].url,
+        duration: songInfo.duration.toString(),
+        img: songInfo.image,
         req: message.author
-      };
+      }) 
+        queueConstruct.songs.push(song[i]);
+
         
-queueConstruct.songs.push(song);
+
       }
-      let playlist=ytsc
+            let playlist=ytsc
       // console.log(ytsc)
       const list = {
         id: playlist.id,
@@ -166,14 +172,14 @@ queueConstruct.songs.push(song);
         .addField("Videos Count", list.duration)
         .addField("Requested by", list.req.tag)
       .setFooter(`Views: ${list.views}`);
+
       message.channel.stopTyping();
       //if(songEmbed)return songEmbed.edit("",thing)
       message.noMentionReply(thing);
       }
     } else {
       
-      var songInfo = searched.videos[0];
-
+      var songInfo = await yts({videoId:searched.videoId||searched.videos[0].videoId});
       song = {
         id: songInfo.videoId,
         title: Util.escapeMarkdown(songInfo.title),
@@ -341,7 +347,10 @@ queueConstruct.songs.push(song);
     var serverQueue = client.guilds.cache
       .get(interaction.guild_id)
       .client.queue.get(interaction.guild_id);  
-var searched = await yts.search(searchString);
+    var searched, murl=/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\//g;
+    
+    searched= await yts({videoId:searchString.replace(murl,"")}).catch(async()=>searched=await yts(searchString))
+
     let song=[]
       let queueConstruct = {
         textChannel: client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id),
@@ -352,17 +361,23 @@ var searched = await yts.search(searchString);
         playing: true
       };
     
+if(!searched.videos&&!searched.lists&&!searched.playlists)
+      {
+        console.log(searchString.replace(murl,""))
+      }else{
     if (
       searched.videos.length === 0 &&
       searched.lists.length === 0 &&
       searched.playlists.length === 0
     ) {
-      client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id)
-      return sendError(
+      
+      client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id).stopTyping();
+      return sendEror(
         "<:tairitsuno:801419553933492245> | Looks like I was unable to find the song on YouTube",
-        interaction, client
+        client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id)
       );
     }
+      }
     //console.log(searched);
     if (searchString.match(playlisturl)) {
       let ytsc=await yti.getPlaylist(searched.playlists[0].listId)
@@ -381,17 +396,15 @@ var searched = await yts.search(searchString);
       
       if (serverQueue && serverQueue.songs !== null){
         for (var i=0;i<ytsc.videos.length;i++){
-let songInfo=await yti.getVideo(ytsc.videos[i].id)
-let min=csec(songInfo.duration).minutes,sec=csec(songInfo.duration).seconds
-  let duration=`${songInfo.duration} seconds (${min}:${sec})`
+let songInfo=await yts({videoId:ytsc.videos[i].id})
 song.push({
-        id: songInfo.id,
-        title: songInfo.title,
-        views: songInfo.viewCount,
-        url: `https://youtu.be/${songInfo.id}`,
+        id: songInfo.videoId,
+        title: Util.escapeMarkdown(songInfo.title),
+        views: String(songInfo.views).padStart(1, " "),
+        url: songInfo.url,
         ago: songInfo.ago,
-        duration: duration,
-        img: songInfo.thumnail||songInfo.thumbnails[0].url,
+        duration: songInfo.duration.toString(),
+        img: songInfo.image,
         req: client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).user
       })
         
@@ -416,21 +429,19 @@ serverQueue.songs.push(song[i])
       }else{
       client.guilds.cache.get(interaction.guild_id).client.queue.set(interaction.guild_id, queueConstruct);
       for (var i=0;i<ytsc.videos.length;i++){
-let songInfo=await yti.getVideo(ytsc.videos[i].id)
-let min=csec(songInfo.duration).minutes,sec=csec(songInfo.duration).seconds
-  let duration=`${songInfo.duration} seconds (${min}:${sec})`
-song = {
-        id: songInfo.id,
-        title: songInfo.title,
-        views: songInfo.viewCount,
-        url: `https://youtu.be/${songInfo.id}`,
+let songInfo=await yts({videoId:ytsc.videos[i].id})
+song.push({
+        id: songInfo.videoId,
+        title: Util.escapeMarkdown(songInfo.title),
+        views: String(songInfo.views).padStart(1, " "),
+        url: songInfo.url,
         ago: songInfo.ago,
-        duration: duration,
-        img: songInfo.thumnail||songInfo.thumbnails[0].url,
+        duration: songInfo.duration.toString(),
+        img: songInfo.image,
         req: client.guilds.cache.get(interaction.guild_id).members.cache.get(interaction.member.user.id).user
-      };
+      })
         
-queueConstruct.songs.push(song);
+queueConstruct.songs.push(song[i]);
       }
       let playlist=ytsc
        //console.log(ytsc)
@@ -452,7 +463,7 @@ queueConstruct.songs.push(song);
       }
     } else {
       
-      var songInfo = searched.videos[0];
+      var songInfo = await yts({videoId:searched.videoId||searched.videos[0].videoId});
 
       song = {
         id: songInfo.videoId,
