@@ -1,3 +1,11 @@
+import express from 'express';
+const server = express();
+ 
+server.all('/', (req: any, res: any) => {
+  res.sendStatus(200)
+})
+ 
+server.listen(3000, () => { console.log("Server is Ready!!" + Date.now()) });
 
 import fetch from "node-fetch"
 setInterval(async () => {
