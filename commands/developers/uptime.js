@@ -8,7 +8,7 @@ exports.run = (bot, message, args) => {
   let seconds = totalSeconds % 60;
     let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds.toFixed(2)} seconds`;
     let a = new MessageEmbed()
-    .setColor('#0affaf')
+    .setColor(process.env.DISCORD_BOT_EMBED_COLOR||'#0affaf')
     .setDescription("The bot has started for " + uptime)
     message.noMentionReply(a)
   };
