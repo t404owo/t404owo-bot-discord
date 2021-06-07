@@ -41,7 +41,7 @@ exports.run = async (bot, message, args) => {
 
 		const embed = new MessageEmbed()
 			.setTitle(`**Server information for __${message.guild.name}__**`)
-			.setColor(0x0affaf)
+			.setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
 			.setThumbnail(message.guild.iconURL({ dynamic: true }))
 			.setDescription([
 				`**Name**\n${message.guild.name}`,
@@ -90,7 +90,7 @@ exports.interaction = async (bot, message, args) => {
 
 		const embed = new MessageEmbed()
 			.setTitle(`**Server information for __${message.guild.name}__**`)
-			.setColor(0x0affaf)
+			.setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
 			.setThumbnail(message.guild.iconURL({ dynamic: true }))
 			.setDescription([
 				`**Name**\n${message.guild.name}`,
