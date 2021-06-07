@@ -11,7 +11,7 @@ exports.run = (bot, message, args) => {
       //.addField("Bot Developers", "[404]-QuangBùi#6288, t404owo#2452", true)
       //.addField("Bot's Arcaea Wiki Members","t404owo#2452 mitsuko21#3187, TriPizza#7407",true)
       //.setFooter("")
-      .setColor("#0affaf")
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       return message.noMentionReply(embed);
 }
 exports.options=[]
@@ -27,7 +27,7 @@ exports.interaction = async(bot, interaction, args) => {
       //.addField("Bot Developers", "[404]-QuangBùi#6288, t404owo#2452", true)
       //.addField("Bot's Arcaea Wiki Members","t404owo#2452 mitsuko21#3187, TriPizza#7407",true)
       //.setFooter("")
-      .setColor("#0affaf")
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       return bot.api.interactions(interaction.id, interaction.token).callback.post({
                 data: {
                     type: 4,
