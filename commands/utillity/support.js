@@ -3,7 +3,7 @@ exports.run = (bot, message, args) => {
          let link =
              `https://discord.gg/${process.env.DISCORD_BOT_INVITE}`
          let msgembed = new Discord.MessageEmbed()
-      .setColor('#0affaf')
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||'#0affaf')
          .setTitle("Supports <:koulove:801419554156445726>")
       .setDescription('My main support server: [Click here]' + `(${link})`)
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
@@ -17,7 +17,7 @@ exports.interaction = async(bot, interaction, args) => {
          let link =
              `https://discord.gg/${process.env.DISCORD_BOT_INVITE}`
          let embed = new Discord.MessageEmbed()
-      .setColor('#0affaf')
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||'#0affaf')
       .setTitle("Supports <:koulove:801419554156445726>")
       .setDescription('My main support server: [Click here]' + `(${link})`)
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))

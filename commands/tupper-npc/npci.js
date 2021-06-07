@@ -24,7 +24,7 @@ module.exports.run = async (bot, message, args) => {
     );
   message.noMentionReply(
     embed
-      .setColor("#0affaf")
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       .setTitle(`__${bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`)}__'s info`)
       .setDescription(`\n${bot.db.get(`${message.guild.id}npcdesc_${a.toLowerCase()}`)||"No Description"}`)
       .addField("Name", `${bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`)}`)
