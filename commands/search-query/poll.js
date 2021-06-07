@@ -19,7 +19,7 @@ message.delete()
   let pollEmbed = new discord.MessageEmbed()
   .setTitle("Vote")
   .setDescription(vote + "\nUser: <@!"+message.member.id+"> \nTime: " + args[0] )
-  .setColor('#0affaf')
+  .setColor(process.env.DISCORD_BOT_EMBED_COLOR||'#0affaf')
 const sendEmbed= await message.channel.send(pollEmbed)
   await sendEmbed.react("👍")
   await sendEmbed.react("👎")
@@ -33,7 +33,7 @@ const sendEmbed= await message.channel.send(pollEmbed)
 collectorv.on("end",collectv => {
       console.log("ok...");
       let CompleteEmbed = new discord.MessageEmbed()
-   .setColor("#0affaf")
+   .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
   collectorx.on("end",(collectx) => {
      CompleteEmbed
     .setTitle("Time's up!")
