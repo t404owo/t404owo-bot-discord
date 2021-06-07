@@ -29,7 +29,7 @@ DISCORD_BOT_OWNER_ID="user id here"
 DISCORD_BOT_OWNER='your username and tag'
 DISCORD_BOT_PREFIX=prefix here(+, -,...)
 DISCORD_BOT_INVITE=the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)
-VERSION='1.0.0'
+VERSION=''
 PROJECT_DOMAIN=the project's name if you use it on glitch
 ```
 Then create a `.env` file and put the code in it
