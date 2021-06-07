@@ -22,7 +22,7 @@ module.exports.run=async(bot,message,args)=>{
 
     const embed = new MessageEmbed()
     .setTitle("List of npcs/tuppers")
-    .setColor(0x0affaf)
+    .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
     
       // a= `•`+d.user.id
     
