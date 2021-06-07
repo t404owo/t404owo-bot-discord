@@ -24,7 +24,7 @@ if(message.guild!== null){
     song.lyrics().then(lyrics => {
       if (lyrics.length > 2049) {
         const lyricsEmbo = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .setDescription(`[Link]`+ `(${song.url})`);
         
@@ -35,7 +35,7 @@ if(message.guild!== null){
       
       if (lyrics.length < 2048) {
         const lyricsEmbed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
@@ -60,7 +60,7 @@ if(message.guild!== null){
     song.lyrics().then(lyrics => {
       if (lyrics.length > 2049) {
         const lyricsEmbo = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .setDescription(`[Link]`+ `(${song.url})`);
         
@@ -71,7 +71,7 @@ if(message.guild!== null){
       
       if (lyrics.length < 2048) {
         const lyricsEmbed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
@@ -93,7 +93,7 @@ if(message.guild!== null){
     song.lyrics().then(lyrics => {
       if (lyrics.length > 2049) {
         const lyricsEmbo = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .setDescription(`[Link]`+ `(${song.url})`);
         
@@ -104,7 +104,7 @@ if(message.guild!== null){
       
       if (lyrics.length < 2048) {
         const lyricsEmbed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
@@ -146,7 +146,7 @@ if(message.guild!== null){
       var embed
       if (lyrics.length > 2049) {
          embed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .setDescription(`[Link]`+ `(${song.url})`);
         
@@ -157,7 +157,7 @@ if(message.guild!== null){
       
       if (lyrics.length < 2048) {
        embed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
@@ -190,7 +190,7 @@ if(message.guild!== null){
       var embed
       if (lyrics.length > 2049) {
         embed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .setDescription(`[Link]`+ `(${song.url})`);
         
@@ -201,7 +201,7 @@ if(message.guild!== null){
       
       if (lyrics.length < 2048) {
          embed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
@@ -229,7 +229,7 @@ if(message.guild!== null){
       var embed
       if (lyrics.length > 2049) {
          embed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .setDescription(`[Link]`+ `(${song.url})`);
         
@@ -240,7 +240,7 @@ if(message.guild!== null){
       
       if (lyrics.length < 2048) {
          embed = new MessageEmbed()
-          .setColor(0x0affaf)
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||0x0affaf)
           .setTitle(`**${song.artist.name} - ${song.title}**`)
           .addField("** **", `[link]`+ `(${song.url})`)
           .setDescription(lyrics.trim());
