@@ -22,7 +22,7 @@ once you finished doing that, copy the code:
 
 
 {
-  "DISCORD_BOT_EMBED_COLOR":"color in hex, or as word(#1f1e94, blue, white etc)"
+  "DISCORD_BOT_EMBED_COLOR":"color in hex, or as word(#1f1e94, blue, white etc)",
   "DISCORD_BOT_PREFIX": "prefix here(+, -,...)",
   "VERSION": "",
   "DISCORD_BOT_OWNER": "your username and tag",
