@@ -124,7 +124,7 @@ client.guilds.cache
     vidNameArr.push("cancel");
     vidNameArr.push("close");
     const embed = new MessageEmbed()
-      .setColor("#0affaf")
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       .setTitle("Choose a song by giving a number between 1 and 10")
       .setDescription(vidArr.join("\n")) //Ok
       
@@ -357,7 +357,7 @@ message.channel.stopTyping()
     vidNameArr.push("cancel");
     vidNameArr.push("close");
     const embed = new MessageEmbed()
-      .setColor("#0affaf")
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       .setTitle("Choose a song by giving a number between 1 and 10")
       .setDescription(vidArr.join("\n")) //Ok
       /*.addField('** **', `${vidNameArr[0]}`+`${vidUrlArr[0]}`)

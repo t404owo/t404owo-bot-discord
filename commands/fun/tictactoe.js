@@ -75,7 +75,7 @@ let url = member.avatarURL({dynamic:true, size:1024})
 You may type "cancel" at any time to stop the game.
 (Upper left=a1, Up=a2, Upper Right=a3, Left=b1, Middle=b2, Right=b3, Bottom Left=c1, Bottom=c2, Bottom Right=c3)`
       )
-      .setColor("#0affaf")
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
     message.channel.send(`<@${author}>`, Embed).then(async message => {
       for (let i = 0; i < 9; i++) {
         if (i % 2 == 0) {
@@ -341,7 +341,7 @@ You may type "cancel" at any time to stop the game.
             .setFooter(
               'You have 10 seconds to reply with your next move!\nYou may type "cancel" at any time to stop the game.\n(Upper left, Up, Upper Right, Left, Middle, Right, Bottom Left, Bottom, Bottom Right)'
             )
-            .setColor("#0affaf")
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
           message.edit(updatedEmbed);
         } else if (i % 2 > 0) {
           const updatedEmbed = new Discord.MessageEmbed()
@@ -353,7 +353,7 @@ You may type "cancel" at any time to stop the game.
             .setFooter(
               'You have 10 seconds to reply with your next move!\nYou may type "cancel" at any time to stop the game.\n(Upper left, Up, Upper Right, Left, Middle, Right, Bottom Left, Bottom, Bottom Right)'
             )
-            .setColor("#0affaf")
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
           message.edit(updatedEmbed);
         }
 

@@ -21,6 +21,7 @@ For PC users, make sure you install all the packages im package.json using `npm 
 
 once you finished doing that, copy the code:
 ```env
+DISCORD_BOT_EMBED_COLOR="color in hex, or as word(#1f1e94, blue, white etc)"
 DISCORD_BOT_TOKEN=token here
 GENIUS=
 DISCORD_BOT_USERNAME=

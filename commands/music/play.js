@@ -2,8 +2,7 @@ const { Util, MessageEmbed } = require("discord.js");
 const ytdl = require("ytdl-core");
 const y = require("youtubei"), yti= new y.Client(), yts = require("yt-search");
 let playlisturl = /list=([a-zA-Z0-9-_]+)&?/g;
-//let yturl=/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/g;
-let csec=require('convert-seconds')
+
 module.exports = {
   conf: {
     cooldown: 0,
