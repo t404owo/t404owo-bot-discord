@@ -30,7 +30,7 @@
     "node-opus": "^0.3.3",
     "opusscript": "^0.0.8",
     "quick.db": "^7.1.2",
-    "better-sqlite3": "^7.4.0",
+    "better-sqlite3": "^7.4.1",
     "node-superfetch": "^0.2.3",
     "discord-inline-replys": "^1.0.2",
     "botarcapi_lib": "^1.0.5",
