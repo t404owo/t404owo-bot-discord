@@ -24,7 +24,7 @@ once you finished doing that, copy the code:
 {
   "DISCORD_BOT_EMBED_COLOR":"color in hex, or as word(#1f1e94, blue, white etc)",
   "DISCORD_BOT_PREFIX": "prefix here(+, -,...)",
-  "VERSION": "",
+  "VERSION": "1.0.0",
   "DISCORD_BOT_OWNER": "your username and tag",
   "DISCORD_BOT_OWNER_ID": "",
   "DISCORD_BOT_USERNAME": "Bot's name here",
