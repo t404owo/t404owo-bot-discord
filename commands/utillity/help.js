@@ -148,7 +148,7 @@ exports.run = async (bot, message, args) => {
       } else {
         let commandinfo = new discord.MessageEmbed()
           .setTitle("Command: " + command.info.name)
-          .setColor("#0affaf").setDescription(`
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf").setDescription(`
 Name: ${command.info.name}
 Description: ${command.info.description}
 Usage: \`\`${bot.config.prefix}${command.info.name}${" " + command.info.usage ||
@@ -165,7 +165,7 @@ about the brackets:
     }
 
     let embed = new discord.MessageEmbed()
-      .setColor("#0affaf")
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       .setTitle(`Page ${page}/${pages.length}`).setDescription(`${
       pages[page - 1]
     }
@@ -326,7 +326,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
           );
         let commandinfo = new discord.MessageEmbed()
           .setTitle("Command: " + command.info.name)
-          .setColor("#0affaf").setDescription(`
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf").setDescription(`
 Name: ${command.info.name}
 Description: ${command.info.description}
 Usage: \`\`${bot.config.prefix}${command.info.name}${" " + command.info.usage ||
@@ -342,7 +342,7 @@ about the brackets:
       }
       let command = new discord.MessageEmbed()
         .setTitle("Commands list")
-        .setColor("#0affaf");
+        .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf");
       list.forEach(i => {
         command.addField(i.Category, i.commands);
       });
@@ -434,7 +434,7 @@ about the brackets:
         } else {
           let commandinfo = new discord.MessageEmbed()
             .setTitle("Command: " + command.info.name)
-            .setColor("#0affaf").setDescription(`
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf").setDescription(`
 Name: ${command.info.name}
 Description: ${command.info.description}
 Usage: \`\`${bot.config.prefix}${command.info.name}${" " + command.info.usage ||
@@ -451,7 +451,7 @@ about the brackets:
       }
 
       let embed = new discord.MessageEmbed()
-        .setColor("#0affaf")
+        .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
         .setTitle(`Page ${page}/${pages.length}`).setDescription(`${
         pages[page - 1]
       }
@@ -704,7 +704,7 @@ exports.interaction = async (bot, message, arg) => {
         } else {
           let commandinfo = new discord.MessageEmbed()
             .setTitle("Command: " + command.info.name)
-            .setColor("#0affaf").setDescription(`
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf").setDescription(`
 Name: ${command.info.name}
 Description: ${command.info.description}
 Usage: \`\`${bot.config.prefix}${command.info.name}${" " + command.info.usage ||
@@ -726,7 +726,7 @@ about the brackets:
       
 
       let embed = new discord.MessageEmbed()
-        .setColor("#0affaf")
+        .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
         .setTitle(`Page ${page}/${pages.length}`).setDescription(`${
         pages[page - 1]
       }`);
@@ -741,7 +741,7 @@ about the brackets:
   else {
      let command = new discord.MessageEmbed()
         .setTitle("Commands list")
-        .setColor("#0affaf");
+        .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf");
       list.forEach(i => {
         command.addField(i.Category, i.commands);
       });
