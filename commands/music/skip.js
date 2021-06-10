@@ -65,13 +65,12 @@ vote.vote++
      
      }else{*/
     
-     const shiffed = serverQueue.songs.shift();
-            if (serverQueue.loop === true) {
-                serverQueue.songs.push(shiffed);
-            };
-    //serverQueue.songs.shift()
-    console.log(serverQueue.loop === true ? "enabled" : "disabled"+ ": !true")
-
+     console.log(serverQueue.loop === true ? "enabled" : "disabled"+ ": !true")
+if (serverQueue.loop === true) {
+            serverQueue.songs.push(serverQueue.songs[0]);
+          }
+    serverQueue.songs.shift()
+    
     serverQueue.skip = true
     serverQueue.connection.dispatcher.end("Skiped the music");
     message.react("801419553841741904")
@@ -127,13 +126,13 @@ vote.vote++
      
      }else{*/
     
-     const shiffed = serverQueue.songs.shift();
-            if (serverQueue.loop === true) {
-                serverQueue.songs.push(shiffed);
-            };
-    //serverQueue.songs.shift()
+     
     console.log(serverQueue.loop === true ? "enabled" : "disabled"+ ": !true")
-
+if (serverQueue.loop === true) {
+            serverQueue.songs.push(serverQueue.songs[0]);
+          }
+    serverQueue.songs.shift()
+    
     serverQueue.skip = true
     serverQueue.connection.dispatcher.end("Skiped the music");
     sendSuccess('<:hikariok:801419553841741904> | Skipped the song!', message, client)
