@@ -15,8 +15,6 @@ const editInteraction = async (client, interaction, response, appId) => {
             return channel.messages.fetch(answer.data.id)
         })
 };
-
-
 module.exports = {
   conf: {
     cooldown: 0,
@@ -245,22 +243,23 @@ console.log(song.url)
       const dispatcher = queue.connection
         .play(ytdl(song.url, {filter:"audioonly"}))
         .on("finish", () => {
-          if (queue.loop === true) {
-            queue.songs.push(queue.songs.shift());
-          }
           if (queue.skip !== true) {
+            if (queue.loop === true) {
+                queue.songs.push(queue.songs[0]);
+          }
             queue.songs.shift();
             play(queue.songs[0]);
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": !true"
-            );
+            //queue.skip = !queue.skip
+          //  console.log(
+            //  queue.skip === true ? "enabled" : "disabled" + ": !true"
+          //  );
           } else {
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": true"
-            );
-            queue.skip = false;
+          //  console.log(
+           //   queue.skip === true ? "enabled" : "disabled" + ": true"
+          //  );
+
             play(queue.songs[0]);
-            //
+            queue.skip = false;
           }
 
           //const command = args.shift().toLowerCase();
@@ -490,20 +489,20 @@ message.channel.stopTyping()
       const dispatcher = queue.connection
         .play(ytdl(song.url, {filter:"audioonly"}))
         .on("finish", () => {
-          if (queue.loop === true) {
-            queue.songs.push(queue.songs.shift());
-          }
           if (queue.skip !== true) {
+            if (queue.loop === true) {
+                queue.songs.push(queue.songs[0]);
+          }
             queue.songs.shift();
             play(queue.songs[0]);
             //queue.skip = !queue.skip
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": !true"
-            );
+          //  console.log(
+            //  queue.skip === true ? "enabled" : "disabled" + ": !true"
+          //  );
           } else {
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": true"
-            );
+          //  console.log(
+           //   queue.skip === true ? "enabled" : "disabled" + ": true"
+          //  );
 
             play(queue.songs[0]);
             queue.skip = false;
