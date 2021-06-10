@@ -2,8 +2,7 @@ const { Util, MessageEmbed } = require("discord.js");
 const ytdl = require("ytdl-core");
 const y = require("youtubei"), yti= new y.Client(), yts = require("yt-search");
 let playlisturl = /list=([a-zA-Z0-9-_]+)&?/g;
-//let yturl=/^(https?\:\/\/)?(www\.)?(youtube\.com|youtu\.?be)\/.+$/g;
-let csec=require('convert-seconds')
+
 module.exports = {
   conf: {
     cooldown: 0,
@@ -231,22 +230,24 @@ song.push({
       const dispatcher = queue.connection
         .play(ytdl(song.url, { filter: "audioonly" }))
         .on("finish", () => {
-          if (queue.loop === true) {
-            queue.songs.push(queue.songs.shift());
+          
+            if (queue.skip !== true) {
+            if (queue.loop === true) {
+                queue.songs.push(queue.songs[0]);
           }
-          if (queue.skip !== true) {
             queue.songs.shift();
             play(queue.songs[0]);
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": !true"
-            );
+            //queue.skip = !queue.skip
+          //  console.log(
+            //  queue.skip === true ? "enabled" : "disabled" + ": !true"
+          //  );
           } else {
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": true"
-            );
-            queue.skip = false;
+          //  console.log(
+           //   queue.skip === true ? "enabled" : "disabled" + ": true"
+          //  );
+
             play(queue.songs[0]);
-            //
+            queue.skip = false;
           }
 
           //const command = args.shift().toLowerCase();
@@ -520,22 +521,23 @@ queueConstruct.songs.push(song[i]);
       const dispatcher = queue.connection
         .play(ytdl(song.url, { filter: "audioonly" }))
         .on("finish", () => {
-          if (queue.loop === true) {
-            queue.songs.push(queue.songs.shift());
-          }
           if (queue.skip !== true) {
+            if (queue.loop === true) {
+                queue.songs.push(queue.songs[0]);
+          }
             queue.songs.shift();
             play(queue.songs[0]);
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": !true"
-            );
+            //queue.skip = !queue.skip
+          //  console.log(
+            //  queue.skip === true ? "enabled" : "disabled" + ": !true"
+          //  );
           } else {
-            console.log(
-              queue.skip === true ? "enabled" : "disabled" + ": true"
-            );
-            queue.skip = false;
+          //  console.log(
+           //   queue.skip === true ? "enabled" : "disabled" + ": true"
+          //  );
+
             play(queue.songs[0]);
-            //
+            queue.skip = false;
           }
 
           //const command = args.shift().toLowerCase();
