@@ -20,9 +20,12 @@ exports.run = async (bot, message, args) => {
   console.log(use.user.avatarURL({dynamic: true, size: 1024}))
   let embed = new discord.MessageEmbed()
   .setTitle(`${use.user.tag}`)
-  .setDescription(`[Avatar link]`+`(${use.user.avatarURL({dynamic: true, size: 1024})})`)
+  
   .setImage(`${use.user.avatarURL({dynamic: true, size: 1024})}`)
   .setColor(use.displayHexColor === "#000000" ? "#ffffff" : use.displayHexColor)
+  embed.setDescription(`[Original Avatar](${use.user.avatarURL({dynamic: true, size: 1024})}) | [png](${use.user.avatarURL({size: 1024, format:"png"})}) | [jpg](${use.user.avatarURL({size: 1024, format:"jpg"})}) | [webp](${use.user.avatarURL({size: 1024, format:"webp"})})`)
+
+  
   message.noMentionReply(embed)
   
 }
@@ -49,13 +52,15 @@ if(arg)args=[arg.find(arg => arg.name.toLowerCase() == "user").value]
                 }
             });
     }
-  // user.avatarURL({dynamic: true, size: 1024});
- // console.log(use.user.avatarURL({dynamic: true, size: 1024}))
+  // user.avatarURL({size: 1024});
+ // console.log(use.user.avatarURL({size: 1024}))
   let embed = new discord.MessageEmbed()
   .setTitle(`${use.user.tag}`)
-  .setDescription(`[Avatar link]`+`(${use.user.avatarURL({dynamic: true, size: 1024})})`)
-  .setImage(`${use.user.avatarURL({dynamic: true, size: 1024})}`)
+  
+  
+  .setImage(`${use.user.avatarURL({size: 1024})}`)
   .setColor(use.displayHexColor === "#000000" ? "#ffffff" : use.displayHexColor)
+  .setDescription(`[Original Avatar](${use.user.avatarURL({dynamic: true, size: 1024})}) | [png](${use.user.avatarURL({size: 1024, format:"png"})}) | [jpg](${use.user.avatarURL({size: 1024, format:"jpg"})}) | [webp](${use.user.avatarURL({size: 1024, format:"webp"})})`)
   bot.api.interactions(message.id, message.token).callback.post({
                 data: {
                     type: 4,
