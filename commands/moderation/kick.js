@@ -13,7 +13,7 @@ exports.run = async (bot, message, args) => {
           "⚠ |Please mention or give the id of the person who you want to kick"
         );
       }
-      let target = await message.guild.members.fetch(message.member.id).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") });
+      let target = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") });
 
       if (target === !args[0]) {
         return message.mentionReply(
