@@ -22,18 +22,7 @@ bot.db = require("quick.db");
 
 bot.sleep = promisify(setTimeout);
 bot.vote = new Map();
-bot.on("message", message => {
-  if (message.author.bot) return;
-  if (message.guild) {
-    bot.config = {
-      owners: process.env.DISCORD_BOT_OWNER_ID,
-      prefix: bot.db.get(`${message.guild.id}_prefix`) || process.env.DISCORD_BOT_PREFIX
-    };
-    bot.music = {
-      vote: bot.db.get(`${message.guild.id}_vote`) || false
-    };
-  }
-});
+
 
    
 
@@ -403,11 +392,17 @@ bot.config={
 
 bot.on("message", async message => {
   if (message.author.bot || message.author === bot.user) return;
+  
+  
   if (!message.guild) {
+    bot.config = {
+      owners: process.env.DISCORD_BOT_OWNER_ID,
+      prefix: process.env.DISCORD_BOT_PREFIX
+    };
     const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
     const prefix = message.content.match(prefixMention)
       ? message.content.match(prefixMention)[0]
-      : "+";
+      : bot.config.prefix;
 
     bot.emit("experience", message);
 
@@ -455,6 +450,13 @@ bot.on("message", async message => {
 
   //message.guild
   else {
+    bot.config = {
+      owners: process.env.DISCORD_BOT_OWNER_ID,
+      prefix: bot.db.get(`${message.guild.id}_prefix`) || process.env.DISCORD_BOT_PREFIX
+    };
+   // bot.music = {
+   //   vote: bot.db.get(`${message.guild.id}_vote`) || false
+   // };
     const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
     const prefix = message.content.match(prefixMention)
       ? message.content.match(prefixMention)[0]

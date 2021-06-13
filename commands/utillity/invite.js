@@ -2,11 +2,11 @@ const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = (bot, message, args) => {
-  let link1 = `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=2146958847`
-  let msgembed = new Discord.MessageEmbed()
+  let link = `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=666666665`
+    let msgembed = new Discord.MessageEmbed()
       .setColor(process.env.DISCORD_BOT_EMBED_COLOR||'#0affaf')
       .setTitle("Invite me! <:koulove:801419554156445726>")
-      .addField(process.env.DISCORD_BOT_USERNAME, '[Click here]' + `(${link1})`)
+      .addField(process.env.DISCORD_BOT_USERNAME, '[Click here]' + `(${link})`)
       //.addField("Tairitsu", '[Click here]' + `(${link2})`)
       //.addField("Al!ce (Unstable)", '[Click here]' + `(${link3})`)
       .setThumbnail(bot.user.displayAvatarURL({dynamic: true}))
@@ -18,7 +18,7 @@ exports.run = (bot, message, args) => {
     });   
 }
 exports.interaction= async(bot, interaction, args) =>{
-  let link = `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=2146958847`
+  let link = `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=666666665`
 let embed = new Discord.MessageEmbed()
       .setColor(process.env.DISCORD_BOT_EMBED_COLOR||'#0affaf')
        .setTitle("Invite me! <:koulove:801419554156445726>")
