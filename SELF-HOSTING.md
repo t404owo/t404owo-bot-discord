@@ -30,7 +30,8 @@ once you finished doing that, copy the code:
   "DISCORD_BOT_USERNAME": "Bot's name here",
   "GENIUS": "",
   "DISCORD_BOT_TOKEN": "",
-  "DISCORD_BOT_INVITE":"the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)"
+  "DISCORD_BOT_INVITE":"the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)",
+  "PROJECT_DOMAIN":"project domain here(name-of-the-project.project-owner(t404owo-bot.t404owo e.g))"
 }
 ```
 Then click the button with the lock, then click the Open raw editor and put the code in it
