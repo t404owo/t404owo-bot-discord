@@ -22,7 +22,7 @@ exports.run = async (bot, message, args) => {
       .query({ "filter[text]": query });
     const body = JSON.parse(text);
     if (!body.data.length)
-      return message.mentionReply("<:tairitsuno:801419553933492245> | Can't find any results");
+      return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Can't find any results");
     const data = body.data[0].attributes;
     const embed = new Discord.MessageEmbed()
       .setColor(0xf75239)
@@ -73,7 +73,7 @@ if(arg)args=[arg.find(arg => arg.name.toLowerCase() == "anime").value]
                 data: {
                     type: 4,
                     data: {
-                        content: "<:tairitsuno:801419553933492245> | Can't find any results"
+                        content: `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Can't find any results"
                     }
                 }
             });

@@ -8,21 +8,21 @@ exports.run = async(bot, message, args) => {
   if(!perm.has("MANAGE_ROLES")&&!perm.has("MANAGE_GUILD")&&!perm.has("MANAGE_MEMBERS")&&!perm.has("ADMINISTRATOR"))return
    if (!args[0]) {
         return message.mentionReply(
-          "⚠ |Please mention or give the id of the person who you want to mute"
+          `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please mention or give the id of the person who you want to mute"
         );
       }
-    let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") })
+    let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unable to find this Person") })
     
         let target = userm
   if (target === !args[0]) {
         return message.mentionReply(
-          "⚠ |Please mention the person who you want to mute"
+          `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please mention the person who you want to mute"
         );
       }
   
 let tar=message.channel.permissionsFor(userm)//perm.has()
 if (tar.has("ADMINISTRATOR")){
-        return message.mentionReply("<:tairitsuno:801419553933492245> | The user you want to mute is a moderator/administrator I can't do that,try to ban him/her/them yourself..");
+        return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | The user you want to mute is a moderator/administrator I can't do that,try to ban him/her/them yourself..");
   }
 
   let reason = args.slice(2).join(" ");
@@ -104,10 +104,10 @@ target.roles.remove(target.roles.cache);
   target.roles.add(message.guild.roles.cache.find(r => r.id ===muterole).id)
  let reasonb = args.slice(2).join(" ");
   if(!reasonb){
-        message.noMentionReply(`<:hikariok:801419553841741904> | Muted sucessfully`)
+        message.noMentionReply(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Muted sucessfully`)
         };
       if(reasonb) {
-        message.noMentionReply(`<:hikariok:801419553841741904> | Muted sucessfully **|** ${reason}`);}
+        message.noMentionReply(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Muted sucessfully **|** ${reason}`);}
 }
 
 exports.info = {

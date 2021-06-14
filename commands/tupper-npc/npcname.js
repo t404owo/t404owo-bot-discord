@@ -7,17 +7,17 @@ exports.conf={
 module.exports.run=async(bot,message,args)=>{
   
     if (!args[0])
-      return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, Please give a Name to find your character");
+      return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please give a Name to find your character");
     
      let tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)
     
   if (!tupper){ 
       tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`);
-   if (!tupper)return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
+   if (!tupper)return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This Tupper/npc is not existing in this server!");
     }
     
     if(bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)){
-      if(!args[1])return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, You need to add a new name for this npc/tupper!")
+      if(!args[1])return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You need to add a new name for this npc/tupper!")
 
 
       if(args[2]){
@@ -42,7 +42,7 @@ module.exports.run=async(bot,message,args)=>{
     else if(bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`)){
       
       
-      if(!args[2])return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, You need to add a new name for this npc/tupper!")
+      if(!args[2])return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You need to add a new name for this npc/tupper!")
       
      if(args[3]){ 
     bot.db.set(`${message.guild.id}npcav_${args[2]+" "+args[3]}`,
@@ -66,7 +66,7 @@ bot.db.delete(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].to
       return
                   
       }else {
-        message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, The npc/Tupper may not exist in this server!")
+        message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | The npc/Tupper may not exist in this server!")
         return
 
       }

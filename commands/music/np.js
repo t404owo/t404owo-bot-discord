@@ -16,7 +16,7 @@ module.exports = {
     const sendError = require("../../util/error")
 
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message);
+    if (!serverQueue) return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | There is nothing playing in this server.", message);
     let song = serverQueue.songs[0]
     let thing = new MessageEmbed()
       .setAuthor("Now Playing", song.req.displayAvatarURL({ dynamic: true }))
@@ -33,7 +33,7 @@ module.exports = {
     const sendError = require("../../util/slash/error")
 
     const serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
-    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message, client);
+    if (!serverQueue) return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | There is nothing playing in this server.", message, client);
     let song = serverQueue.songs[0]
     let embed = new MessageEmbed()
       .setAuthor("Now Playing", song.req.displayAvatarURL({ dynamic: true }))

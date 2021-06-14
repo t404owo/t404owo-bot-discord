@@ -6,7 +6,7 @@ exports.run = (bot, message, args) => {
   const permissions = message.channel.permissionsFor(message.client.user);
   if (!permissions.has("MANAGE_MESSAGES"))
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | I don't have permission to run this command, I need Manage Messages perm!!!"
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I don't have permission to run this command, I need Manage Messages perm!!!"
     );
   let perm=message.channel.permissionsFor(message.member)//perm.has()
   if (
@@ -32,7 +32,7 @@ exports.run = (bot, message, args) => {
 permissions = mChannel.permissionsFor(message.client.user);
   if (!permissions.has("SEND_MESSAGES"))
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | I don't have permission to run this command, I need Manage Messages perm!!!"
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I don't have permission to run this command, I need Manage Messages perm!!!"
     );
       perm = mChannel.permissionsFor(message.client.user);
   if (!perm.has("SEND_MESSAGES")&&!perm.has("ADMINISTRATOR"))return

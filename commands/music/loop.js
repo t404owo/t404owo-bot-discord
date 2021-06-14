@@ -20,14 +20,14 @@ module.exports = {
 const sendError =require("../../util/error")
 const client = bot;
     const channel = message.member.voice.channel
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
-    if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message);
+    if (!channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join a voice channel to use this command!', message);
+    if (message.guild.me.voice.channel !== channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join voice channel where the bot is to use this command!', message);
     var serverQueue = message.client.queue.get(message.guild.id);
 if (!serverQueue) {
-      return sendError('<:tairitsuno:801419553933492245> | There are no songs on playing right now, pls add a song to play!!!', message);
+      return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | There are no songs on playing right now, pls add a song to play!!!', message);
     }
   if (!serverQueue.songs[0]) {
-      return sendError('<:tairitsuno:801419553933492245> | There are no songs on playing right now, pls add a song to play!!!', message);
+      return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | There are no songs on playing right now, pls add a song to play!!!', message);
     }
     serverQueue.loop = !serverQueue.loop;
     
@@ -41,14 +41,14 @@ if (!serverQueue) {
 const client = bot;
     
     let channel = await client.guilds.cache.get(message.guild_id).members.cache.get(message.member.user.id).voice.channel;
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message, bot);
-    if (client.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message, bot);
+    if (!channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join a voice channel to use this command!', message, bot);
+    if (client.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join voice channel where the bot is to use this command!', message, bot);
     var serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
 if (!serverQueue) {
-      return sendError('<:tairitsuno:801419553933492245> | There are no songs on playing right now, pls add a song to play!!!', message, bot);
+      return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | There are no songs on playing right now, pls add a song to play!!!', message, bot);
     }
   if (!serverQueue.songs[0]) {
-      return sendError('<:tairitsuno:801419553933492245> | There are no songs on playing right now, pls add a song to play!!!', message, bot);
+      return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | There are no songs on playing right now, pls add a song to play!!!', message, bot);
     }
     serverQueue.loop = !serverQueue.loop;
     

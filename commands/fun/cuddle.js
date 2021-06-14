@@ -12,14 +12,14 @@ if (args[0]=== "me"||args[0]=== `<@!${message.author.id}>`) {
       author = bot.user
     } else if(args[0]){
       if(!message.guild) return;
-      userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Remember to mention a valid user to cuddle!") })
+      userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Remember to mention a valid user to cuddle!") })
       usern =userm.user
       //userm =use.user
       author = message.author
     }
   
   if(!userm||!args[0]) {
-return message.mentionReply('<:tairitsuno:801419553933492245> | Remember to mention a valid user to cuddle!');
+return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | Remember to mention a valid user to cuddle!');
 }
     
   let embed = new discord.MessageEmbed()

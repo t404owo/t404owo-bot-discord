@@ -1,14 +1,14 @@
 const { evaluate } = require("mathjs"),{ MessageEmbed }= require('discord.js');
     module.exports.run = async (bot, message, args) => {
 
-        if(!args[0]) return message.mentionReply('<:tairitsuno:801419553933492245> | Please give a question');
+        if(!args[0]) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | Please give a question');
 
         let resp;
 
         try {
             resp = evaluate(args.join(" ").replace("x", "*").replace("X", "*").replace(":", "/").replace("²", "^2").replace("³", "^3").replace("&", "+"))
         } catch (e) {
-            return message.mentionReply('<:tairitsuno:801419553933492245> | Please give a correct question')
+            return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | Please give a correct question')
         }
 
         const embed = new MessageEmbed()
@@ -29,7 +29,7 @@ if(arg)args=[arg.find(arg => arg.name.toLowerCase() == "math-question").value]
                 data: {
                     type: 4,
                     data: {
-                        content: '<:tairitsuno:801419553933492245> | Please give a question'
+                        content: `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | Please give a question'
                     }
                 }
             });
@@ -43,7 +43,7 @@ if(arg)args=[arg.find(arg => arg.name.toLowerCase() == "math-question").value]
                 data: {
                     type: 4,
                     data: {
-                        content: '<:tairitsuno:801419553933492245> | Please give a correct question'
+                        content: `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | Please give a correct question'
                     }
                 }
             });

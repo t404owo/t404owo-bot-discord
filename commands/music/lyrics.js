@@ -51,7 +51,7 @@ if(message.guild!== null){
     
       const serverQueue = message.client.queue.get(message.guild.id);
       if(!serverQueue){
-         return sendError("<:tairitsuno:801419553933492245> | Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!", message)
+         return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!", message)
          }
       const ly = serverQueue.songs[0].title.toString().replace(/\\/g, "")
       console.log(ly)
@@ -118,7 +118,7 @@ if(message.guild!== null){
     
     
 } else {
-  return sendError("<:tairitsuno:801419553933492245> | You're in my DM, not in a server, please give a name of the song to let me search and send you!", message)
+  return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You're in my DM, not in a server, please give a name of the song to let me search and send you!", message)
              }
   },
   options: [
@@ -180,7 +180,7 @@ if(message.guild!== null){
       .get(message.guild_id)
       .client.queue.get(message.guild_id);
       if(!serverQueue){
-         return sendError("<:tairitsuno:801419553933492245> | Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!", message, bot)
+         return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Song is currently not playing, please give an argument after the space in the command like this: **"+bot.config.prefix+"lyrics siromaru Cranky Conflict**!", message, bot)
          }
       const ly = serverQueue.songs[0].title.toString().replace(/\\/g, "")
       console.log(ly)
@@ -259,7 +259,7 @@ if(message.guild!== null){
     
     
 } else {
-  return sendError("<:tairitsuno:801419553933492245> | You're in my DM, not in a server, please give a name of the song to let me search and send you!", message, bot)
+  return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You're in my DM, not in a server, please give a name of the song to let me search and send you!", message, bot)
              }
   }
 };

@@ -4,12 +4,12 @@ exports.run = (bot, message, args) => {
     let perm=message.channel.permissionsFor(message.member)//perm.has()
       if (!perm.has("MANAGE_GUILD")&&!bot.config.owners.includes(message.author.id)&&!perm.has("MANAGE_CHANNELS")&&!perm.has("ADMINISTRATOR"))
       return message.mentionReply(
-        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You can't use that command! you need at least manage channels, manage server or admin perm!"
       );
   const setup = args.slice().join(" ");
       if (!setup)
         return message.mentionReply(
-          `<:tairitsuno:801419553933492245> | Please send a welcome message with this format\`` +
+          `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Please send a welcome message with this format\`` +
             bot.config.prefix +
             `setwelcomemessage [welcome message] ` +
           'To mention the new member\'s name, use $MEMBER$\nTo mention the new member, use $MENTION$\nTo mention the server name, use $SERVER$'+  
@@ -18,7 +18,7 @@ exports.run = (bot, message, args) => {
         );
       bot.db.set(`${message.guild.id}_welcomemessage`, setup)
       message.noMentionReply(
-        `<:hikariok:801419553841741904> | Successfully setup welcome message`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup welcome message`
       );
       return;
 }

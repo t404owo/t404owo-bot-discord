@@ -23,26 +23,26 @@ module.exports = {
     const channel = message.member.voice.channel;
     if (!channel)
       return sendError(
-        "<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You need to join a voice channel to use this command!",
         message
       );
 
     const permissions = channel.permissionsFor(message.client.user);
     if (!permissions.has("CONNECT") && !permissions.has("ADMINISTRATOR"))
       return sendError(
-        "<:tairitsuno:801419553933492245> | I cannot connect to your voice channel, make sure I have the proper permissions!",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I cannot connect to your voice channel, make sure I have the proper permissions!",
         message
       );
     if (!permissions.has("SPEAK") && !permissions.has("ADMINISTRATOR"))
       return sendError(
-        "<:tairitsuno:801419553933492245> | I cannot speak in this voice channel, make sure I have the proper permissions!",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I cannot speak in this voice channel, make sure I have the proper permissions!",
         message
       );
 
     var searchString = args.join(" ");
     if (!searchString)
       return sendError(
-        "<:tairitsuno:801419553933492245> | You didn't provide what you want to play",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You didn't provide what you want to play",
         message
       );
     var songEmbed = await message.noMentionReply(
@@ -75,7 +75,7 @@ module.exports = {
       
       message.channel.stopTyping();
       return sendError(
-        "<:tairitsuno:801419553933492245> | Looks like I was unable to find the song on YouTube",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Looks like I was unable to find the song on YouTube",
         message
       );
     }
@@ -194,7 +194,7 @@ song.push({
         message.channel.stopTyping();
         if (message.guild.me.voice.channel !== channel)
           return sendError(
-            "<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!",
+            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You need to join voice channel where the bot is to use this command!",
             message
           );
         serverQueue.songs.push(song);
@@ -221,7 +221,7 @@ song.push({
     const play = async song => {
       const queue = message.client.queue.get(message.guild.id);
       if (!song) {
-        //sendSucces("<:hikariok:801419553841741904> | Disconnected sucessfully!", message.channel);//If you want your bot stay in vc 24/7 remove this line :D
+        //sendSucces(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Disconnected sucessfully!", message.channel);//If you want your bot stay in vc 24/7 remove this line :D
         //queue.voiceChannel.leave(); //If you want your bot stay in vc 24/7 remove this line too :D
         message.client.queue.delete(message.guild.id);
         return;
@@ -303,7 +303,7 @@ song.push({
       .members.cache.get(interaction.member.user.id).voice.channel;
     if (!channel)
       return sendError(
-        "<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You need to join a voice channel to use this command!",
         interaction,
         client
       );
@@ -313,13 +313,13 @@ song.push({
     );
     if (!permissions.has("CONNECT") && !permissions.has("ADMINISTRATOR"))
       return sendError(
-        "<:tairitsuno:801419553933492245> | I cannot connect to your voice channel, make sure I have the proper permissions!",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I cannot connect to your voice channel, make sure I have the proper permissions!",
         interaction,
         client
       );
     if (!permissions.has("SPEAK") && !permissions.has("ADMINISTRATOR"))
       return sendError(
-        "<:tairitsuno:801419553933492245> | I cannot speak in this voice channel, make sure I have the proper permissions!",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I cannot speak in this voice channel, make sure I have the proper permissions!",
         interaction,
         client
       );
@@ -327,7 +327,7 @@ song.push({
     var searchString = args.join(" ");
     if (!searchString)
       return sendError(
-        "<:tairitsuno:801419553933492245> | You didn't provide what you want to play",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You didn't provide what you want to play",
         interaction,
         client
       );
@@ -374,7 +374,7 @@ if(!searched.videos&&!searched.lists&&!searched.playlists)
       
       client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id).stopTyping();
       return sendEror(
-        "<:tairitsuno:801419553933492245> | Looks like I was unable to find the song on YouTube",
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Looks like I was unable to find the song on YouTube",
         client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id)
       );
     }
@@ -481,7 +481,7 @@ queueConstruct.songs.push(song[i]);
         client.guilds.cache.get(interaction.guild_id).channels.cache.get(interaction.channel_id).stopTyping();
         if (client.guilds.cache.get(interaction.guild_id).me.voice.channel !== channel)
           return sendError(
-            "<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!",
+            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You need to join voice channel where the bot is to use this command!",
             interaction, client
           );
         serverQueue.songs.push(song);
@@ -510,7 +510,7 @@ queueConstruct.songs.push(song[i]);
         .get(interaction.guild_id)
         .client.queue.get(interaction.guild_id);
       if (!song) {
-        //sendSucces("<:hikariok:801419553841741904> | Disconnected sucessfully!", message.channel);//If you want your bot stay in vc 24/7 remove this line :D
+        //sendSucces(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Disconnected sucessfully!", message.channel);//If you want your bot stay in vc 24/7 remove this line :D
         //queue.voiceChannel.leave(); //If you want your bot stay in vc 24/7 remove this line too :D
         client.guilds.cache
           .get(interaction.guild_id)

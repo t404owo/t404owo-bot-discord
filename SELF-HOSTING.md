@@ -31,6 +31,9 @@ DISCORD_BOT_PREFIX=prefix here(+, -,...)
 DISCORD_BOT_INVITE=the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)
 VERSION=''
 PROJECT_DOMAIN=the project's name if you use it on glitch
+EMOTE_NO='❌ or an another emote(make sure the custom emote has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:tairitsuno:69383859583> e.g))'
+EMOTE_YES='✅ or an another emote(make sure the custom emote has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:hikariok:39382847282> e.g))'
+
 ```
 Then create a `.env` file and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples

@@ -10,14 +10,14 @@ exports.run = async (bot, message, args) => {
     let userm;
 
     if (!args[0]) {
-      userm = await message.guild.members.fetch(message.member.id).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") });
+      userm = await message.guild.members.fetch(message.member.id).catch(err => { return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unable to find this Person") });
     } else {
       if(!message.guild) return;
-      userm = message.mentions.members.last() || await message.guild.members.fetch(args[0]).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") })
+      userm = message.mentions.members.last() || await message.guild.members.fetch(args[0]).catch(err => { return message.mentionReply(" | Unable to find this Person") })
     }
 
     if (!userm) {
-      return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this person!")
+      return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unable to find this person!")
     }
 const flags = {
 	DISCORD_EMPLOYEE: 'Discord Employee',
@@ -111,7 +111,7 @@ if(arg) args=[arg.find(arg => arg.name.toLowerCase() == "user").value]
       args = [message.member.user.id];
     } 
   let userm;
-      userm = await bot.guilds.cache.get(message.guild_id).members.fetch(args[0].replace("<@!","").replace("<@", "").replace(">","")).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Please Mention a correct user or give a correct id of the user!") })
+      userm = await bot.guilds.cache.get(message.guild_id).members.fetch(args[0].replace("<@!","").replace("<@", "").replace(">","")).catch(err => { return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please Mention a correct user or give a correct id of the user!") })
     
     
     
@@ -121,7 +121,7 @@ if(arg) args=[arg.find(arg => arg.name.toLowerCase() == "user").value]
                 data: {
                     type: 4,
                     data: {
-                        content: "<:tairitsuno:801419553933492245> | Unable to find this person!"
+                        content: `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unable to find this person!"
                     }
                 }
             });

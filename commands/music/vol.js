@@ -16,16 +16,16 @@ module.exports = {
   run: async function (client, message, args) {
     const sendError = require("../../util/error");
     const channel = message.member.voice.channel
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
-    if (message.guild.me.voice.channel.id !== channel.id)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message);
+    if (!channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join a voice channel to use this command!', message);
+    if (message.guild.me.voice.channel.id !== channel.id)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join voice channel where the bot is to use this command!', message);
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue) return sendError("There is nothing playing in this server.", message);
+    if (!serverQueue) return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | There is nothing playing in this server.", message);
     if (!args[0])return message.noMentionReply(`The current volume is: **${serverQueue.volume}**`);
     serverQueue.volume = args[0]; 
     serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 100);;
-    if(isNaN(args[0]))return sendError("Please use Numerical Values only", message)
+    if(isNaN(args[0]))return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please use Numerical Values only", message)
     let xd = new MessageEmbed()
-    .setDescription(`<:hikariok:801419553841741904> | I set the volume to: **${args[0]}/100**`)
+    .setDescription(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | I set the volume to: **${args[0]}/100**`)
     .setTitle("Server Volume Manager")
     .setColor("BLUE")
     return message.noMentionReply(xd);
@@ -43,10 +43,10 @@ module.exports = {
     let args=[]
 if(arg)args=[arg.find(arg => arg.name.toLowerCase() == "volume").value]  
     const channel = bot.guilds.cache.get(message.guild_id).members.cache.get(message.member.user.id).voice.channel
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message, bot);
-    if (bot.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message, bot);
+    if (!channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join a voice channel to use this command!', message, bot);
+    if (bot.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join voice channel where the bot is to use this command!', message, bot);
     const serverQueue = bot.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
-    if (!serverQueue) return sendError("There is nothing playing in this server.", message, bot);
+    if (!serverQueue) return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | There is nothing playing in this server.", message, bot);
     if (!args[0])return bot.api.interactions(message.id, message.token).callback.post({
                 data: {
                     type: 4,
@@ -57,9 +57,9 @@ if(arg)args=[arg.find(arg => arg.name.toLowerCase() == "volume").value]
             });
     serverQueue.volume = args[0]; 
     serverQueue.connection.dispatcher.setVolumeLogarithmic(args[0] / 100);;
-    if(isNaN(args[0]))return sendError("Please use Numerical Values only", message, bot)
+    if(isNaN(args[0]))return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please use Numerical Values only", message, bot)
     let xd = new MessageEmbed()
-    .setDescription(`<:hikariok:801419553841741904> | I set the volume to: **${args[0]}/100**`)
+    .setDescription(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | I set the volume to: **${args[0]}/100**`)
     .setTitle("Server Volume Manager")
     .setColor("BLUE")
     return bot.api.interactions(message.id, message.token).callback.post({

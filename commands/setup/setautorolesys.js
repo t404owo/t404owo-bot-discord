@@ -8,7 +8,7 @@ exports.run = (bot, message, args) => {
     let perm=message.channel.permissionsFor(message.member)//perm.has()
       if (!perm.has("MANAGE_GUILD")&&!bot.config.owners.includes(message.author.id)&&!perm.has("MANAGE_CHANNELS")&&!perm.has("ADMINISTRATOR"))
       return message.mentionReply(
-        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You can't use that command! you need at least manage channels, manage server or admin perm!"
       );
       let setup;
    if(args[0]==="enable"||args[0]==="on"){
@@ -24,7 +24,7 @@ return sendError("please give enable, on, disable or off as command's argument",
       let a=bot.db.set(`${message.guild.id}_autorolesys`, setup)
       
       message.nomentionReply(
-        `<:hikariok:801419553841741904> | Auto role system is ${a}`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Auto role system is ${a}`
       );
       return;
 }

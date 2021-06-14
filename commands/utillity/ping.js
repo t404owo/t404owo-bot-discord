@@ -3,7 +3,7 @@ exports.run = (bot, message, args) => {
         message.noMentionReply('Ping?')
       .then(msg => {
           
-        msg.edit(`<:hikariok:801419553841741904> | Pong! \`Latency: ${Date.now()- message.createdTimestamp}ms, Message Latency: ${Date.now()- msg.createdTimestamp}ms, API Latency: ${Math.round(bot.ws.ping)}ms\``);
+        msg.edit(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Pong! \`Latency: ${Date.now()- message.createdTimestamp}ms, Message Latency: ${Date.now()- msg.createdTimestamp}ms, API Latency: ${Math.round(bot.ws.ping)}ms\``);
       });   
   }
 exports.interaction= async (bot, interaction, args) =>{
@@ -11,7 +11,7 @@ exports.interaction= async (bot, interaction, args) =>{
                 data: {
                     type: 4,
                     data: {
-                        content: `<:hikariok:801419553841741904> | Pong! \`${Math.round(bot.ws.ping)}ms\``
+                        content: `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Pong! \`${Math.round(bot.ws.ping)}ms\``
                     }
                 }
             });

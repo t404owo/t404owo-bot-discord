@@ -27,7 +27,7 @@ let totalSeconds = (timeObj / 1000);
                 ss = pad_zero(timeObj.seconds).padStart(2, "0");
 
             let finalTime = `**${hours}:${mins}:${secs}**`;
-            return message.mentionReply(`<:tairitsuno:801419553933492245> | You cannot collect your dailies too early. Please wait ${finalTime}.`);
+            return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | You cannot collect your dailies too early. Please wait ${finalTime}.`);
         } else {
            client.db.set(`lastDaily.${message.author.id}`, Date.now());
             client.db.add(`account.${message.author.id}.balance`, amount);

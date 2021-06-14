@@ -378,7 +378,7 @@ bot.ws.on('INTERACTION_CREATE', async interaction => {
   
         const command = interaction.data.name.toLowerCase();
         const args = interaction.data.options;
-  
+
 bot.config={
   prefix:bot.db.get(`${interaction.guild_id}_prefix`) || process.env.DISCORD_BOT_PREFIX
 }
@@ -501,7 +501,7 @@ bot.on("message", async message => {
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
         return message.mentionReply(
-          `<:tairitsuno:801419553933492245> | <@!${
+          `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | <@!${
             message.member.id
           }>, please wait **${timeLeft.toFixed(
             1

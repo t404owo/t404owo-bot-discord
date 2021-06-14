@@ -2,13 +2,13 @@ exports.run = async (bot, message, args) => {
   
   
  const permissions = message.channel.permissionsFor(message.client.user);
-  if(!permissions.has("MANAGE_MESSAGES")) return message.mentionReply("<:koucry:801419554311241728> | I don't have permission to purge messages!!!"); 
+  if(!permissions.has("MANAGE_MESSAGES")) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I don't have permission to purge messages!!!"); 
   //checked
   let perm=message.channel.permissionsFor(message.member)
-    if(!perm.has('MANAGE_MESSAGES')&&!perm.has("ADMINISTRATOR")) return message.mentionReply('<:tairitsuno:801419553933492245> | You dont have permission to purge the messages!')
-    if(!args[0]) return message.mentionReply(`<:tairitsuno:801419553933492245> | Error while running the command. Please type \`${bot.config.prefix}purge [number of message]\` to purge message!`)
+    if(!perm.has('MANAGE_MESSAGES')&&!perm.has("ADMINISTRATOR")) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+'| You don\'t have permission to purge the messages!')
+    if(!args[0]) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} Error while running the command. Please type \`${bot.config.prefix}purge [number of message]\` to purge message!`)
     if(isNaN(args[0])) {
-       message.mentionReply(`<:tairitsuno:801419553933492245> | Error while running the command. Please type \`${bot.config.prefix}purge [number of message]\` to purge messages!`)
+       message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} Error while running the command. Please type \`${bot.config.prefix}purge [number of message]\` to purge messages!`)
       return
   }
      if(parseInt(args[0])>100){
@@ -23,7 +23,7 @@ exports.run = async (bot, message, args) => {
       message.channel.bulkDelete(50)
 
         }
-      return message.channel.send(`<:hikariok:801419553841741904> | deleted **${args[0]}** messages sucessfully(complete)!`).then(msg=>msg.delete({timeout: 5000}))
+      return message.channel.send(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | deleted **${args[0]}** messages sucessfully(complete)!`).then(msg=>msg.delete({timeout: 5000}))
       })
        }
     catch(error) {
@@ -42,7 +42,7 @@ exports.run = async (bot, message, args) => {
       message.channel.bulkDelete(50)
 
         }
-      return message.channel.send(`<:hikariok:801419553841741904> | deleted **${args[0]}** messages sucessfully(complete)!`).then(msg=>msg.delete({timeout: 5000}))
+      return message.channel.send(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | deleted **${args[0]}** messages sucessfully(complete)!`).then(msg=>msg.delete({timeout: 5000}))
       })
        }
     catch(error) {
@@ -54,7 +54,7 @@ exports.run = async (bot, message, args) => {
     
     try{
       message.delete().then(async()=>
-      await message.channel.bulkDelete(args[0]).then(msg => message.channel.send(`<:hikariok:801419553841741904> | deleted **${args[0]}** messages sucessfully(complete)!`)
+      await message.channel.bulkDelete(args[0]).then(msg => message.channel.send(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | deleted **${args[0]}** messages sucessfully(complete)!`)
       .then(msg=>msg.delete({timeout: 5000})))
 )
                             }

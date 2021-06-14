@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args, tools) => {
   
   
 
-  if(message.channel.nsfw=== false) return message.mentionReply("<:tairitsuno:801419553933492245> | This is not a NSFW channel!")
+  if(message.channel.nsfw=== false) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This is not a NSFW channel!")
     const mat =await neko.sfw.neko();
   const embed = new Discord.MessageEmbed()
     .setColor("#ff9900")
