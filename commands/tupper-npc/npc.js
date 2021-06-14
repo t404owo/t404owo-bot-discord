@@ -13,15 +13,13 @@ module.exports.run = async (bot, message, args) => {
     );
   if (!args[0])
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, Tupper/npc is not specified."
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Tupper/npc is not specified."
     );
   let tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)
     
   if (!tupper){ 
       tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`);
-   if (!tupper)return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
+   if (!tupper)return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This Tupper/npc is not existing in this server!");
     }
   message.delete();
   const webhooks = await channel.fetchWebhooks();
@@ -31,9 +29,7 @@ module.exports.run = async (bot, message, args) => {
   if (bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase() + " " + args[1].toLowerCase()}`)) {
     if (!args[2])
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, Message not specified."
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Message not specified."
     );
     a = args.slice(2).join(" ");
     if (!foundHook) {
@@ -57,9 +53,7 @@ module.exports.run = async (bot, message, args) => {
               // We also want to make sure if an error is found, to report it in chat.
               console.log(error);
               return message.mentionReply(
-                "<:tairitsuno:801419553933492245> | <@!" +
-              message.member.id +
-              ">, **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
+                `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
               );
             });
         });
@@ -77,9 +71,7 @@ module.exports.run = async (bot, message, args) => {
           // We also want to make sure if an error is found, to report it in chat.
           console.log(error);
           return message.mentionReply(
-            "<:tairitsuno:801419553933492245> | <@!" +
-              message.member.id +
-              ">, **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
+            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
           );
         });
     }
@@ -87,7 +79,7 @@ module.exports.run = async (bot, message, args) => {
   if (bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)) {
     if (!args[1])
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | Message not specified."
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Message not specified."
     );
     if (!foundHook) {
       channel
@@ -107,9 +99,7 @@ module.exports.run = async (bot, message, args) => {
               // We also want to make sure if an error is found, to report it in chat.
               console.log(error);
               return message.mentionReply(
-                "<:tairitsuno:801419553933492245> | <@!" +
-              message.member.id +
-              ">, **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
+                `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
               );
             });
         });
@@ -125,9 +115,7 @@ module.exports.run = async (bot, message, args) => {
           // We also want to make sure if an error is found, to report it in chat.
           console.log(error);
           return message.mentionReply(
-            "<:tairitsuno:801419553933492245> | <@!" +
-              message.member.id +
-              ">, **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
+            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | **Something went wrong when sending the npc. Please report it to the Developers in my support or core server.**"
           );
         });
     }

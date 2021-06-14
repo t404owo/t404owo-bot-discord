@@ -143,7 +143,7 @@ exports.run = async (bot, message, args) => {
           page = 9;
         } else
           return message.mentionReply(
-            "<:tairitsuno:801419553933492245> | Unknown Command or Category"
+            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unknown Command or Category"
           );
       } else {
         let commandinfo = new discord.MessageEmbed()
@@ -322,7 +322,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
           );
         if (!command)
           return message.mentionReply(
-            "<:tairitsuno:801419553933492245> | Unknown Command"
+            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unknown Command"
           );
         let commandinfo = new discord.MessageEmbed()
           .setTitle("Command: " + command.info.name)
@@ -429,7 +429,7 @@ about the brackets:
             page = 9;
           } else
             return message.mentionReply(
-              "<:tairitsuno:801419553933492245> | Unknown Command or Category"
+              `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unknown Command or Category"
             );
         } else {
           let commandinfo = new discord.MessageEmbed()
@@ -708,7 +708,7 @@ try{
                 data: {
                     type: 4,
                     data: {
-                        content: "<:tairitsuno:801419553933492245> | Unknown Command or Category"
+                        content: `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unknown Command or Category"
                     }
                 }
             });

@@ -14,11 +14,11 @@ options:[],
   interaction: async (client, message, args) => {
 let sendSuccess= require("../../util/slash/success"),sendError= require("../../util/slash/error")
     const { channel } = client.guilds.cache.get(message.guild_id).members.cache.get(message.member.user.id).voice;
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message, client);
-    if (client.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message, client);
+    if (!channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join a voice channel to use this command!', message, client);
+    if (client.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join voice channel where the bot is to use this command!', message, client);
     const serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
     if (!serverQueue) {
-      sendError("<:tairitsuno:801419553933492245> | Nothing playing in this server", message, client);
+      sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Nothing playing in this server", message, client);
     }
      
 
@@ -36,11 +36,11 @@ let sendSuccess= require("../../util/slash/success"),sendError= require("../../u
   run: async (client, message, args) => {
 let sendSuccess= require("../../util/success"),sendError= require("../../util/error")
     const { channel } = message.member.voice;
-    if (!channel)return sendError('<:tairitsuno:801419553933492245> | You need to join a voice channel to use this command!', message);
-    if (message.guild.me.voice.channel !== channel)return sendError('<:tairitsuno:801419553933492245> | You need to join voice channel where the bot is to use this command!', message);
+    if (!channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join a voice channel to use this command!', message);
+    if (message.guild.me.voice.channel !== channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You need to join voice channel where the bot is to use this command!', message);
     const serverQueue = client.queue.get(message.guild.id);
     if (!serverQueue) {
-      message.mentionReply("<:tairitsuno:801419553933492245> | Nothing playing in this server");
+      message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Nothing playing in this server");
     }
      
 

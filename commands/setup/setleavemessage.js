@@ -4,12 +4,12 @@ exports.run = (bot, message, args) => {
     let perm=message.channel.permissionsFor(message.member)//perm.has()
       if (!perm.has("MANAGE_GUILD")&&!bot.config.owners.includes(message.author.id)&&!perm.has("MANAGE_CHANNELS")&&!perm.has("ADMINISTRATOR"))
       return message.mentionReply(
-        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You can't use that command! you need at least manage channels, manage server or admin perm!"
       );
       const setup = args.slice().join(" ");
       if (!setup)
         return message.mentionReply(
-          `<:tairitsuno:801419553933492245> | Please send a leave message with this format\`` +
+          `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Please send a leave message with this format\`` +
             bot.config.prefix +
             `setleavemessage [goodbye message]` +
           ' To mention the leave member, use $MEMBER$\nTo mention the server name, use $SERVER$'+  
@@ -18,7 +18,7 @@ exports.run = (bot, message, args) => {
         );
       bot.db.set(`${message.guild.id}_leavemessage`, setup)
       message.noMentionReply(
-        `<:hikariok:801419553841741904> | Successfully setup goodbye/leave`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup goodbye/leave`
       );
       return;
 }

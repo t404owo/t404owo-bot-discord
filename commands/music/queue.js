@@ -16,8 +16,8 @@ module.exports = {
   run: async function (client, message, args) {
     const sendError = require("../../util/error");
     const serverQueue = message.client.queue.get(message.guild.id);
-    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message);
-    if(args[0]&&isNaN(args[0]))return sendError("<:tairitsuno:801419553933492245> | Please use Numerical Values only", message)
+    if (!serverQueue) return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | There is nothing playing in this server.", message);
+    if(args[0]&&isNaN(args[0]))return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please use Numerical Values only", message)
     if(args[0]&&parseInt(args[0])> Math.ceil(Object.keys(serverQueue.songs).length / 10)) return sendError(`<:tairitsuno:801419553933492245> | The queue currently only has \`${Math.ceil(Object.keys(serverQueue.songs).length / 10)}\` pages!`, message)
     if(args[0]&&parseInt(args[0])<2)return sendError(`<:tairitsuno:801419553933492245> | Please give a number that is higher than **1**!`, message)
     let song=[],qu=[],data=[],page=args[0]||"1"
@@ -63,8 +63,8 @@ serverQueue.songs.forEach((s)=>{
     else args=[arg.find(arg => arg.name.toLowerCase() == "page").value]
     const sendError = require("../../util/slash/error");
     const serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
-    if (!serverQueue) return sendError("<:tairitsuno:801419553933492245> | There is nothing playing in this server.", message, client);
-if(isNaN(args[0]))return sendError("<:tairitsuno:801419553933492245> | Please use Numerical Values only", message, client)
+    if (!serverQueue) return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | There is nothing playing in this server.", message, client);
+if(isNaN(args[0]))return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please use Numerical Values only", message, client)
     if(arg&&parseInt(args[0])> Math.ceil(Object.keys(serverQueue.songs).length / 10)) return sendError(`<:tairitsuno:801419553933492245> | The queue currently only has \`${Math.ceil(Object.keys(serverQueue.songs).length / 10)}\` pages!`, message, client)
     if(arg&&parseInt(args[0])<2)return sendError(`<:tairitsuno:801419553933492245> | Please give a number that is higher than **1**!`, message, client)
 let song=[],qu=[],data=[],page=args[0]

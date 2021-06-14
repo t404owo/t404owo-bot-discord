@@ -7,17 +7,13 @@ exports.conf = {
 module.exports.run = async (bot, message, args) => {
   if (!args[0])
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, Please give a Name to find the character/npc/Tupper"
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please give a Name to find the character/npc/Tupper"
     );
   let a = args.slice().join(" ");
   let tupper = bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`);
   if (!tupper)
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, This Tupper/npc is not existing in this server!"
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Tupper/npc is not existing in this server!"
     );
   bot.db.delete(`${message.guild.id}npcname_${a.toLowerCase()}`);
   bot.db.delete(`${message.guild.id}npcav_${a.toLowerCase()}`);

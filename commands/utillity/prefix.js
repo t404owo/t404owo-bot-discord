@@ -16,7 +16,7 @@ if(args.slice().join(" ").toLowerCase()==='+')bot.db.delete(`${message.guild.id}
 
       console.log(prefix);
 
-      message.noMentionReply(`<:hikariok:801419553841741904> | Prefix set to \`${prefix}\`!`);
+      message.noMentionReply(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Prefix set to \`${prefix}\`!`);
 
       return;
     } else return message.noMentionReply(`Prefix is \`${bot.config.prefix}\`, but you can also <@!${bot.user.id}> me`)

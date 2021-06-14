@@ -13,7 +13,7 @@ exports.run = async (client, message, args) => {
     }
 
     if (user.bot || user === client.user) {
-        return message.noMentionReply("<:koulaugh:801419553220984862> | This user is a bot.");
+        return message.noMentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user is a bot.");
         // If the user was a bot, ignore it.
     }
 

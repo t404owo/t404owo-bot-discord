@@ -23,7 +23,7 @@ exports.run = async (bot, message, args) => {
       )
       .catch(err => {
         return message.mentionReply(
-          "<:tairitsuno:801419553933492245> | Remember to mention a valid user to hug!"
+          `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Remember to mention a valid user to hug!"
         );
       });
     usern = userm.user;
@@ -33,7 +33,7 @@ exports.run = async (bot, message, args) => {
 
   if (!userm || !args[0]) {
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | Remember to mention a valid user to hug!"
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Remember to mention a valid user to hug!"
     );
   }
 

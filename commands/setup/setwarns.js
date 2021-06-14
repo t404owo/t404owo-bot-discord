@@ -8,7 +8,7 @@ exports.run = (bot, message, args) => {
         let perm=message.channel.permissionsFor(message.member)//perm.has()
       if (!perm.has("MANAGE_GUILD")&&!bot.config.owners.includes(message.author.id)&&!perm.has("MANAGE_CHANNELS")&&!perm.has("ADMINISTRATOR"))
       return message.mentionReply(
-        "<:tairitsuno:801419553933492245> | You can't use that command! you need at least manage channels, manage server or admin perm!"
+        `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You can't use that command! you need at least manage channels, manage server or admin perm!"
       );
     if(isNaN(args[0])&&!isNaN(args[1])){
       const setup = args[1]
@@ -18,7 +18,7 @@ exports.run = (bot, message, args) => {
       bot.db.set(`${message.guild.id}_warnmute`, setup)
       
       message.noMentionReply(//noMentionReply
-        `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **muted** if he/she gets **${args[1]}** warns`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup warn, the member will be **muted** if he/she gets **${args[1]}** warns`
       );
       return;
       }
@@ -29,7 +29,7 @@ exports.run = (bot, message, args) => {
       bot.db.set(`${message.guild.id}_warnkick`, setup)
       
       message.noMentionReply(
-        `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **kicked** if he/she gets **${args[1]}** warns`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup warn, the member will be **kicked** if he/she gets **${args[1]}** warns`
       );
       return;
       }
@@ -40,7 +40,7 @@ exports.run = (bot, message, args) => {
       bot.db.set(`${message.guild.id}_warnban`, setup)
       
       message.noMentionReply(
-        `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **banned** if he/she gets **${args[1]}** warns`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup warn, the member will be **banned** if he/she gets **${args[1]}** warns`
       );
       return;
       } else return
@@ -54,7 +54,7 @@ exports.run = (bot, message, args) => {
       bot.db.set(`${message.guild.id}_warnmute`, setup)
       
       message.noMentionReply(
-        `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **muted** if he/she gets **${args[0]}** warns`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup warn, the member will be **muted** if he/she gets **${args[0]}** warns`
       );
       return;
       }
@@ -65,7 +65,7 @@ exports.run = (bot, message, args) => {
       bot.db.set(`${message.guild.id}_warnkick`, setup)
       
       message.noMentionReply(
-        `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **kicked** if he/she gets **${args[0]}** warns`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup warn, the member will be **kicked** if he/she gets **${args[0]}** warns`
       );
       return;
       }
@@ -76,7 +76,7 @@ exports.run = (bot, message, args) => {
       bot.db.set(`${message.guild.id}_warnban`, setup)
       
       message.noMentionReply(
-        `<:hikariok:801419553841741904> | Successfully setup warn, the member will be **banned** if he/she gets **${args[0]}** warns`
+        `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Successfully setup warn, the member will be **banned** if he/she gets **${args[0]}** warns`
       );
       return;
       } else return

@@ -4,14 +4,14 @@ const ms = require("ms");
 exports.run = async(bot, message, args) => {
     //   let warning = JSON.parse(fs.readFileSync("./warnings.json", "utf8"));
     const permissions = message.channel.permissionsFor(message.client.user);
-  if(!permissions.has("MANAGE_MEMBERS")) return message.mentionReply("<:koucry:801419554311241728> | You don't have permission to ban!!!");
+  if(!permissions.has("MANAGE_MEMBERS")) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You don't have permission to ban!!!");
 const perm=message.channel.permissionsFor(message.member)//perm.has()
-  if(!perm.has("MANAGE_MEMBERS")&&!perm.has("MANAGE_GUILD")&&!perm.has("ADMINISTRATOR")) return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to warn!!!");
-  let wUser = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply("<:tairitsuno:801419553933492245> | Remember to mention a valid user to warn!") })
+  if(!perm.has("MANAGE_MEMBERS")&&!perm.has("MANAGE_GUILD")&&!perm.has("ADMINISTRATOR")) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You don't have permission to warn!!!");
+  let wUser = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Remember to mention a valid user to warn!") })
   if(!wUser) return message.mentionReply("I couldn't find the user!");
-  if(wUser.user.id === message.author.id)return message.mentionReply("<:tairitsuno:801419553933492245> | You can't warn yourself!")
+  if(wUser.user.id === message.author.id)return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You can't warn yourself!")
  let pUser = message.channel.permissionsFor(wUser)//perm.has()
-  if(pUser.has("ADMINISTRATOR")) return message.mentionReply("<:tairitsuno:801419553933492245> | You don't have permission to warn an admin/mod!!!");
+  if(pUser.has("ADMINISTRATOR")) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You don't have permission to warn an admin/mod!!!");
   let reason = args.slice(1).join(" ");
       if (!reason) reason = "";
       let a=bot.db.get(`${wUser.user.id}_${message.guild.id}_warns`)||0
@@ -34,7 +34,7 @@ console.log(warnings)
         
         target.ban({reason: `get too much warns`});
        
-       return message.noMentionReply(`<:hikariok:801419553841741904> | Banned sucessfully **|** get too much warns`)
+       return message.noMentionReply(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Banned sucessfully **|** get too much warns`)
 }   
   else
   if(a > d-1){
@@ -44,13 +44,13 @@ console.log(warnings)
         
         target.kick({reason: `get too much warns`});
        
-       return message.noMentionReply(`<:hikariok:801419553841741904> | Kicked sucessfully **|** get too much warns`)
+       return message.noMentionReply(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Kicked sucessfully **|** get too much warns`)
 }  
   else
     if(a > c-1){
    
   
-    let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.mentionReply("<:tairitsuno:801419553933492245> | Unable to find this Person") })
+    let userm = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@", "").replace(">", "")).catch(err => { console.error(err);return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unable to find this Person") })
     
         let target = userm
   
@@ -135,7 +135,7 @@ target.roles.remove(target.roles.cache);
   target.roles.add(message.guild.roles.cache.find(r => r.id ===muterole).id)
  
   
-  message.noMentionReply("<:hikariok:801419553841741904> | Muted Sucessfully! **|** Get too much warns")
+  message.noMentionReply("${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Muted Sucessfully! **|** Get too much warns")
  
    
 }
@@ -145,10 +145,10 @@ target.roles.remove(target.roles.cache);
       .then(msg => {
         let reasonb= args.slice(1).join(" ");
         if(!reasonb){
-        msg.edit(`<:hikariok:801419553841741904> | ${wUser.user.tag} has been warned`)
+        msg.edit(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | ${wUser.user.tag} has been warned`)
         };
       if(reasonb) {
-        msg.edit(`<:hikariok:801419553841741904> | ${wUser.user.tag} has been warned || ${reason}`);}
+        msg.edit(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | ${wUser.user.tag} has been warned || ${reason}`);}
     });
 }
 

@@ -8,9 +8,7 @@ module.exports.run = async (bot, message, args) => {
   let { MessageEmbed } = require("discord.js");
   if (!args[0])
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, Please give a Name to find the character/npc/Tupper"
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please give a Name to find the character/npc/Tupper"
     );
   let a = args.slice().join(" ");
 
@@ -18,9 +16,7 @@ module.exports.run = async (bot, message, args) => {
     tupper = bot.db.get(`${message.guild.id}npcname_${a.toLowerCase()}`);
   if (!tupper)
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, This Tupper/npc is not existing in this server!"
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This Tupper/npc is not existing in this server!"
     );
   message.noMentionReply(
     embed

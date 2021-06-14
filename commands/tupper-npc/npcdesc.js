@@ -9,16 +9,14 @@ module.exports.run = async (bot, message, args) => {
   let channel = message.channel;
   if (!args[0])
     return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, Tupper/npc is not specified."
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Tupper/npc is not specified."
     );
   
   let tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)
     
   if (!tupper){ 
       tupper = bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()+" "+args[1].toLowerCase()}`);
-   if (!tupper)return message.mentionReply("<:tairitsuno:801419553933492245> | <@!"+message.member.id+">, This Tupper/npc is not existing in this server!");
+   if (!tupper)return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This Tupper/npc is not existing in this server!");
     }
 
   let a = args.slice(1).join(" ");
@@ -27,9 +25,7 @@ module.exports.run = async (bot, message, args) => {
      a= args.slice(2).join(" ")
     if (!args[2])     
 return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, Description not specified. Please type -delete if you want to remove the description."
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Description not specified. Please type -delete if you want to remove the description."
     );
     if (args[2]==="-delete")
        {
@@ -42,9 +38,7 @@ return success(`**${bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase
   if (bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)) {
        if (!args[1])     
 return message.mentionReply(
-      "<:tairitsuno:801419553933492245> | <@!" +
-        message.member.id +
-        ">, Description not specified. Please type -delete if you want to remove the description."
+      `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Description not specified. Please type -delete if you want to remove the description."
     );
     if (args[1]==="-delete")
        {
