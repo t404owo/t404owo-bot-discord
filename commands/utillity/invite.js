@@ -2,8 +2,10 @@ const Discord = require('discord.js');
 const { MessageEmbed } = require('discord.js');
 
 exports.run = (bot, message, args) => {
+
   let link = `https://discord.com/oauth2/authorize?client_id=${bot.user.id}&scope=bot+applications.commands&permissions=8989934591`
     let msgembed = new Discord.MessageEmbed()
+
       .setColor(process.env.DISCORD_BOT_EMBED_COLOR||'#0affaf')
       .setTitle("Invite me! <:koulove:801419554156445726>")
       .addField(process.env.DISCORD_BOT_USERNAME, '[Click here]' + `(${link})`)
