@@ -13,9 +13,7 @@ exports.run = async (bot, message, args) => {
           `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please mention or give the id of the person who you want to kick"
         );
       }
-
       let target = await message.guild.members.fetch(args[0].replace("<@!", "").replace("<@","").replace(">","")).catch(err => { return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unable to find this Person") });
-
 
       if (target === !args[0]) {
         return message.mentionReply(

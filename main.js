@@ -16,7 +16,7 @@ const util = require("util");
 
 const fetch = require("node-fetch");
 setInterval(async () => {
-  await fetch(`https://${process.env.PROJECT_DOMAIN}.repl.co`); //main projects site
+  await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`); //main projects site
 }, 60000);
 bot.db = require("quick.db");
 
