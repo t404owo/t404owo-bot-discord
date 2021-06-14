@@ -600,15 +600,67 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
 };
 exports.options = [
   {
-    name: "command-category-page",
-    description: "Which page, which category or which command?",
+    name: "command",
+    description: "Which command do you want to search?",
     type: 3,
     required: false
+  },
+  {
+    name: "page",
+    description: "Which page or which category?",
+    type: 3,
+    required: false,
+    choices:[
+    {
+    name:"1: misc/utillity",
+    value:"1"
+    },
+    {
+    name:"2: Search/Query",
+    value:"2"
+    },
+    {
+    name:"3: Moderation",
+    value:"3"
+    },
+    {
+    name:"4: Setup",
+    value:"4"
+    },
+    {
+    name:"5: Economy",
+    value:"5"
+    },
+    {
+    name:"6: Music",
+    value:"6"
+    },
+    {
+    name:"7: Npcs/Tuppers",
+    value:"7"
+    },
+    {
+    name:"8: Fun/Roleplay",
+    value:"8"
+    },
+     {
+    name:"9: Leveling",
+    value:"9"
+    }, 
+]
   }
+  
 ];
 exports.interaction = async (bot, message, arg) => {
   let interaction= message, args=[];
-  if(arg) args = [arg.find(arg => arg.name.toLowerCase() == "command-category-page").value];
+if(arg){
+try{
+  args = [arg.find(arg => arg.name.toLowerCase() == "command").value];
+} catch(e){
+  args = [arg.find(arg => arg.name.toLowerCase() == "page").value];
+}
+
+}
   let module = bot.helps.array();
 
   let page = 1;
@@ -623,71 +675,30 @@ exports.interaction = async (bot, message, arg) => {
 
         if (!command) {
           if (
-            args[0] === "1" ||
-            args[0].toLowerCase() === "utillity" ||
-            args[0].toLowerCase() === "utillities" ||
-            args[0].toLowerCase() === "util" ||
-            args[0].toLowerCase() === "utils" ||
-            args[0].toLowerCase() === "miscs" ||
-            args[0].toLowerCase() === "misc"
+            args[0] === "1"
           ) {
             page = 1;
           } else if (
-            args[0] === "2" ||
-            args[0].toLowerCase() === "search" ||
-            args[0].toLowerCase() === "query" ||
-            args[0].toLowerCase() === "searchs" ||
-            args[0].toLowerCase() === "queries" ||
-            args[0].toLowerCase() === "search/query" ||
-            args[0].toLowerCase() === "query/search" ||
-            args[0].toLowerCase() === "searchquery" ||
-            args[0].toLowerCase() === "querysearch"
+            args[0] === "2"
           ) {
             page = 2;
           } else if (
-            args[0] === "3" ||
-            args[0].toLowerCase() === "moderation" ||
-            args[0].toLowerCase() === "moderator" ||
-            args[0].toLowerCase() === "admin" ||
-            args[0].toLowerCase() === "administrator" ||
-            args[0].toLowerCase() === "mod" ||
-            args[0].toLowerCase() === "moderations" ||
-            args[0].toLowerCase() === "moderators" ||
-            args[0].toLowerCase() === "mods" ||
-            args[0].toLowerCase() === "admins" ||
-            args[0].toLowerCase() === "administrators"
+            args[0] === "3"
           ) {
             page = 3;
-          } else if (args[0] === "4" || args[0].toLowerCase() === "setup") {
+          } else if (args[0] === "4") {
             page = 4;
           } else if (
-            args[0] === "5" ||
-            args[0].toLowerCase() === "economy" ||
-            args[0].toLowerCase() === "economies" ||
-            args[0].toLowerCase() === "eco" ||
-            args[0].toLowerCase() === "ecos"
+            args[0] === "5"
           ) {
             page = 5;
-          } else if (args[0] === "6" || args[0].toLowerCase() === "music") {
+          } else if (args[0] === "6") {
             page = 6;
           } else if (
-            args[0] === "7" ||
-            args[0].toLowerCase() === "npc" ||
-            args[0].toLowerCase() === "tupper" ||
-            args[0].toLowerCase() === "npcs" ||
-            args[0].toLowerCase() === "tuppers" ||
-            args[0].toLowerCase() === "npc/tupper" ||
-            args[0].toLowerCase() === "tupper/npc" ||
-            args[0].toLowerCase() === "npctupper" ||
-            args[0].toLowerCase() === "tuppernpc" ||
-            args[0].toLowerCase() === "npcs/tuppers" ||
-            args[0].toLowerCase() === "tuppers/npcs"
-          ) {
+            args[0] === "7") {
             page = 7;
           } else if (
-            args[0] === "8" ||
-            args[0].toLowerCase() === "fun" ||
-            args[0].toLowerCase() === "roleplay"
+            args[0] === "8"
           ) {
             page = 8;
           } else if (args[0] === "9" || args[0].toLowerCase() === "leveling") {
