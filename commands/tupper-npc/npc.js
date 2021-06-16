@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
     const permissions = channel.permissionsFor(message.client.user);
   if (!permissions.has("MANAGE_WEBHOOKS", "MANAGE_MESSAGES"))
     return message.mentionReply(
-      "<:hikarisorry:801419553892073483> | I'm not able to create webhooks or I can't manage messages in this channel, so that means I'm not able to send npcs/tuppers"
+            `${process.env.EMOTE_NO ||"<:hikarisorry:801419553892073483>"}`+" | I'm not able to create webhooks or I can't manage messages in this channel, so that means I'm not able to send npcs/tuppers"
     );
   if (!args[0])
     return message.mentionReply(
