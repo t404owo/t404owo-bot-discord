@@ -23,7 +23,6 @@ bot.db = require("quick.db");
 bot.sleep = promisify(setTimeout);
 bot.vote = new Map();
 
-
    
 
 bot.createAPIMessage= async(interaction, content)=> {
