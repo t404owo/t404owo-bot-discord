@@ -35,7 +35,7 @@ module.exports = {
     //serverQueue.songs.shift()
     serverQueue.skip = !serverQueue.skip
     serverQueue.connection.dispatcher.end("Skiped the music");
-    message.react("766664525356204092")
+    message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"766664525356204092")
     return
        }
        
@@ -73,7 +73,7 @@ if (serverQueue.loop === true) {
     
     serverQueue.skip = true
     serverQueue.connection.dispatcher.end("Skiped the music");
-    message.react("801419553841741904")
+    message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
 },
   options:[],
   interaction: async function (client, message, args) {

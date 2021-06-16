@@ -36,7 +36,7 @@ Queue.songs.splice(0, Queue.songs.length)
     }
     
     await Queue.songs.unshift(Current);
-    message.react("801419553841741904")
+    message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
     sendSuccess(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Queue Has Been Shuffled", message, client)
 
   },
@@ -67,7 +67,7 @@ Queue.songs.splice(0, Queue.songs.length)
     }
     
     await Queue.songs.unshift(Current);
-    //message.react("801419553841741904")
+    //message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
     sendSuccess(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Queue Has Been Shuffled", message, client)
 
         
