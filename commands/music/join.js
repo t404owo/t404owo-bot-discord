@@ -34,7 +34,7 @@ module.exports = {
   }
     await channel.join();
     
-    message.react("801419553841741904")
+    message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
     sendSuccess(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Joined Successfully!", message);
     const serverQueue = message.client.queue.get(message.guild.id);
 
@@ -50,7 +50,7 @@ module.exports = {
     if (client.guilds.cache.get(message.guild_id).me.voice.channel !== channel)return sendError(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | The bot is already in an another channel, you need to join voice channel where the bot is to use this command!', message, client);
   }
     await channel.join();
-    //message.react("801419553841741904")
+    //message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
     sendSuccess(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Joined Successfully!", message, client);
     const serverQueue = client.guilds.cache.get(message.guild_id).client.queue.get(message.guild_id);
 

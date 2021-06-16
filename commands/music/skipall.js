@@ -25,8 +25,8 @@ let sendSuccess= require("../../util/slash/success"),sendError= require("../../u
     try {
       serverQueue.songs.splice(0, serverQueue.songs.length-2);
       serverQueue.connection.dispatcher.end("Skiped the music");
-      sendSuccess("<:hikariok:801419553841741904>  | Skipped all the songs!", message, client);
-//message.react("801419553841741904")
+      sendSuccess(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Skipped all the songs!", message, client);
+//message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
       return;
     } catch {
       serverQueue.connection.dispatcher.end();
@@ -47,7 +47,7 @@ let sendSuccess= require("../../util/success"),sendError= require("../../util/er
     try {
       serverQueue.songs.splice(0, serverQueue.songs.length-2);
       serverQueue.connection.dispatcher.end("Skiped the music");
-message.react("801419553841741904")
+message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
       return;
     } catch {
       serverQueue.connection.dispatcher.end();

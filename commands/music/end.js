@@ -27,7 +27,7 @@ module.exports = {
         message
       );
     //await channel.leave();
-    message.react("801419553841741904");
+    message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
     const serverQueue = message.client.queue.get(message.guild.id);
 
     if (!serverQueue) {
@@ -67,7 +67,7 @@ module.exports = {
       );
 
     // await channel.leave();
-    //message.react("801419553841741904")
+    //message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
     const serverQueue = client.guilds.cache
       .get(message.guild_id)
       .client.queue.get(message.guild_id);

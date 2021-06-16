@@ -170,16 +170,20 @@ about the brackets:
       pages[page - 1]
     }
 
-React <:botarright:766649411014361159>to go to page ${page + 1}`);
+React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
 
     message.noMentionReply(embed).then(msg => {
-      msg.react("766649447413055498");
-      msg.react("766649411014361159").then(r => {
-        msg.react("🗑");
-        const BackwardFilter = (reaction, user) =>
+        msg.react(process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649447413055498");
+        msg.react(process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649411014361159").then(r => {
+          msg.react("🗑");
+          const BackwardFilter = (reaction, user) =>
+          reaction.emoji.id === process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","") &&
+          user.id === message.author.id||
           reaction.emoji.id === "766649447413055498" &&
           user.id === message.author.id;
         const ForwardFilter = (reaction, user) =>
+          reaction.emoji.id === process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")&&
+          user.id === message.author.id||
           reaction.emoji.id === "766649411014361159" &&
           user.id === message.author.id;
         const CloseFilter = (reaction, user) =>
@@ -215,7 +219,7 @@ React <:botarright:766649411014361159>to go to page ${page + 1}`);
           if (page == 1) {
             embed.setDescription(`${pages[page - 1]}
 
-React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
+React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
             msg.edit(embed);
             return;
           }
@@ -223,8 +227,8 @@ React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
             `${pages[page - 1]}` +
               `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
           );
           embed.setTitle(`Page ${page}/${pages.length}`);
           msg.edit(embed);
@@ -235,7 +239,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
           if (page == 1) {
             embed.setDescription(`${pages[page - 1]}
 
-React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
+React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
             msg.edit(embed);
             return;
           }
@@ -243,8 +247,8 @@ React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
             `${pages[page - 1]}` +
               `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
           );
           embed.setTitle(`Page ${page}/${pages.length}`);
           msg.edit(embed);
@@ -267,7 +271,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
               `${pages[page - 1]}` +
                 `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
             );
             embed.setTitle(`Page ${page}/${pages.length}`);
             msg.edit(embed);
@@ -277,8 +281,8 @@ React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
             pages[page - 1] +
               `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1} 
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
           );
           embed.setTitle(`Page ${page}/${pages.length}`);
           msg.edit(embed);
@@ -291,7 +295,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
               `${pages[page - 1]}` +
                 `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
             );
             embed.setTitle(`Page ${page}/${pages.length}`);
             msg.edit(embed);
@@ -301,8 +305,8 @@ React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
             pages[page - 1] +
               `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1} 
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
           );
           embed.setTitle(`Page ${page}/${pages.length}`);
           msg.edit(embed);
@@ -456,18 +460,22 @@ about the brackets:
         pages[page - 1]
       }
 
-React <:botarright:766649411014361159>to go to page ${page + 1}`);
+React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
 
       message.noMentionReply(embed).then(msg => {
-        msg.react("766649447413055498");
-        msg.react("766649411014361159").then(r => {
+        msg.react(process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649447413055498");
+        msg.react(process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649411014361159").then(r => {
           msg.react("🗑");
           const BackwardFilter = (reaction, user) =>
-            reaction.emoji.id === "766649447413055498" &&
-            user.id === message.author.id;
-          const ForwardFilter = (reaction, user) =>
-            reaction.emoji.id === "766649411014361159" &&
-            user.id === message.author.id;
+          reaction.emoji.id === process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","") &&
+          user.id === message.author.id||
+          reaction.emoji.id === "766649447413055498" &&
+          user.id === message.author.id;
+        const ForwardFilter = (reaction, user) =>
+          reaction.emoji.id === process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")&&
+          user.id === message.author.id||
+          reaction.emoji.id === "766649411014361159" &&
+          user.id === message.author.id;
           const CloseFilter = (reaction, user) =>
             reaction.emoji.name === "🗑" && user.id === message.author.id;
           const backward = msg.createReactionCollector(BackwardFilter, {
@@ -501,7 +509,7 @@ React <:botarright:766649411014361159>to go to page ${page + 1}`);
             if (page == 1) {
               embed.setDescription(`${pages[page - 1]}
 
-React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
+React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
               msg.edit(embed);
               return;
             }
@@ -509,8 +517,8 @@ React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
               `${pages[page - 1]}` +
                 `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
             );
             embed.setTitle(`Page ${page}/${pages.length}`);
             msg.edit(embed);
@@ -521,7 +529,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
             if (page == 1) {
               embed.setDescription(`${pages[page - 1]}
 
-React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
+React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
               msg.edit(embed);
               return;
             }
@@ -529,8 +537,8 @@ React <:botarrowright:766649411014361159>to go to page ${page + 1}`);
               `${pages[page - 1]}` +
                 `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
             );
             embed.setTitle(`Page ${page}/${pages.length}`);
             msg.edit(embed);
@@ -553,7 +561,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
                 `${pages[page - 1]}` +
                   `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
               );
               embed.setTitle(`Page ${page}/${pages.length}`);
               msg.edit(embed);
@@ -563,8 +571,8 @@ React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
               pages[page - 1] +
                 `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1} 
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
             );
             embed.setTitle(`Page ${page}/${pages.length}`);
             msg.edit(embed);
@@ -577,7 +585,7 @@ Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
                 `${pages[page - 1]}` +
                   `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
               );
               embed.setTitle(`Page ${page}/${pages.length}`);
               msg.edit(embed);
@@ -587,8 +595,8 @@ React with <:botarrowleft:766649447413055498>to go back page ${page - 1}`
               pages[page - 1] +
                 `
 
-React with <:botarrowleft:766649447413055498>to go back page ${page - 1} 
-Or react with <:botarrowright:766649411014361159>to go to page ${page + 1}`
+React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
+Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
             );
             embed.setTitle(`Page ${page}/${pages.length}`);
             msg.edit(embed);
