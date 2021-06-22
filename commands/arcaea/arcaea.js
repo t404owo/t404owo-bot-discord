@@ -99,17 +99,17 @@ Release date: ${moment(timestamp.toDate(result.date)).format("LLLL")+` (${dx(new
   .addField("Past", `Level:${pstdiff}
 Rating: ${result.difficulties[0].ratingReal}
 Designer: ${result.difficulties[0].chartDesigner}
-Illustration: ${result.difficulties[0].jacketDesinger}
+Illustration: ${result.difficulties[0].jacketDesigner}
 Notes: ${result.difficulties[0].totalNotes}`)
   .addField("Present", `Level:${prsdiff}
 Rating: ${result.difficulties[1].ratingReal}
 Designer: ${result.difficulties[1].chartDesigner}
-Illustration: ${result.difficulties[1].jacketDesinger}
+Illustration: ${result.difficulties[1].jacketDesigner}
 Notes: ${result.difficulties[1].totalNotes}`)
   .addField("Future", `Level:${ftrdiff}
 Rating: ${result.difficulties[2].ratingReal}
 Designer: ${result.difficulties[2].chartDesigner}
-Illustration: ${result.difficulties[2].jacketDesinger}
+Illustration: ${result.difficulties[2].jacketDesigner}
 Notes: ${result.difficulties[2].totalNotes}`)
  if(result.difficulties[3]){
    if(result.difficulties[3].ratingReal>=10&&result.difficulties[3].ratingReal<=10.9)byddiff= "10+";
@@ -118,7 +118,7 @@ else byddiff= result.difficulties[3].rating
    embed.addField("Beyond", `Level:${byddiff}
 Rating: ${result.difficulties[3].ratingReal}
 Designer: ${result.difficulties[3].chartDesigner}
-Illustration: ${result.difficulties[3].jacketDesinger}
+Illustration: ${result.difficulties[3].jacketDesigner}
 Notes: ${result.difficulties[3].totalNotes}`)
  }
   if(result.remote_dl===true) {if(result.world_unlock===true){embed.setFooter("You need to download and unlock this song in World mode to play!")}else{embed.setFooter("You need to download this song to play!")}}else{if(result.world_unlock===true){embed.setFooter("You need to unlock this song in World mode to play!")}}
