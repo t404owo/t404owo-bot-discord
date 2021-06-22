@@ -36,7 +36,7 @@
     "botarcapi_lib": "^1.0.5",
     "axios": "^0.21.1",
     "youtubei": "^0.0.1-rc.14",
-    "convert-seconds": "^1.0.1"
+    "unix-timestamp": "^0.2.0"
   },
   "engines": {
     "node": "12.x"
