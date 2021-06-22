@@ -35,6 +35,8 @@ EMOTE_NO='a custom :x: (make sure the custom emote has to be: <a:emote_name:emot
 EMOTE_YES='a custom tick (make sure the custom emote has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:hikariok:39382847282> e.g))'
 EMOTE_RIGHT='a custom right arrow'
 EMOTE_LEFT='a custom left arrow'
+ARCAPI_URL="BotArcAPI hosting server"
+ARCAPI_USERAGENT="SecretAPIUA"
 ```
 Then create a `.env` file and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
