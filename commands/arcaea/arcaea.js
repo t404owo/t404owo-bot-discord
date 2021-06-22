@@ -94,7 +94,7 @@ Artist: ${result.artist}
 BPM: ${result.bpm}
 Side: ${side[result.side]}
 Version: ${result.version} 
-Release date: ${moment(timestamp.toDate(result.date)).format("LLLL")+` (${dx(new Date(), result.date*1000)})`})
+Release date: ${moment(timestamp.toDate(result.date)).format("LLLL")+` (${dx(new Date(), result.date*1000)}`})
 `)
   .addField("Past", `Level:${pstdiff}
 Rating: ${result.difficulties[0].ratingReal}
