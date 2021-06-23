@@ -478,7 +478,7 @@ Collection/Recollection Gauge: ${score.health}%
 Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
 Far: ${score.near_count}
 Lost: ${score.miss_count}`)
-.setFooter(`Played by ${result.name}`)
+.setFooter(`Played by ${result.name}`).setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
     if (title.set==='omatsuri'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
@@ -544,7 +544,7 @@ Collection/Recollection Gauge: ${score.health}%
 Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
 Far: ${score.near_count}
 Lost: ${score.miss_count}`)
-.setFooter(`Played by ${result.name}`)
+.setFooter(`Played by ${result.name}`).setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
     if (title.set==='omatsuri'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
@@ -607,7 +607,7 @@ Collection/Recollection Gauge: ${score.health}%
 Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
 Far: ${score.near_count}
 Lost: ${score.miss_count}`)
-.setFooter(`Played by ${result.name}`)
+.setFooter(`Played by ${result.name}`).setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
     if (title.set==='omatsuri'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
