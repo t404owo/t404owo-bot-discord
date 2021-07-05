@@ -1,6 +1,6 @@
 const BotArcApi= require("botarcapi_lib")
 const { MessageEmbed } = require("discord.js")
-const {BotArcApiV4} = BotArcApi.default;
+const {BotArcApiV4} = BotArcApi;
 let timestamp=require('unix-timestamp'), moment = require("moment");
 let ta=require("ms")
 function dx(current, previous) {
