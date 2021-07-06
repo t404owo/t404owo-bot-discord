@@ -202,9 +202,10 @@ Make sure you use like this: \`${bot.config.prefix}arcaea <command>\``)
     else if(args[0].toLowerCase()==='bind'||args[0].toLowerCase()==='b')
     {
       if(!args[1])return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Please bind your Arcaea account like this: `"+bot.config.prefix+"arcaea bind <userid or username>` or `"+bot.config.prefix+"arcaeabind <userid or username>`")
-      let u=await api.user.info(args[1], true).catch(e=>{ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
+      let u=await api.user.info(args.slice(1).join(""), true).catch(e=>{ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
+      console.log(args.slice(1).join())
       if(u.name){
-        bot.db.set(`${message.author.id}_arcaea_acc`, args[1])
+        bot.db.set(`${message.author.id}_arcaea_acc`, args.slice(1).join(""))
         message.noMentionReply(`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Arcaea User ID/Username binded successfully!`)             
                 return                
                                 }
@@ -240,10 +241,6 @@ else prsdiff= result.difficulties[1].rating
       else if(result.difficulties[0].rating<1)pstdiff='?'
 else pstdiff= result.difficulties[0].rating
   } catch(e){
-if(result.difficulties.ratingReal>=10&&result.difficulties.ratingReal<=10.9)prsdiff= "10+";
-   else if(result.difficulties.ratingReal>=9.7&&result.difficulties.ratingReal<=9.9)prsdiff= "9+";
-      else if(result.difficulties.rating<1)prsdiff='?'
-else pstdiff= result.difficulties.rating
 }
     let embed= new MessageEmbed()
   .setTitle(result.title_localized.en)
@@ -306,8 +303,8 @@ Notes: ${result.difficulties.totalNotes}`)
    if(args[1]){
       if(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`))a=bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`)
         else{
-	let b= await api.user.info(args[1], true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
-     if(b){a=args[1]} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}
+	let b= await api.user.info(args.slice(1).join(""), true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
+     if(b){a=args.slice(1).join("")} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}
    }   
 }
       
@@ -316,7 +313,7 @@ Notes: ${result.difficulties.totalNotes}`)
       } else return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You didn't binded your Arcaea account, please bind your Arcaea account like this: `"+bot.config.prefix+"arcaea bind <userid or username>` or `"+bot.config.prefix+"arcaeabind <userid or username>`")
 
     let result= await api.user.info(a, true,).catch(console.error)
-     console.log(result)
+//     console.log(result)
       
     let embed= new MessageEmbed()
     .setTitle(`Information from ${result.name}`)
@@ -336,11 +333,10 @@ Notes: ${result.difficulties.totalNotes}`)
         //console.log(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`))
            //console.log(a)                                                                                      
       }
-        
 else {
   
-   let b = await api.user.info(args[1], true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
-    if(b){a=args[1]} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}
+   let b = await api.user.info(args.slice(1).join(""), true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
+    if(b){a=args.slice(1).join("")} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}
 
  
       }
@@ -348,10 +344,39 @@ else {
      else if(!args[1]&&bot.db.get(`${message.author.id}_arcaea_acc`)){
         a = bot.db.get(`${message.author.id}_arcaea_acc`)
       } else return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You didn't binded your Arcaea account, please bind your Arcaea account like this: `"+bot.config.prefix+"arcaea bind <userid or username>` or `"+bot.config.prefix+"arcaeabind <userid or username>`")
-  
+  let difficulties=[
+    'Past',
+    'Present',
+    'Future',
+    'Beyond'
+  ], clear_type=[
+      "Track Lost[L]",
+      "Normal Clear[C]",
+      "Full Recall[FR]",
+      "Pure Memory[PM]",
+      "Easy Clear[C]",
+      "Hard Clear[C]"
+    ], callbacknumber=1
 let b30 = await api.util.userBest30(a, true).catch(console.error)
 //console.log(b30)
-//      console.log(b30.userBest30.best30_list)
+     // console.log(b30.userBest30.best30_list)
+let embed=new MessageEmbed()
+//.setTitle(`${b30.userInfo.name}'s best 30 songs`)
+b30.userBest30.best30_list.forEach((a)=>{
+  let clear=clear_type[a.clear_type]
+  embed.addFields(
+    {
+name:`\`${callbacknumber}\``+':'+a.songInfo.title_localized.en+` [${difficulties[a.difficulty]}]`, 
+value:`${a.score} (${clear})
+Pure: ${a.perfect_count}(+${a.shiny_perfect_count})
+Far: ${a.near_count}
+Lost: ${a.miss_count}`, 
+inline:true
+    }
+  )
+  callbacknumber++
+})
+      message.noMentionReply(embed)
   } 
     else if(args[0].toLowerCase()==="recent"||args[0].toLowerCase()==="recent_score"||args[0].toLowerCase()==="recent-score") 
     {
@@ -360,8 +385,8 @@ let b30 = await api.util.userBest30(a, true).catch(console.error)
         
 else {
   
-    let b= await api.user.info(args[1], true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
-    if(b){a=args[1]} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}
+    let b= await api.user.info(args.slice(1).join(""), true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
+    if(b){a=args.slice(1).join("")} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}
      
 }
       }
@@ -448,7 +473,7 @@ Lost: ${score.miss_count}`)
     //console.log(score)
     let title = await api.song.info(score.song_id)
     let result= await api.user.info(args[1], true)
-    console.log(result)
+//    console.log(result)
     let track=score.clear_type
     let clear_type=[
       "Track Lost[L]",
@@ -625,8 +650,8 @@ Lost: ${score.miss_count}`)
         if(bot.db.get(`${args[0].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`))a=bot.db.get(`${args[0].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`)
         else {
   
-    let b= await api.user.info(args[0], true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
-    if(b){a=args[0]} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}   
+    let b= await api.user.info(args.join(""), true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
+    if(b){a=args.join("")} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}   
 }
          let result= await api.user.info(a, true, 1).catch(console.error)
      let score = result.recent_score[0]
