@@ -86,6 +86,7 @@ module.exports={
     if(title.difficulties[score.difficulty].ratingReal>=10.7&&title.difficulties[score.difficulty].ratingReal<=10.9)title.difficulties[score.difficulty].rating="10+"
       if(title.difficulties[score.difficulty].ratingReal>=9.7&&title.difficulties[score.difficulty].ratingReal<=9.9)title.difficulties[score.difficulty].rating="9+"
     let embed= new MessageEmbed()
+    .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
     .setTitle(title.title_localized.en+` [${difficulty[score.difficulty]}]`)
     .setDescription(`**${clear}**
 Song: ${title.title_localized.en} by ${title.artist}
