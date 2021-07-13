@@ -315,9 +315,9 @@ Notes: ${result.difficulties.totalNotes}`)
 
     let result= await api.user.info(a, true,).catch(console.error)
 //     console.log(result)
-      
     let embed= new MessageEmbed()
     .setTitle(`Information from ${result.name}`)
+    .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.character}_icon.png`)
     .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
     .addField("Name", result.name)
     .addField("Potential", result.rating/100)
