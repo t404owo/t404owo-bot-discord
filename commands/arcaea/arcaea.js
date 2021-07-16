@@ -99,7 +99,7 @@ Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
 Far: ${score.near_count}
 Lost: ${score.miss_count}`)
 .setFooter(`Played by ${result.name}`)
-    if (title.set==='omatsuri'){
+    if (title.id==='melodyoflove'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
 	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}day.jpg`)
@@ -255,7 +255,7 @@ Release date: ${moment(timestamp.toDate(result.date)).format("LLLL")+` (${dx(new
 `)
   .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
     try{
-      if (result.set==='omatsuri'){
+      if (result.id==='melodyoflove'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${result.id}night.jpg`)
 	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${result.id}day.jpg`)
@@ -315,10 +315,11 @@ Notes: ${result.difficulties.totalNotes}`)
 
     let result= await api.user.info(a, true,).catch(console.error)
 //     console.log(result)
+      
     let embed= new MessageEmbed()
     .setTitle(`Information from ${result.name}`)
-    .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.character}_icon.png`)
     .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
+    .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.character}_icon.png`)
     .addField("Name", result.name)
     .addField("Potential", result.rating/100)
     .addField("Friend ID", result.code)
@@ -384,14 +385,9 @@ inline:true
    if(args[1]){
       if(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`))a=bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`)
         
-else {
-  
-    let b= await api.user.info(args.slice(1).join(""), true).catch(e=>{return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")});
-    if(b){a=args.slice(1).join("")} else {return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | This user doesn't exist!")}
-     
-}
       }
-     else if(!args[1]&&bot.db.get(`${message.author.id}_arcaea_acc`)){
+     else if(!args[1]&&bot.db.get(`${message.author.id}_arcaea_acc`))
+     {
         a = bot.db.get(`${message.author.id}_arcaea_acc`)
       } else return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You didn't binded your Arcaea account, please bind your Arcaea account like this: `"+bot.config.prefix+"arcaea bind <userid or username>` or `"+bot.config.prefix+"arcaeabind <userid or username>`")
 
@@ -431,7 +427,7 @@ Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
 Far: ${score.near_count}
 Lost: ${score.miss_count}`)
 .setFooter(`Played by ${result.name}`)
-    if (title.set==='omatsuri'){
+    if (title.id==='melodyoflove'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
 	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}day.jpg`)
@@ -446,163 +442,113 @@ Lost: ${score.miss_count}`)
      let diff = /([Ff]tr|[Pp]rs|[Pp]st|[Ff]uture|[Pp]resent|[Pp]ast|[Bb]eyond|[Bb]yd|[Bb]yn|[Bb]ynd)/g, diffic=args.slice(1).join(" ").match(diff),
      diffi;
      if(diffic)diffi=diffic[0].replace(/([Bb]eyond|[Bb]yd|[Bb]yn|[Bb]ynd)/, 3).replace(/([Ff]uture|[Ff]tr)/, 2).replace(/([Pp]resent|[Pp]rs)/, 1).replace(/([Pp]st|[Pp]ast)/, 0)
-//     console.log(diffi)
+     console.log(diffi)
      let user_is_defined=true, song_is_defined=true
      let detect_user= await api.user.info(args[1], true).catch(()=>user_is_defined=false)
      let detect_song= await api.song.info(args[1], true).catch(()=>song_is_defined=false)
-     if(user_is_defined===true&&args[2]){
-       try{
-       let a;
-       if(diffic)
-         {
-//           console.log(diffi)
-       a= await api.user.best(args[1], true, args.slice(2).join(" ").replace(/([Ff]tr|[Pp]rs|[Pp]st|[Ff]uture|[Pp]resent|[Pp]ast|[Bb]eyond|[Bb]yd|[Bb]yn|[Bb]ynd)/g, ""), parseInt(diffi))
+     let songisdefined, detect_song_2= await api.song.info(args[2], true).catch(()=>songisdefined=false), a, result
+    if(diffic) {
+       if(user_is_defined===true){
+         
+       if(song_is_defined===true){
+         if(songisdefined===true){
+           result= await api.user.info(args[1], true)
+           a= await api.user.best(args[1], true, args.slice(2).join(" ").replace(diff, ""), parseInt(diffi))
+           .catch(e=>{
+          if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
+          if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
+         })
+         }
+         else{
+           result=await api.user.info(bot.db.get(`${message.author.id}_arcaea_acc`), true)
+         a= await api.user.best(bot.db.get(`${message.author.id}_arcaea_acc`), true, args.slice(1).join(" ").replace(diff, ""), parseInt(diffi))
            .catch(e=>{
           if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
           if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
        })
+       }
+       }
+         else{
+          result= await api.user.info(args[1], true)
+           a= await api.user.best(args[1], true, args.slice(2).join(" ").replace(diff, ""), parseInt(diffi))
+           .catch(e=>{
+          if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
+          if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
+         }) 
          }
-       else{
-//         console.log('no')
-         a= await api.user.best(args[1], true, args.slice(2).join(" "))
-         .catch(e=>{
+     }
+     else{
+       if(song_is_defined===true){
+         
+        result=await api.user.info(bot.db.get(`${message.author.id}_arcaea_acc`), true)
+         a= await api.user.best(bot.db.get(`${message.author.id}_arcaea_acc`), true, args.slice(1).join(" ").replace(diff, ""), parseInt(diffi))
+           .catch(e=>{
           if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
           if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
        })
        
-     let score = a
-    //console.log(score)
-    let title = await api.song.info(score.song_id)
-    let result= await api.user.info(args[1], true)
-//    console.log(result)
-    let track=score.clear_type
-    let clear_type=[
-      "Track Lost[L]",
-      "Normal Clear[C]",
-      "Full Recall[FR]",
-      "Pure Memory[PM]",
-      "Easy Clear[C]",
-      "Hard Clear[C]"
-    ], clear=clear_type[track]
-    let difficulty=[
-      "Past(pst)",
-      "Present(prs)",                                              
-      "Future(ftr)",                                          
-      "Beyond(byn/byd/bynd)",
-    ]
-      if(title.difficulties[score.difficulty].ratingReal>=10.7&&title.difficulties[score.difficulty].ratingReal<=10.9)title.difficulties[score.difficulty].rating="10+"
-      if(title.difficulties[score.difficulty].ratingReal>=9.7&&title.difficulties[score.difficulty].ratingReal<=9.9)title.difficulties[score.difficulty].rating="9+"
-    let embed= new MessageEmbed()
-    .setTitle(title.title_localized.en+` [${difficulty[score.difficulty]}]`)
-    .setDescription(`**${clear}**
-Song: ${title.title_localized.en} by ${title.artist}
-Difficulty: ${difficulty[score.difficulty]} ${title.difficulties[score.difficulty].rating}(${title.difficulties[score.difficulty].ratingReal})
-BPM: ${title.bpm}
-Rating: ${score.rating}
-Score: ${score.score}
-Collection/Recollection Gauge: ${score.health}%
-Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
-Far: ${score.near_count}
-Lost: ${score.miss_count}`)
-.setFooter(`Played by ${result.name}`).setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
-    if (title.set==='omatsuri'){
-	let night_day=parseInt(moment(new Date()).format('HH'))
-	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
-	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}day.jpg`)
-} else if(score.difficulty===3) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}byd.jpg`)
-	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}.jpg`)
-    message.noMentionReply(embed)
+       }
+       else{
+         console.log('b')
+         return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song and User are not found in Arcaea, please give the correct username or user's friend ID and the correct song!`);
+       }
+       
      }
-        }catch(err){
-       message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} |  Something went wrong:\n${err}`)
-      }
-   }
-     else if(song_is_defined===true) {
-     try{
-           
-             if(diffic){
-//               console.log(diffi)
-               a= await api.user.best(bot.db.get(`${message.author.id}_arcaea_acc`), true, args.slice(1).join(" ").replace(/([Ff]tr|[Pp]rs|[Pp]st|[Ff]uture|[Pp]resent|[Pp]ast|[Bb]eyond|[Bb]yd|[Bb]yn|[Bb]ynd)/g, ""), parseInt(diffi)) 
-       .catch(e=>{
-          if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
-          if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You didn't binded your Arcaea account, please bind your Arcaea account like this: `"+bot.config.prefix+"arcaea bind <userid or username>` or `"+bot.config.prefix+"arcaeabind <userid or username>`")
-       })
-           }
-       else {
-//         console.log('no')
-         a= await api.user.best(bot.db.get(`${message.author.id}_arcaea_acc`), true, args.slice(1).join(" ")) 
-         .catch(e=>{
-          if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
-          if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | You didn't binded your Arcaea account, please bind your Arcaea account like this: `"+bot.config.prefix+"arcaea bind <userid or username>` or `"+bot.config.prefix+"arcaeabind <userid or username>`")
-       })
-       }
-         let score = a
-    //console.log(score)
-    let title = await api.song.info(score.song_id)
-    let result= await api.user.info(bot.db.get(`${message.author.id}_arcaea_acc`), true)
-    //console.log(title)
-    let track=score.clear_type
-    let clear_type=[
-      "Track Lost[L]",
-      "Normal Clear[C]",
-      "Full Recall[FR]",
-      "Pure Memory[PM]",
-      "Easy Clear[C]",
-      "Hard Clear[C]"
-    ], clear=clear_type[track]
-    let difficulty=[
-      "Past(pst)",
-      "Present(prs)",                                              
-      "Future(ftr)",                                          
-      "Beyond(byn/byd/bynd)",
-]
-    if(title.difficulties[score.difficulty].ratingReal>=10.7&&title.difficulties[score.difficulty].ratingReal<=10.9)title.difficulties[score.difficulty].rating="10+"
-      if(title.difficulties[score.difficulty].ratingReal>=9.7&&title.difficulties[score.difficulty].ratingReal<=9.9)title.difficulties[score.difficulty].rating="9+"
-    let embed= new MessageEmbed()
-    .setTitle(title.title_localized.en+` [${difficulty[score.difficulty]}]`)
-    .setDescription(`**${clear}**
-Song: ${title.title_localized.en} by ${title.artist}
-Difficulty: ${difficulty[score.difficulty]} ${title.difficulties[score.difficulty].rating}(${title.difficulties[score.difficulty].ratingReal})
-BPM: ${title.bpm}
-Rating: ${score.rating}
-Score: ${score.score}
-Collection/Recollection Gauge: ${score.health}%
-Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
-Far: ${score.near_count}
-Lost: ${score.miss_count}`)
-.setFooter(`Played by ${result.name}`).setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
-    if (title.set==='omatsuri'){
-	let night_day=parseInt(moment(new Date()).format('HH'))
-	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
-	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}day.jpg`)
-} else if(score.difficulty===3) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}byd.jpg`)
-	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}.jpg`)
-    message.noMentionReply(embed)
-       }
-         catch(err){
-         }
-   }
-     else{
-       try{
-         let a;
-      if(diffic){a= await api.user.best(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`), true, args.slice(2).join(" ").replace(/([Ff]tr|[Pp]rs|[Pp]st|[Ff]uture|[Pp]resent|[Pp]ast|[Bb]eyond|[Bb]yd|[Bb]yn|[Bb]ynd)/g, ""), parseInt(diffi)).catch(e=>{
+}
+      else{
+      if(user_is_defined===true){
+       if(song_is_defined===true){
+         if(songisdefined===true){
+           result=await api.user.info(args[1], true)
+           a= await api.user.best(args[1], true, args.slice(2).join(" "))
+           .catch(e=>{
           if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
           if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
-       })
-//               console.log(diffi) 
-                }
-       else {
-//         console.log('no')
-         a= await api.user.best(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`), true, args.slice(2).join(" "))
+         })
+         }
+         else{
+           result= await api.user.info(bot.db.get(`${message.author.id}_arcaea_acc`), true)
+         a= await api.user.best(bot.db.get(`${message.author.id}_arcaea_acc`), true, args.slice(1).join(" "))
            .catch(e=>{
           if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
           if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
        })
-            }
+       }
+       }
+        else{
+          result=await api.user.info(args[1], true)
+           a= await api.user.best(args[1], true, args.slice(2).join(" "))
+           .catch(e=>{
+          if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
+          if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
+         })
+        }
+}
+    
+     else{
+       if(song_is_defined===true){
+         
+         result=await api.user.info(bot.db.get(`${message.author.id}_arcaea_acc`), true)
+         a= await api.user.best(bot.db.get(`${message.author.id}_arcaea_acc`), true, args.slice(1).join(" "))
+           .catch(e=>{
+          if(e==='user not found')return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | User is not found in Arcaea, please give the correct username or user's friend ID!`);
+          if(e==='invalid songname') return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song is not found in Arcaea, please give a correct song name`)
+       })
+       
+       }
+       else{
+         console.log("c")
+         return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | Song and User are not found in Arcaea, please give the correct username or user's friend ID and the correct song!`);
+       }
+       
+     }  
+      }
+      
+      
+       
          let score = a
     //console.log(score)
     let title = await api.song.info(score.song_id)
-    let result= await api.user.info(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`), true)
     //console.log(title)
     let track=score.clear_type
     let clear_type=[
@@ -634,16 +580,15 @@ Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
 Far: ${score.near_count}
 Lost: ${score.miss_count}`)
 .setFooter(`Played by ${result.name}`).setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
-    if (title.set==='omatsuri'){
+    if (title.id==='melodyoflove'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
 	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}day.jpg`)
 } else if(score.difficulty===3) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}byd.jpg`)
 	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}.jpg`)
     message.noMentionReply(embed)
-       } catch(err1){
-     }
-     }
+       
+     
 }      
     else
     {
@@ -690,7 +635,7 @@ Pure: ${score.perfect_count}(+${score.shiny_perfect_count})
 Far: ${score.near_count}
 Lost: ${score.miss_count}`)
 .setFooter(`Played by ${result.name}`)
-    if (title.set==='omatsuri'){
+    if (title.id==='melodyoflove'){
 	let night_day=parseInt(moment(new Date()).format('HH'))
 	if(night_day>=20&&night_day<6) embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}night.jpg`)
 	else embed.setThumbnail(`https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.id}day.jpg`)
