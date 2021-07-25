@@ -21,7 +21,7 @@
     "path": "^0.12.7",
     "ytdl-core": "^4.9.0",
     "fs": "^0.0.2",
-    "ffmpeg-static":"^4.4.0"
+    "ffmpeg-static":"^4.4.0",
     "parse-ms": "^3.0.0",
     "moment": "^2.29.1",
     "genius-lyrics": "^4.2.9",
