@@ -20,6 +20,7 @@ With this project, you can Host it 24/7 on `glitch.com` or just use it normal wi
 For PC users, make sure you install all the packages im package.json using `npm i` in terminal(shell, cmd)
 
 once you finished doing that, copy the code:
+for glitch:
 ```env
 DISCORD_BOT_EMBED_COLOR="color in hex, or as word(#1f1e94, blue, white etc)"
 DISCORD_BOT_TOKEN=token here
@@ -39,4 +40,30 @@ EMOTE_LEFT='a custom left arrow'
 Then create a `.env` file and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
 (For guys who hosts it on PC:start the bot with `npm start` in the console(terminal, shell what ever you call)
+The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`
+for repl:
+
+ copy the code:
+```json
+
+
+{
+  "DISCORD_BOT_EMBED_COLOR":"color in hex, or as word(#1f1e94, blue, white etc)",
+  "DISCORD_BOT_PREFIX": "prefix here(+, -,...)",
+  "VERSION": "1.0.0",
+  "DISCORD_BOT_OWNER": "your username and tag",
+  "DISCORD_BOT_OWNER_ID": "",
+  "DISCORD_BOT_USERNAME": "Bot's name here",
+  "GENIUS": "",
+  "DISCORD_BOT_TOKEN": "",
+  "DISCORD_BOT_INVITE":"the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)",
+  "PROJECT_DOMAIN":"project domain here(name-of-the-project.project-owner(t404owo-bot.t404owo e.g))",
+  "EMOTE_OK":"a custom tick emote( has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:hikariok:39382847282> e.g))",
+  "EMOTE_NO":"a custom emote(make sure the custom emote has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:tairitsuno:69383859583> e.g))",
+  "EMOTE_RIGHT":"a custom right arrow emote",
+  "EMOTE_LEFT":"a custom left arrow emote"
+}
+```
+Then click the button with the lock, then click the Open raw editor and put the code in it
+after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
 The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`
