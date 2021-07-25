@@ -37,7 +37,7 @@ EMOTE_YES='a custom tick (make sure the custom emote has to be: <a:emote_name:em
 EMOTE_RIGHT='a custom right arrow'
 EMOTE_LEFT='a custom left arrow'
 ```
-Then create a `.env` file and put the code in it
+Then create ir go to a `.env` file and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
 (For guys who hosts it on PC:start the bot with `npm start` in the console(terminal, shell what ever you call)
 The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`
