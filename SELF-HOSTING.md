@@ -20,7 +20,7 @@ With this project, you can Host it 24/7 on `glitch.com` or just use it normal wi
 For PC users, make sure you install all the packages im package.json using `npm i` in terminal(shell, cmd)
 
 
-for glitch:
+for glitch and VS code:
 copy the code:
 ```env
 DISCORD_BOT_EMBED_COLOR="color in hex, or as word(#1f1e94, blue, white etc)"
