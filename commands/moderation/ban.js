@@ -1,4 +1,3 @@
-
 const Discord = require('discord.js')
 //checked
 exports.run = async (bot, message, args) => {
@@ -29,6 +28,13 @@ exports.run = async (bot, message, args) => {
       if (tar.has("ADMINISTRATOR")){
         return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | The user you want to ban is a moderator/administrator I can't do that,try to ban him/her/them yourself..");
   }
+  let BotRole = message.guild.member(message.guild.me).roles.highest.position;
+
+    let Role = target.roles.highest.position;
+
+    let UserRole = message.member.roles.highest.position;
+
+    if (UserRole <= Role) return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+' | You can\'t ban that user because that user has a role position which is higher than yours, or has a same role position as you!');
       let reason = args.slice(1).join(" ");
       if (!reason) reason = "-";
       message.noMentionReply("banning...")
