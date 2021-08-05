@@ -246,7 +246,7 @@ else pstdiff= result.difficulties[0].rating
     let embed= new MessageEmbed()
   .setTitle(result.title_localized.en)
   .setDescription(`Name:${result.title_localized.en}
-Name(Japanese):${result.title_localized.jp||result.title_localized.en}
+Name(Japanese):${result.title_localized.ja||result.title_localized.en}
 Artist: ${result.artist}
 BPM: ${result.bpm}
 Side: ${side[result.side]}
