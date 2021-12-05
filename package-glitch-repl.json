@@ -9,7 +9,8 @@
     "ts-node-dev": "^1.1.1",
     "@types/node-fetch": "^2.5.8",
     "@types/sqlite3": "^3.1.6",
-    "@types/express": "^4.17.12"
+    "@types/express": "^4.17.12",
+    "ffmpeg-static":"^4.4.0"
   },
   "dependencies": {
     "discord.js": "^12.5.3",
