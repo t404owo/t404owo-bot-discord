@@ -402,10 +402,8 @@ Artist: ${result.artist}
 BPM: ${result.bpm}
 Side: ${side[result.side]}
 Version: ${result.version} 
-Release date: ${moment(timestamp.toDate(result.date)).format("LLLL") +
-              ` (${dx(new Date(), result.date * 1000)}`})
-`
-          )
+Release date: <t:${result.date}:F> (<t:${result.date}:R>)
+`)
           .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf");
         try {
           if (result.id === "melodyoflove") {
@@ -574,8 +572,7 @@ Notes: ${result.difficulties.totalNotes}`
           .addField("Friend ID", result.code)
           .addField(
             "Created At",
-            moment(timestamp.toDate(result.join_date / 1000)).format("LLLL") +
-              ` (${dx(new Date(), result.join_date)})`
+            <t:${result.join_date}:F> (<t:${result.join_date}:R>)
           );
           if(result.is_char_uncapped === true) embed.setThumbnail(
           `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.character}u_icon.png`
