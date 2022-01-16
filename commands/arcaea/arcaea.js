@@ -572,7 +572,7 @@ Notes: ${result.difficulties.totalNotes}`
           .addField("Friend ID", result.code)
           .addField(
             "Created At",
-            <t:${result.join_date}:F> (<t:${result.join_date}:R>)
+            `<t:${result.join_date}:F> (<t:${result.join_date}:R>)`
           );
           if(result.is_char_uncapped === true) embed.setThumbnail(
           `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.character}u_icon.png`
