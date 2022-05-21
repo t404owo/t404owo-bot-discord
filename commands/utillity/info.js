@@ -7,7 +7,7 @@ exports.run = (bot, message, args) => {
       .addField("Bot Name", bot.user.username, true)
       .addField("Version", version, true)
       .setThumbnail(bot.user.avatarURL({dynamic:true, size: 1024}))
-      .addField("Bot Owner/Lead Developer", bot.members.cache.get(process.env.DISCORD_BOT_OWNER_ID.toString()).tag, true)
+      .addField("Bot Owner/Lead Developer", bot.users.cache.get(process.env.DISCORD_BOT_OWNER_ID.toString()).tag, true)
       .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       return message.noMentionReply(embed);
 }
@@ -20,7 +20,7 @@ exports.interaction = async(bot, interaction, args) => {
       .addField("Bot Name", bot.user.username, true)
       .addField("Version", version, true)
       .setThumbnail(bot.user.avatarURL({dynamic:true, size: 1024}))
-      .addField("Bot Owner/Lead Developer", bot.members.cache.get(process.env.DISCORD_BOT_OWNER_ID.toString()).tag, true)
+      .addField("Bot Owner/Lead Developer", bot.users.cache.get(process.env.DISCORD_BOT_OWNER_ID.toString()).tag, true)
       .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
       return bot.api.interactions(interaction.id, interaction.token).callback.post({
                 data: {
