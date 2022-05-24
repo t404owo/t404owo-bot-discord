@@ -1,16 +1,6 @@
 let discord = require("discord.js");
 let { MessageEmbed } = require("discord.js");
-let pages = [
-    "**Utillity/misc Commands**\n> `help`, `invite`, `support`, `prefix`, `avatar`, `info`, `userinfo(whois)`",
-    "**Search/query Commands**\n> `say`, `sayembed`, `calculate`, `anime`, `poll`",
-    "**Moderation Commands**\n> `kick`, `ban/unban`, `purge`, `setprefix`, `warn`, `warnings`, `mute/unmute`",
-    "**Setup Commands**\n> `setprefix`, `setautorole`, `setautorolesystem`, `setmuterole`, `setverifyrole`, `setverifychannel`, `setwelcomemessage`, `setwelcomechannel`, `setleavemessage`, `setleavechannel`, `setwelcomemessagesystem`, `setgoodbyemessagesystem`, `setwelcomeimage`, `setwelcomeembed`, `prefix`, `setwarns`, `setupstatus`, `lvlmsg`",
-    "**Economy Commands**\n> `balance`, `daily`, `dice(roll)`, `bet(gamble)`, `transfer`",
-    "**Music Commands**\n> `join`, `play`, `np`, `lyrics`, `pause/continue`, `search`, `queue`, `skip`,`skipto`, `skipall`, `loop`, `volume`, `stop`, `disconnect`",
-    "**Npc/Tupper Commands**\n> `npc`, `npccreate`, `npcname`, `npclist`, `npcinfo`, `npcdesc`, `npcremove`, `npcavatar`",
-    "**Fun/roleplay Commands**\n> `kiss`, `hug`, `pat`, `slap`, `wink`, `cuddle`, `neko`, `foxgirl`",
-    "**Leveling Commands**\n> `rank`, `addxp`, `leaderboard`"
-  ];
+
   let list = [
     {
       Category: "**Utillity/misc**",
@@ -57,7 +47,6 @@ let pages = [
   ];
 exports.run = async (bot, message, args) => {
   let module = bot.helps.array();
-  
 
   let page = 1;
 
@@ -66,7 +55,7 @@ exports.run = async (bot, message, args) => {
       let cmd = args[0];
       let command = bot.commands.get(cmd.toLowerCase());
       if (!command)
-        command = bot.commands.find(x =>
+        command = bot.commands.find((x) =>
           x.info.aliases.includes(cmd.toLowerCase())
         );
 
@@ -143,16 +132,19 @@ exports.run = async (bot, message, args) => {
           page = 9;
         } else
           return message.mentionReply(
-            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unknown Command or Category"
+            `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+              " | Unknown Command or Category"
           );
       } else {
         let commandinfo = new discord.MessageEmbed()
           .setTitle("Command: " + command.info.name)
-          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf").setDescription(`
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+          .setDescription(`
 Name: ${command.info.name}
 Description: ${command.info.description}
-Usage: \`\`${bot.config.prefix}${command.info.name}${" " + command.info.usage ||
-          ""}\`\`
+Usage: \`\`${bot.config.prefix}${command.info.name}${
+          " " + command.info.usage || ""
+        }\`\`
 Aliases: ${command.info.aliases.join(", ")}
 
 about the brackets:
@@ -165,176 +157,257 @@ about the brackets:
     }
 
     let embed = new discord.MessageEmbed()
-      .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
-      .setTitle(`Page ${page}/${pages.length}`).setDescription(`${
-      pages[page - 1]
+      .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+      .setTitle(`Page ${page}/${list.length}`).setDescription(`${
+      list[page - 1].category
     }
+${list[page - 1].commands}
 
-React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
+React ${
+      process.env.EMOTE_RIGHT || "<:botarrowright:766649411014361159>"
+    }to go to page ${page + 1}`);
 
-    message.noMentionReply(embed).then(msg => {
-        msg.react(process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649447413055498");
-        msg.react(process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649411014361159").then(r => {
+    message.noMentionReply(embed).then((msg) => {
+      msg.react(
+        process.env.EMOTE_LEFT.replace(
+          /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+          ""
+        )
+          .replace(/>/g, "")
+          .replace(" ", "") || "766649447413055498"
+      );
+      msg
+        .react(
+          process.env.EMOTE_RIGHT.replace(
+            /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+            ""
+          )
+            .replace(/>/g, "")
+            .replace(" ", "") || "766649411014361159"
+        )
+        .then((r) => {
           msg.react("🗑");
           const BackwardFilter = (reaction, user) =>
-          reaction.emoji.id === process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","") &&
-          user.id === message.author.id||
-          reaction.emoji.id === "766649447413055498" &&
-          user.id === message.author.id;
-        const ForwardFilter = (reaction, user) =>
-          reaction.emoji.id === process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")&&
-          user.id === message.author.id||
-          reaction.emoji.id === "766649411014361159" &&
-          user.id === message.author.id;
-        const CloseFilter = (reaction, user) =>
-          reaction.emoji.name === "🗑" && user.id === message.author.id;
-        const backward = msg.createReactionCollector(BackwardFilter, {
-          time: 60000,
-          dispose: true
-        });
-        const forward = msg.createReactionCollector(ForwardFilter, {
-          time: 60000,
-          dispose: true
-        });
-        const close = msg.createReactionCollector(CloseFilter, {
-          time: 60000
-        });
-        close.on("collect", r => {
-          msg.delete();
-          return;
-        });
-        backward.on("collect", async collect => {
-          const userReactions = msg.reactions.cache.filter(reaction =>
-            reaction.users.cache.has(message.author.id)
-          );
-          /*try {
+            (reaction.emoji.id ===
+              process.env.EMOTE_LEFT.replace(
+                /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+                ""
+              )
+                .replace(/>/g, "")
+                .replace(" ", "") &&
+              user.id === message.author.id) ||
+            (reaction.emoji.id === "884236566837469204" &&
+              user.id === message.author.id);
+          const ForwardFilter = (reaction, user) =>
+            (reaction.emoji.id ===
+              process.env.EMOTE_RIGHT.replace(
+                /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+                ""
+              )
+                .replace(/>/g, "")
+                .replace(" ", "") &&
+              user.id === message.author.id) ||
+            (reaction.emoji.id === "884236566237691916" &&
+              user.id === message.author.id);
+          const CloseFilter = (reaction, user) =>
+            reaction.emoji.name === "🗑" && user.id === message.author.id;
+          const backward = msg.createReactionCollector(BackwardFilter,{
+            filter: BackwardFilter,
+            time: 60000,
+            dispose: true,
+          });
+          const forward = msg.createReactionCollector(ForwardFilter,{
+            filter: ForwardFilter,
+            time: 60000,
+            dispose: true,
+          });
+          const close = msg.createReactionCollector(CloseFilter,{
+            filter: CloseFilter,
+            time: 60000,
+          });
+          close.on("collect", (r) => {
+            msg.delete();
+            return;
+          });
+          backward.on("collect", async (collect) => {
+            const userReactions = msg.reactions.cache.filter((reaction) =>
+              reaction.users.cache.has(message.author.id)
+            );
+            /*try {
 	for (const reaction of userReactions.values()) {
 		await reaction.users.remove(message.author.id);
 	}
 } catch (error) {
 	console.error('Failed to remove reactions.');
 }*/
-          if (page <= 1) return;
-          page--;
-          if (page == 1) {
-            embed.setDescription(`${pages[page - 1]}
+            if (page <= 1) return;
+            page--;
+            if (page === 1) {
+              embed.setDescription(`${list[page - 1].Category}
+${list[page - 1].commands}
 
-React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
-            msg.edit(embed);
-            return;
-          }
-          embed.setDescription(
-            `${pages[page - 1]}` +
-              `
+React ${
+                process.env.EMOTE_RIGHT || "<:botarrowright:766649411014361159>"
+              }to go to page ${page + 1}`);
+              embed.setTitle(`Page ${page}/${list.length}`);
+              msg.edit(embed);
+              return;
+            } else {
+              embed.setDescription(
+                `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                  `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-          );
-          embed.setTitle(`Page ${page}/${pages.length}`);
-          msg.edit(embed);
-        });
-        backward.on("remove", async collect => {
-          if (page <= 1) return;
-          page--;
-          if (page == 1) {
-            embed.setDescription(`${pages[page - 1]}
+React with ${
+                    process.env.EMOTE_LEFT ||
+                    "<:botarrowleft:766649447413055498>"
+                  }to go back page ${page - 1}
+Or react with ${
+                    process.env.EMOTE_RIGHT ||
+                    "<:botarrowright:766649411014361159>"
+                  }to go to page ${page + 1}`
+              );
+              embed.setTitle(`Page ${page}/${list.length}`);
+              msg.edit(embed);
+            }
+          });
+          backward.on("remove", async (collect) => {
+            if (page <= 1) return;
+            page--;
+            if (page === 1) {
+              embed.setDescription(`${list[page - 1].Category}
+${list[page - 1].commands}
 
-React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
-            msg.edit(embed);
-            return;
-          }
-          embed.setDescription(
-            `${pages[page - 1]}` +
-              `
+React ${
+                process.env.EMOTE_RIGHT || "<:botarrowright:766649411014361159>"
+              }to go to page ${page + 1}`);
+              embed.setTitle(`Page ${page}/${list.length}`);
+              msg.edit(embed);
+              return;
+            } else {
+              embed.setDescription(
+                `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                  `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-          );
-          embed.setTitle(`Page ${page}/${pages.length}`);
-          msg.edit(embed);
-        });
-        forward.on("collect", async collect => {
-          const userReactions = msg.reactions.cache.filter(reaction =>
-            reaction.users.cache.has(message.author.id)
-          );
-          /*try {
+React with ${
+                    process.env.EMOTE_LEFT ||
+                    "<:botarrowleft:766649447413055498>"
+                  }to go back page ${page - 1}
+Or react with ${
+                    process.env.EMOTE_RIGHT ||
+                    "<:botarrowright:766649411014361159>"
+                  }to go to page ${page + 1}`
+              );
+              embed.setTitle(`Page ${page}/${list.length}`);
+              msg.edit(embed);
+            }
+          });
+          forward.on("collect", async (collect) => {
+            const userReactions = msg.reactions.cache.filter((reaction) =>
+              reaction.users.cache.has(message.author.id)
+            );
+            /*try {
 	for (const reaction of userReactions.values()) {
 		await reaction.users.remove(message.author.id);
 	}
 } catch (error) {
 	console.error('Failed to remove reactions.');
 }*/
-          if (page === pages.length) return;
-          page++;
-          if (page >= pages.length) {
+            if (page === list.length) return;
+            page++;
+            if (page >= list.length) {
+              embed.setDescription(
+                `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                  `
+
+React with ${
+                    process.env.EMOTE_LEFT ||
+                    "<:botarrowleft:766649447413055498>"
+                  }to go back page ${page - 1}`
+              );
+              embed.setTitle(`Page ${page}/${list.length}`);
+              msg.edit(embed);
+              return;
+            }
             embed.setDescription(
-              `${pages[page - 1]}` +
+              `${list[page - 1].Category}
+${list[page - 1].commands}` +
                 `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
+React with ${
+                  process.env.EMOTE_LEFT || "<:botarrowleft:766649447413055498>"
+                }to go back page ${page - 1} 
+Or react with ${
+                  process.env.EMOTE_RIGHT ||
+                  "<:botarrowright:766649411014361159>"
+                }to go to page ${page + 1}`
             );
-            embed.setTitle(`Page ${page}/${pages.length}`);
+            embed.setTitle(`Page ${page}/${list.length}`);
             msg.edit(embed);
-            return;
-          }
-          embed.setDescription(
-            pages[page - 1] +
-              `
+          });
+          forward.on("remove", async (collect) => {
+            if (page === list.length) return;
+            page++;
+            if (page >= list.length) {
+              embed.setDescription(
+                `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                  `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-          );
-          embed.setTitle(`Page ${page}/${pages.length}`);
-          msg.edit(embed);
-        });
-        forward.on("remove", async collect => {
-          if (page === pages.length) return;
-          page++;
-          if (page >= pages.length) {
+React with ${
+                    process.env.EMOTE_LEFT ||
+                    "<:botarrowleft:766649447413055498>"
+                  }to go back page ${page - 1}`
+              );
+              embed.setTitle(`Page ${page}/${list.length}`);
+              msg.edit({ embeds: [embed] });
+              return;
+            }
             embed.setDescription(
-              `${pages[page - 1]}` +
+              `${list[page - 1].Category}
+${list[page - 1].commands}` +
                 `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
+React with ${
+                  process.env.EMOTE_LEFT || "<:botarrowleft:766649447413055498>"
+                }to go back page ${page - 1} 
+Or react with ${
+                  process.env.EMOTE_RIGHT ||
+                  "<:botarrowright:766649411014361159>"
+                }to go to page ${page + 1}`
             );
-            embed.setTitle(`Page ${page}/${pages.length}`);
-            msg.edit(embed);
-            return;
-          }
-          embed.setDescription(
-            pages[page - 1] +
-              `
-
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-          );
-          embed.setTitle(`Page ${page}/${pages.length}`);
-          msg.edit(embed);
+            embed.setTitle(`Page ${page}/${list.length}`);
+            msg.edit({ embeds: [embed] });
+          });
         });
-      });
     });
   } else {
-    const permissions = message.channel.permissionsFor(message.client.user);
-
+    const bot_user = await message.guild.members.fetch(bot.user.id);
+    const permissions = bot_user.permissions;
     if (!permissions.has("ADD_REACTIONS")) {
       if (args[0]) {
         let cmd = args[0];
         let command = bot.commands.get(cmd.toLowerCase());
         if (!command)
-          command = bot.commands.find(x =>
+          command = bot.commands.find((x) =>
             x.info.aliases.includes(cmd.toLowerCase())
           );
         if (!command)
           return message.mentionReply(
-            `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unknown Command"
+            `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+              " | Unknown Command"
           );
         let commandinfo = new discord.MessageEmbed()
           .setTitle("Command: " + command.info.name)
-          .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf").setDescription(`
+          .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+          .setDescription(`
 Name: ${command.info.name}
 Description: ${command.info.description}
-Usage: \`\`${bot.config.prefix}${command.info.name}${" " + command.info.usage ||
-          ""}\`\`
+Usage: \`\`${bot.config.prefix}${command.info.name}${
+          " " + command.info.usage || ""
+        }\`\`
 Aliases: ${command.info.aliases.join(", ")}
 
 about the brackets:
@@ -346,8 +419,8 @@ about the brackets:
       }
       let command = new discord.MessageEmbed()
         .setTitle("Commands list")
-        .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf");
-      list.forEach(i => {
+        .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf");
+      list.forEach((i) => {
         command.addField(i.Category, i.commands);
       });
       return message.noMentionReply(command);
@@ -356,7 +429,7 @@ about the brackets:
         let cmd = args[0];
         let command = bot.commands.get(cmd.toLowerCase());
         if (!command)
-          command = bot.commands.find(x =>
+          command = bot.commands.find((x) =>
             x.info.aliases.includes(cmd.toLowerCase())
           );
 
@@ -433,16 +506,19 @@ about the brackets:
             page = 9;
           } else
             return message.mentionReply(
-              `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | Unknown Command or Category"
+              `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+                " | Unknown Command or Category"
             );
         } else {
           let commandinfo = new discord.MessageEmbed()
             .setTitle("Command: " + command.info.name)
-            .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf").setDescription(`
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+            .setDescription(`
 Name: ${command.info.name}
 Description: ${command.info.description}
-Usage: \`\`${bot.config.prefix}${command.info.name}${" " + command.info.usage ||
-            ""}\`\`
+Usage: \`\`${bot.config.prefix}${command.info.name}${
+            " " + command.info.usage || ""
+          }\`\`
 Aliases: ${command.info.aliases.join(", ")}
 
 about the brackets:
@@ -455,154 +531,237 @@ about the brackets:
       }
 
       let embed = new discord.MessageEmbed()
-        .setColor(process.env.DISCORD_BOT_EMBED_COLOR||"#0affaf")
-        .setTitle(`Page ${page}/${pages.length}`).setDescription(`${
-        pages[page - 1]
+        .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+        .setTitle(`Page ${page}/${list.length}`).setDescription(`${`${
+        list[page - 1].Category
       }
+${list[page - 1].commands}`}
 
-React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
+React ${
+        process.env.EMOTE_RIGHT || "<:botarrowright:766649411014361159>"
+      }to go to page ${page + 1}`);
 
-      message.noMentionReply(embed).then(msg => {
-        msg.react(process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649447413055498");
-        msg.react(process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")||"766649411014361159").then(r => {
-          msg.react("🗑");
-          const BackwardFilter = (reaction, user) =>
-          reaction.emoji.id === process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","") &&
-          user.id === message.author.id||
-          reaction.emoji.id === "766649447413055498" &&
-          user.id === message.author.id;
-        const ForwardFilter = (reaction, user) =>
-          reaction.emoji.id === process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "").replace(" ","")&&
-          user.id === message.author.id||
-          reaction.emoji.id === "766649411014361159" &&
-          user.id === message.author.id;
-          const CloseFilter = (reaction, user) =>
-            reaction.emoji.name === "🗑" && user.id === message.author.id;
-          const backward = msg.createReactionCollector(BackwardFilter, {
-            time: 60000,
-            dispose: true
-          });
-          const forward = msg.createReactionCollector(ForwardFilter, {
-            time: 60000,
-            dispose: true
-          });
-          const close = msg.createReactionCollector(CloseFilter, {
-            time: 60000
-          });
-          close.on("collect", r => {
-            msg.delete();
-            return;
-          });
-          backward.on("collect", async collect => {
-            const userReactions = msg.reactions.cache.filter(reaction =>
-              reaction.users.cache.has(message.author.id)
-            );
-            /*try {
+      message.noMentionReply(embed)
+        .then((msg) => {
+          msg.react(
+            process.env.EMOTE_LEFT.replace(
+              /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+              ""
+            )
+              .replace(/>/g, "")
+              .replace(" ", "") || "766649447413055498"
+          );
+          msg
+            .react(
+              process.env.EMOTE_RIGHT.replace(
+                /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+                ""
+              )
+                .replace(/>/g, "")
+                .replace(" ", "") || "766649411014361159"
+            )
+            .then((r) => {
+              msg.react("🗑");
+              const BackwardFilter = (reaction, user) =>
+                (reaction.emoji.id ===
+                  process.env.EMOTE_LEFT.replace(
+                    /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+                    ""
+                  )
+                    .replace(/>/g, "")
+                    .replace(" ", "") &&
+                  user.id === message.author.id) ||
+                (reaction.emoji.id === "884236566837469204" &&
+                  user.id === message.author.id);
+              const ForwardFilter = (reaction, user) =>
+                (reaction.emoji.id ===
+                  process.env.EMOTE_RIGHT.replace(
+                    /<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,
+                    ""
+                  )
+                    .replace(/>/g, "")
+                    .replace(" ", "") &&
+                  user.id === message.author.id) ||
+                (reaction.emoji.id === "884236566237691916" &&
+                  user.id === message.author.id);
+              const CloseFilter = (reaction, user) =>
+                reaction.emoji.name === "🗑" && user.id === message.author.id;
+              const backward = msg.createReactionCollector(BackwardFilter,{
+                filter: BackwardFilter,
+                time: 60000,
+                dispose: true,
+              });
+              const forward = msg.createReactionCollector(ForwardFilter,{
+                filter: ForwardFilter,
+                time: 60000,
+                dispose: true,
+              });
+              const close = msg.createReactionCollector(CloseFilter,{
+                filter: CloseFilter,
+                time: 60000,
+              });
+              close.on("collect", (r) => {
+                msg.delete();
+                return;
+              });
+              backward.on("collect", async (collect) => {
+                const userReactions = msg.reactions.cache.filter((reaction) =>
+                  reaction.users.cache.has(message.author.id)
+                );
+                /*try {
 	for (const reaction of userReactions.values()) {
 		await reaction.users.remove(message.author.id);
 	}
 } catch (error) {
 	console.error('Failed to remove reactions.');
 }*/
-            if (page <= 1) return;
-            page--;
-            if (page == 1) {
-              embed.setDescription(`${pages[page - 1]}
+                if (page <= 1) return;
+                page--;
+                if (page === 1) {
+                  embed.setDescription(`${list[page - 1].Category}
+${list[page - 1].commands}
 
-React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
-              msg.edit(embed);
-              return;
-            }
-            embed.setDescription(
-              `${pages[page - 1]}` +
-                `
+React ${
+                    process.env.EMOTE_RIGHT ||
+                    "<:botarrowright:766649411014361159>"
+                  }to go to page ${page + 1}`);
+                  embed.setTitle(`Page ${page}/${list.length}`);
+                  msg.edit(embed);
+                  return;
+                } else {
+                  embed.setDescription(
+                    `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                      `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-            );
-            embed.setTitle(`Page ${page}/${pages.length}`);
-            msg.edit(embed);
-          });
-          backward.on("remove", async collect => {
-            if (page <= 1) return;
-            page--;
-            if (page == 1) {
-              embed.setDescription(`${pages[page - 1]}
+React with ${
+                        process.env.EMOTE_LEFT ||
+                        "<:botarrowleft:766649447413055498>"
+                      }to go back page ${page - 1}
+Or react with ${
+                        process.env.EMOTE_RIGHT ||
+                        "<:botarrowright:766649411014361159>"
+                      }to go to page ${page + 1}`
+                  );
+                  embed.setTitle(`Page ${page}/${list.length}`);
+                  msg.edit(embed);
+                }
+              });
+              backward.on("remove", async (collect) => {
+                if (page <= 1) return;
+                page--;
+                if (page === 1) {
+                  embed.setDescription(`${list[page - 1].Category}
+${list[page - 1].commands}
 
-React ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`);
-              msg.edit(embed);
-              return;
-            }
-            embed.setDescription(
-              `${pages[page - 1]}` +
-                `
+React ${
+                    process.env.EMOTE_RIGHT ||
+                    "<:botarrowright:766649411014361159>"
+                  }to go to page ${page + 1}`);
+                  embed.setTitle(`Page ${page}/${list.length}`);
+                  msg.edit(embed);
+                  return;
+                } else {
+                  embed.setDescription(
+                    `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                      `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-            );
-            embed.setTitle(`Page ${page}/${pages.length}`);
-            msg.edit(embed);
-          });
-          forward.on("collect", async collect => {
-            const userReactions = msg.reactions.cache.filter(reaction =>
-              reaction.users.cache.has(message.author.id)
-            );
-            /*try {
+React with ${
+                        process.env.EMOTE_LEFT ||
+                        "<:botarrowleft:766649447413055498>"
+                      }to go back page ${page - 1}
+Or react with ${
+                        process.env.EMOTE_RIGHT ||
+                        "<:botarrowright:766649411014361159>"
+                      }to go to page ${page + 1}`
+                  );
+                  embed.setTitle(`Page ${page}/${list.length}`);
+                  msg.edit(embed);
+                }
+              });
+              forward.on("collect", async (collect) => {
+                const userReactions = msg.reactions.cache.filter((reaction) =>
+                  reaction.users.cache.has(message.author.id)
+                );
+                /*try {
 	for (const reaction of userReactions.values()) {
 		await reaction.users.remove(message.author.id);
 	}
 } catch (error) {
 	console.error('Failed to remove reactions.');
 }*/
-            if (page === pages.length) return;
-            page++;
-            if (page >= pages.length) {
-              embed.setDescription(
-                `${pages[page - 1]}` +
-                  `
+                if (page === list.length) return;
+                page++;
+                if (page >= list.length) {
+                  embed.setDescription(
+                    `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                      `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
-              );
-              embed.setTitle(`Page ${page}/${pages.length}`);
-              msg.edit(embed);
-              return;
-            }
-            embed.setDescription(
-              pages[page - 1] +
-                `
+React with ${
+                        process.env.EMOTE_LEFT ||
+                        "<:botarrowleft:766649447413055498>"
+                      }to go back page ${page - 1}`
+                  );
+                  embed.setTitle(`Page ${page}/${list.length}`);
+                  msg.edit(embed);
+                  return;
+                }
+                embed.setDescription(
+                  `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                    `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-            );
-            embed.setTitle(`Page ${page}/${pages.length}`);
-            msg.edit(embed);
-          });
-          forward.on("remove", async collect => {
-            if (page === pages.length) return;
-            page++;
-            if (page >= pages.length) {
-              embed.setDescription(
-                `${pages[page - 1]}` +
-                  `
+React with ${
+                      process.env.EMOTE_LEFT ||
+                      "<:botarrowleft:766649447413055498>"
+                    }to go back page ${page - 1} 
+Or react with ${
+                      process.env.EMOTE_RIGHT ||
+                      "<:botarrowright:766649411014361159>"
+                    }to go to page ${page + 1}`
+                );
+                embed.setTitle(`Page ${page}/${list.length}`);
+                msg.edit(embed);
+              });
+              forward.on("remove", async (collect) => {
+                if (page === list.length) return;
+                page++;
+                if (page >= list.length) {
+                  embed.setDescription(
+                    `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                      `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1}`
-              );
-              embed.setTitle(`Page ${page}/${pages.length}`);
-              msg.edit(embed);
-              return;
-            }
-            embed.setDescription(
-              pages[page - 1] +
-                `
+React with ${
+                        process.env.EMOTE_LEFT ||
+                        "<:botarrowleft:766649447413055498>"
+                      }to go back page ${page - 1}`
+                  );
+                  embed.setTitle(`Page ${page}/${list.length}`);
+                  msg.edit(embed);
+                  return;
+                }
+                embed.setDescription(
+                  `${list[page - 1].Category}
+${list[page - 1].commands}` +
+                    `
 
-React with ${process.env.EMOTE_LEFT||'<:botarrowleft:766649447413055498>'}to go back page ${page - 1} 
-Or react with ${process.env.EMOTE_RIGHT||'<:botarrowright:766649411014361159>'}to go to page ${page + 1}`
-            );
-            embed.setTitle(`Page ${page}/${pages.length}`);
-            msg.edit(embed);
-          });
+React with ${
+                      process.env.EMOTE_LEFT ||
+                      "<:botarrowleft:766649447413055498>"
+                    }to go back page ${page - 1} 
+Or react with ${
+                      process.env.EMOTE_RIGHT ||
+                      "<:botarrowright:766649411014361159>"
+                    }to go to page ${page + 1}`
+                );
+                embed.setTitle(`Page ${page}/${list.length}`);
+                msg.edit(embed);
+              });
+            });
         });
-      });
     }
   }
 };
