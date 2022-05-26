@@ -4,7 +4,7 @@ exports.conf = {
   dm: "no"
 };
 exports.run = (bot, message, args) => {
-  const permissions = message.channel.permissionsFor(message.client.user);
+  let permissions = message.channel.permissionsFor(message.client.user);
   if (!permissions.has("MANAGE_MESSAGES"))
     return message.mentionReply(
       `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'}`+" | I don't have permission to run this command, I need Manage Messages perm!!!"
