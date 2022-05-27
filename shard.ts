@@ -1,5 +1,5 @@
 
-import fetch from "node-fetch"
+/*import fetch from "node-fetch"
 setInterval(async () => {
 
   await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`)//main glitch projects site
@@ -11,7 +11,8 @@ export const token = process.env.DISCORD_BOT_TOKEN;
 if (process.env.DISCORD_BOT_TOKEN == undefined) {
   console.log("please set ENV: DISCORD_BOT_TOKEN");
   process.exit(0);
-}
+}*/
+//If you didn't use 24/7 host tools (like using premium plan etc.) and want to host the bot 24/7, remove the `/*` and `*/` 
 
 
 
