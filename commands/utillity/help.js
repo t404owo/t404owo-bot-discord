@@ -159,7 +159,7 @@ about the brackets:
     let embed = new discord.MessageEmbed()
       .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
       .setTitle(`Page ${page}/${list.length}`).setDescription(`${
-      list[page - 1].category
+      list[page - 1].Category
     }
 ${list[page - 1].commands}
 
@@ -348,6 +348,17 @@ Or react with ${
             msg.edit(embed);
           });
           forward.on("remove", async (collect) => {
+            
+            const userReactions = msg.reactions.cache.filter((reaction) =>
+              reaction.users.cache.has(message.author.id)
+            );
+            /*try {
+	for (const reaction of userReactions.values()) {
+		await reaction.users.remove(message.author.id);
+	}
+} catch (error) {
+	console.error('Failed to remove reactions.');
+}*/
             if (page === list.length) return;
             page++;
             if (page >= list.length) {
@@ -362,7 +373,7 @@ React with ${
                   }to go back page ${page - 1}`
               );
               embed.setTitle(`Page ${page}/${list.length}`);
-              msg.edit({ embeds: [embed] });
+              msg.edit(embed);
               return;
             }
             embed.setDescription(
@@ -379,7 +390,7 @@ Or react with ${
                 }to go to page ${page + 1}`
             );
             embed.setTitle(`Page ${page}/${list.length}`);
-            msg.edit({ embeds: [embed] });
+            msg.edit(embed);
           });
         });
     });
