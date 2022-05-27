@@ -24,7 +24,7 @@ jobs:
         cache: 'npm'
     - run: npm ci
     - run: npm start
-      env: #please add the following secrets in settings>secrets>actions to run the bot per workflow
+      env: #please add the following secrets in settings>secrets>actions to run the bot per workflow:
           DISCORD_BOT_EMBED_COLOR: ${{ secrets.DISCORD_BOT_EMBED_COLOR }}
           DISCORD_BOT_INVITE: ${{ secrets.DISCORD_BOT_INVITE }}
           DISCORD_BOT_OWNER_ID: ${{ secrets.DISCORD_BOT_OWNER_ID }}
