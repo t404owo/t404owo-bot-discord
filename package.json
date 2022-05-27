@@ -44,7 +44,7 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn ./shard.ts",
-    "test": "node ./arcaea/api/tests/index.ts"
+    "test": "node test.js"
   },
   "license": "MIT"
 }
