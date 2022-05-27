@@ -27,7 +27,7 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
     - run: npm ci
-    - run: npm start
+    - run: npm test
       env:
           DISCORD_BOT_EMBED_COLOR: ${{ secrets.DISCORD_BOT_EMBED_COLOR }}
           DISCORD_BOT_INVITE: ${{ secrets.DISCORD_BOT_INVITE }}
@@ -41,4 +41,3 @@ jobs:
           EMOTE_RIGHT: ${{ secrets.EMOTE_RIGHT }}
           GENIUS: ${{ secrets.GENIUS }}
           VERSION: ${{ secrets.VERSION }}
-    - run: npm test
