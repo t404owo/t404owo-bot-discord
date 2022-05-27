@@ -14,10 +14,10 @@ const moment = require("moment");
 const botToken = process.env.DISCORD_BOT_TOKEN;
 const util = require("util");
 
-const fetch = require("node-fetch");
+/*const fetch = require("node-fetch");
 setInterval(async () => {
   await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`); //main projects site
-}, 60000);
+}, 60000);*///if you're using 24/7 tools, you don't need this
 bot.db = require("quick.db");
 
 bot.sleep = promisify(setTimeout);
