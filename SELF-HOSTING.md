@@ -38,11 +38,13 @@ EMOTE_YES='a custom tick (make sure the custom emote has to be: <a:emote_name:em
 EMOTE_RIGHT='a custom right arrow'
 EMOTE_LEFT='a custom left arrow'
 ```
-Then create ir go to a `.env` file and put the code in it
+Then create it: go to a `.env` file and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
 (For guys who hosts it on PC:start the bot with `npm start` in the console(terminal, shell what ever you call)
-The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`
-for repl:
+The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`.
+If you didn't use 24/7 host tools (like using premium plan etc.) and want to host the bot 24/7, go to the hosting sections in `main.js` and `shard.ts`, remove the `/*` and `*/`.
+
+for Repl:
 
  copy the code:
 ```json
@@ -67,4 +69,5 @@ for repl:
 ```
 Then click the button with the lock, then click the Open raw editor and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
-The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`
+The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`.
+If you didn't use 24/7 host tools (like using hacker plan (repl's premium play) etc.) and want to host the bot 24/7, go to the hosting sections in `main.js` and `shard.ts`, remove the `/*` and `*/`, and paste the bot website url (repl-project.username.repl.co) in uptimerobot and let it ping per 5 mins
