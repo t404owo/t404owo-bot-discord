@@ -119,30 +119,7 @@ module.exports.run = async (bot, message, args) => {
               }`
             ) || bot.user.avatarURL({ dynamic: true, size: 1024 }),
         })
-        .catch((errr) => {
-          {
-      channel
-        .createWebhook(
-          "Tairitsu",
-          bot.user.avatarURL({ dynamic: true, size: 1024 })
-        )
-        .then((webhook) => {
-          webhook
-            .send({
-            content:a, 
-              username: bot.db.get(
-                `${message.guild.id}npcname_${
-                  args[0].toLowerCase() + " " + args[1].toLowerCase()
-                }`
-              ),
-              avatarURL:
-                bot.db.get(
-                  `${message.guild.id}npcav_${
-                    args[0].toLowerCase() + " " + args[1].toLowerCase()
-                  }`
-                ) || bot.user.avatarURL({ dynamic: true, size: 1024 }),
-            })
-            .catch((error) => {
+          .catch((error) => {
               // We also want to make sure if an error is found, to report it in chat.
               return message.channel.send(
                 {content:`${
@@ -152,9 +129,8 @@ module.exports.run = async (bot, message, args) => {
                 });
             console.log(error);
             });
-        });
-    }
-        });
+    
+      
       }
     
   } else
@@ -207,27 +183,8 @@ module.exports.run = async (bot, message, args) => {
           avatarURL:
             bot.db.get(`${message.guild.id}npcav_${args[0].toLowerCase()}`) ||
             bot.user.avatarURL({ dynamic: true, size: 1024 }),
-        })
-        .catch((errr) => {
-          {
-      channel
-        .createWebhook(
-          "Tairitsu",
-          bot.user.avatarURL({ dynamic: true, size: 1024 })
-        )
-        .then((webhook) => {
-          webhook
-            .send({
-            content:a, 
-              username: bot.db.get(
-                `${message.guild.id}npcname_${args[0].toLowerCase()}`
-              ),
-              avatarURL:
-                bot.db.get(
-                  `${message.guild.id}npcav_${args[0].toLowerCase()}`
-                ) || bot.user.avatarURL({ dynamic: true, size: 1024 }),
-            })
-            .catch((error) => {
+        })        
+          .catch((error) => {
               // We also want to make sure if an error is found, to report it in chat.
               return message.channel.send(
                 {content:`${
@@ -236,10 +193,8 @@ module.exports.run = async (bot, message, args) => {
                   " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
                 });
             console.log(error);
-            });
-        });
-    }
-        });
+            });    
+
     }
     
   }
