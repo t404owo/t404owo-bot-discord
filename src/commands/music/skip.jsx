@@ -26,7 +26,10 @@ let sendSuccess= require("../../util/success"),sendError= require("../../util/er
     try {
       serverQueue.player.stop(false);
 //message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
-      return;
+      return sendSuccess(
+      `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Disconnected Successfully!",
+      message
+    );
     } catch {
       serverQueue.connection.destroy();
     }
@@ -46,7 +49,10 @@ let sendSuccess= require("../../util/success"),sendError= require("../../util/er
     try {
       serverQueue.player.stop(false);
 message.react(process.env.EMOTE_OK.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g, "").replace(/>/g, "")||"801419553841741904");
-      return;
+      return sendSuccess(
+      `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'}`+" | Disconnected Successfully!",
+      message
+    );
     } catch {
       serverQueue.connection.destroy();
     }
