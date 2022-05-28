@@ -85,8 +85,8 @@ serverQueue.songs.forEach((s)=>{
     .setTitle("Server Songs Queue")
     .setColor("BLUE")
     .addField("Now Playing", `[${serverQueue.songs[0].title}]`+`(${serverQueue.songs[0].url})`)
-    .addField("Text Channel", `<@${serverQueue.textChannel.id}>`)
-    .addField("Voice Channel", `<@${serverQueue.voiceChannel.id}>`)
+    .addField("Text Channel", `<#${serverQueue.textChannel.id}>`)
+    .addField("Voice Channel", `<#${serverQueue.voiceChannel.id}>`)
     if(serverQueue.songs.length>11&&parseInt(page)+1 <= Math.ceil(Object.keys(serverQueue.songs).length / 10))embed.setFooter(`Type ${client.config.prefix}queue ${parseInt(page)+1} or /queue page:${parseInt(page)+1} to see page ${parseInt(page)+1}.`)
     if(serverQueue.songs.length < 2)embed.setDescription(`No songs to play next, please add songs by \`\`${client.config.prefix}play <song_name>\`\``)
     else {
