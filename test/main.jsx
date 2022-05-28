@@ -1,1 +1,5 @@
-
+const discord= require("discord.js")
+const {MessageEmbed}= require("discord.js")
+let embed=new MessageEmbed().setTitle("Hiya").addField("This is the test embed :D", "it will be pushed in .json format ;D")
+console.log(embed)
+console.log("ok")
