@@ -10,7 +10,7 @@ exports.run = (bot, message, args) => {
       else{
 if(!message.guild)return
         
-        fs.readdir("./commands/", (err, categories) => {
+        fs.readdir("./src/commands/", (err, categories) => {
 	if (err) console.log(err);
   categories.forEach(category => {
     let moduleConf = require(`../${category}/module.json`);
@@ -19,7 +19,7 @@ if(!message.guild)return
     if (!moduleConf) return;
     bot.helps.set(category, moduleConf);
 
-    fs.readdir(`./commands/${category}`, (err, files) => {
+    fs.readdir(`./src/commands/${category}`, (err, files) => {
       if (err) console.log(err);
 
       files.forEach(file => {
