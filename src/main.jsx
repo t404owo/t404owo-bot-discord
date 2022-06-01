@@ -138,7 +138,6 @@ fs.readdir("./src/commands/", (err, categories) => {
   });
 });
 bot.on('ready', () =>{
-  
   bot.guilds.cache.forEach(guild=>{
   fs.readdir("./src/applications.commands/", (err, categories)=>{
     categories.forEach(category => {
@@ -188,7 +187,7 @@ bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
 })
 })
     
-  fs.readdir("./commands/", (err, categories) => {
+  fs.readdir("./src/commands/", (err, categories) => {
 	if (err) console.log(err);
   categories.forEach(category => {
     let moduleConf = require(`./commands/${category}/module.json`);
@@ -197,7 +196,7 @@ bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
     if (!moduleConf) return;
     bot.helps.set(category, moduleConf);
 
-    fs.readdir(`./commands/${category}`, (err, files) => {
+    fs.readdir(`./src/commands/${category}`, (err, files) => {
       if (err) console.log(err);
 
       files.forEach(file => {
@@ -218,7 +217,7 @@ bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
 	     options:prop.options
         }
     });//command for slash
-//console.log('Finished expoerted slash command!')
+console.log('Finished exported slash command!')
  })
 })
 })
