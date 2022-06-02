@@ -5,8 +5,8 @@ const {
   MessageAttachment,
   Permissions,
 } = require("discord.js");
-const discord = require("discord.js");//main package
-const discord_ = require("discord.js-v12-fix-ratelimit");//for collection .array() func for the help cmd only existing on v12 or older
+const discord = require("discord.js"); //main package
+const discord_ = require("discord.js-v12-fix-ratelimit"); //for collection .array() func for the help cmd only existing on v12 or older
 const { promisify } = require("util");
 const ms = require("ms");
 const sleep = promisify(setTimeout);
@@ -29,15 +29,22 @@ const bot = new Client({
     Intents.FLAGS.DIRECT_MESSAGES,
     Intents.FLAGS.DIRECT_MESSAGE_REACTIONS,
     Intents.FLAGS.DIRECT_MESSAGE_TYPING,
-    Intents.FLAGS.GUILD_SCHEDULED_EVENTS
+    Intents.FLAGS.GUILD_SCHEDULED_EVENTS,
   ],
-  partials: ["USER", "CHANNEL", "GUILD_MEMBER", "MESSAGE", "REACTION", "GUILD_SCHEDULED_EVENT"]
+  partials: [
+    "USER",
+    "CHANNEL",
+    "GUILD_MEMBER",
+    "MESSAGE",
+    "REACTION",
+    "GUILD_SCHEDULED_EVENT",
+  ],
 });
 bot.createAPIMessage = async (interaction, content) => {
-  let data={
-    embeds:[content]
-  }
-  return data
+  let data = {
+    embeds: [content],
+  };
+  return data;
 };
 const fs = require("fs");
 const moment = require("moment");
@@ -137,111 +144,137 @@ fs.readdir("./src/commands/", (err, categories) => {
     });
   });
 });
-bot.on('ready', () =>{
-  bot.guilds.cache.forEach(guild=>{
-  fs.readdir("./src/applications.commands/", (err, categories)=>{
-    categories.forEach(category => {
-    let moduleConf = require(`./applications.commands/${category}/module.json`);
-    moduleConf.path = `./applications.commands/${category}`;
-    moduleConf.cmds = [];
-    if (!moduleConf) return;
-    bot.applications.helps.set(category, moduleConf);
+bot.on("ready", () => {
+  bot.guilds.cache.forEach((guild) => {
 
-    fs.readdir(`./src/applications.commands/${category}`, (err, files) => {
+    fs.readdir("./src/commands/", (err, categories) => {
+      const axios = require("axios");
       if (err) console.log(err);
+      categories.forEach((category) => {
+        let moduleConf = require(`./commands/${category}/module.json`);
+        moduleConf.path = `./commands/${category}`;
+        moduleConf.cmds = [];
+        if (!moduleConf) return;
+        bot.helps.set(category, moduleConf);
 
-      files.forEach(file => {
-        if (!file.endsWith(".js") &&
-          !file.endsWith(".jsx") &&
-          !file.endsWith(".ts")) return;
-        let prop = require(`./applications.commands/${category}/${file}`);
-        let cmdName = file.split(".")[0];
-        if(!prop.options||!prop.interaction)return
-        
-      
+        fs.readdir(`./src/commands/${category}`, (err, files) => {
+          if (err) console.log(err);
 
-        bot.applications.helps.get(category).cmds.push(prop.info.name);
-if(category==="user"){
-bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
-        data: {
-            name: prop.info.name,
-            type:2,
-            description: ""
-        }
-    });//command for user apps list
-}
-        else{
-          
-bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
-        data: {
-            name: prop.info.name,
-            type:3,
-            description: ""
-        }
-    });//command for message apps list
+          files.forEach((file) => {
+            if (!file.endsWith(".js")) return;
+            let prop = require(`./commands/${category}/${file}`);
+            let cmdName = file.split(".")[0];
+            if (!prop.options || !prop.interaction) return;
 
-        }
-//console.log('Finished expoerted slash command!')
- })
-})
-})
-})
-    
-  fs.readdir("./src/commands/", (err, categories) => {
-	if (err) console.log(err);
-  categories.forEach(category => {
-    let moduleConf = require(`./commands/${category}/module.json`);
-    moduleConf.path = `./commands/${category}`;
-    moduleConf.cmds = [];
-    if (!moduleConf) return;
-    bot.helps.set(category, moduleConf);
+            bot.helps.get(category).cmds.push(prop.info.name);
+            axios.post(
+              `https://discord.com/api/v10/applications/${bot.user.id}/guilds/${guild.id}/commands`,
+              {
+                name: prop.info.name,
+                type: 1,
+                description: prop.info.description,
+                options: prop.options,
+              },
+              {
+                headers: {
+                  Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+                },
+              }
+            );
 
-    fs.readdir(`./src/commands/${category}`, (err, files) => {
-      if (err) console.log(err);
-
-      files.forEach(file => {
-        if (!file.endsWith(".js")) return;
-        let prop = require(`./commands/${category}/${file}`);
-        let cmdName = file.split(".")[0];
-        if(!prop.options||!prop.interaction)return
-        
-      
-
-        bot.helps.get(category).cmds.push(prop.info.name);
-
-bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
+            /*bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
         data: {
             name: prop.info.name,
             type:1,
             description: prop.info.description,
 	     options:prop.options
         }
-    });//command for slash
-console.log('Finished exported slash command!')
- })
-})
-})
-}) 
-    
-  })
-  console.log('Finished exported slash command!')
+    });//command for slash*/
+            console.log("Finished exported slash command :D!");
+          });
+        });
+      });
+    });
+    fs.readdir("./src/applications.commands/", (err, categories) => {
+      categories.forEach((category) => {
+        let moduleConf = require(`./applications.commands/${category}/module.json`);
+        moduleConf.path = `./applications.commands/${category}`;
+        moduleConf.cmds = [];
+        if (!moduleConf) return;
+        bot.applications.helps.set(category, moduleConf);
 
-bot.on('interactionCreate', async interaction => {
-  if (!interaction.isCommand()) return;
-  interaction.noMentionReply=(content)=>interaction.reply({content, allowedMentions: { repliedUser: false }})
-  interaction.mentionReply=(content)=>interaction.reply({content, allowedMentions: { repliedUser: true }})
-  interaction.author=interaction.member.user
-  const command = interaction.commandName.toLowerCase();
-  const args = interaction.options;
-console.log(interaction.user.tag+" ("+interaction.user.id+") ran a command: "+ command)
-  bot.config={
-  prefix:bot.db.get(`${interaction.guild_id}_prefix`) || process.env.DISCORD_BOT_PREFIX
-}
-	if(bot.commands.get(command.toLowerCase())){
-          bot.commands.get(command).interaction(bot, interaction, args);
-        }
-});
-/*bot.ws.on('INTERACTION_CREATE', async interaction => {
+        fs.readdir(`./src/applications.commands/${category}`, (err, files) => {
+          if (err) console.log(err);
+
+          files.forEach((file) => {
+            if (
+              !file.endsWith(".js") &&
+              !file.endsWith(".jsx") &&
+              !file.endsWith(".ts")
+            )
+              return;
+            let prop = require(`./applications.commands/${category}/${file}`);
+            let cmdName = file.split(".")[0];
+            if (!prop.options || !prop.interaction) return;
+
+            bot.applications.helps.get(category).cmds.push(prop.info.name);
+            if (category === "user") {
+              bot.api
+                .applications(bot.user.id)
+                .guilds(guild.id.toString())
+                .commands.post({
+                  data: {
+                    name: prop.info.name,
+                    type: 2,
+                    description: "",
+                  },
+                }); //command for user apps list
+            } else {
+              bot.api
+                .applications(bot.user.id)
+                .guilds(guild.id.toString())
+                .commands.post({
+                  data: {
+                    name: prop.info.name,
+                    type: 3,
+                    description: "",
+                  },
+                }); //command for message apps list
+            }
+            //console.log('Finished expoerted slash command!')
+          });
+        });
+      });
+    });
+  });
+  //console.log("Finished exported slash command!");
+
+  bot.on("interactionCreate", async (interaction) => {
+    if (!interaction.isCommand()) return;
+    interaction.noMentionReply = (content) =>
+      interaction.reply({ content, allowedMentions: { repliedUser: false } });
+    interaction.mentionReply = (content) =>
+      interaction.reply({ content, allowedMentions: { repliedUser: true } });
+    interaction.author = interaction.member.user;
+    const command = interaction.commandName.toLowerCase();
+    const args = interaction.options;
+    console.log(
+      interaction.user.tag +
+        " (" +
+        interaction.user.id +
+        ") ran a command: " +
+        command
+    );
+    bot.config = {
+      prefix:
+        bot.db.get(`${interaction.guild_id}_prefix`) ||
+        process.env.DISCORD_BOT_PREFIX,
+    };
+    if (bot.commands.get(command.toLowerCase())) {
+      bot.commands.get(command).interaction(bot, interaction, args);
+    }
+  });
+  /*bot.ws.on('INTERACTION_CREATE', async interaction => {
         const command = interaction.data.name.toLowerCase();
         const args = interaction.data.options;
 
@@ -266,27 +299,28 @@ bot.on("ready", () => {
     activities: [
       {
         name: `${process.env.DISCORD_BOT_PREFIX}h for help | ${process.env.DISCORD_BOT_USERNAME}`,
-        type: randtype
+        type: randtype,
       },
       {
         name: `${process.env.DISCORD_BOT_PREFIX}help for help | ${process.env.DISCORD_BOT_USERNAME}`,
-        type: randtype
-      }
+        type: randtype,
+      },
     ],
   });
-})
-bot.on("messageCreate", async message => {
-  message.noMentionReply=(content)=>message.reply({content, allowedMentions: { repliedUser: false }})
-  message.mentionReply=(content)=>message.reply({content, allowedMentions: { repliedUser: true }})
-  
+});
+bot.on("messageCreate", async (message) => {
+  message.noMentionReply = (content) =>
+    message.reply({ content, allowedMentions: { repliedUser: false } });
+  message.mentionReply = (content) =>
+    message.reply({ content, allowedMentions: { repliedUser: true } });
+
   if (message.author.bot || message.author === bot.user) return;
-  
-  
+
   if (!message.guild) {
-    console.log("!MessageGuild")
+    console.log("!MessageGuild");
     bot.config = {
       owners: process.env.DISCORD_BOT_OWNER_ID,
-      prefix: process.env.DISCORD_BOT_PREFIX
+      prefix: process.env.DISCORD_BOT_PREFIX,
     };
     const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
     const prefix = message.content.match(prefixMention)
@@ -302,10 +336,7 @@ bot.on("messageCreate", async message => {
     )
       return;
 
-    let args = message.content
-      .slice(prefix.length)
-      .trim()
-      .split(/ +/g);
+    let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let msg = message.content.toLowerCase();
     let cmd = args.shift().toLowerCase();
     let sender = message.author;
@@ -325,7 +356,7 @@ bot.on("messageCreate", async message => {
       cooldownAmount = (commandFile.conf.cooldown || 3) * 1000;
 
     try {
-      console.log("!MessageGuild")
+      console.log("!MessageGuild");
       if (!commandFile) return;
       if (commandFile.conf.dm === "no") return;
       commandFile.run(bot, message, args);
@@ -342,11 +373,13 @@ bot.on("messageCreate", async message => {
   else {
     bot.config = {
       owners: process.env.DISCORD_BOT_OWNER_ID,
-      prefix: bot.db.get(`${message.guild.id}_prefix`) || process.env.DISCORD_BOT_PREFIX
+      prefix:
+        bot.db.get(`${message.guild.id}_prefix`) ||
+        process.env.DISCORD_BOT_PREFIX,
     };
-   // bot.music = {
-   //   vote: bot.db.get(`${message.guild.id}_vote`) || false
-   // };
+    // bot.music = {
+    //   vote: bot.db.get(`${message.guild.id}_vote`) || false
+    // };
     const prefixMention = new RegExp(`^<@!?${bot.user.id}> `);
     const prefix = message.content.match(prefixMention)
       ? message.content.match(prefixMention)[0]
@@ -356,10 +389,7 @@ bot.on("messageCreate", async message => {
 
     if (!message.content.toLowerCase().startsWith(prefix.toLowerCase())) return;
 
-    let args = message.content
-      .slice(prefix.length)
-      .trim()
-      .split(/ +/g);
+    let args = message.content.slice(prefix.length).trim().split(/ +/g);
     let msg = message.content.toLowerCase();
     let cmd = args.shift().toLowerCase();
     let sender = message.author;
@@ -391,7 +421,7 @@ bot.on("messageCreate", async message => {
       if (now < expirationTime) {
         const timeLeft = (expirationTime - now) / 1000;
         return message.mentionReply(
-          `${process.env.EMOTE_NO || '<:tairitsuno:801419553933492245>'} | <@!${
+          `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"} | <@!${
             message.member.id
           }>, please wait **${timeLeft.toFixed(
             1
@@ -413,9 +443,11 @@ bot.on("messageCreate", async message => {
     }
   }
 });
-bot.on("messageCreate", async message => {
-  message.noMentionReply=(content)=>message.reply({content, allowedMentions: { repliedUser: false }})
-  message.mentionReply=(content)=>message.reply({content, allowedMentions: { repliedUser: true }})
+bot.on("messageCreate", async (message) => {
+  message.noMentionReply = (content) =>
+    message.reply({ content, allowedMentions: { repliedUser: false } });
+  message.mentionReply = (content) =>
+    message.reply({ content, allowedMentions: { repliedUser: true } });
   if (message.author.bot || message.guild === null) return;
   //xp(message);
 
@@ -427,10 +459,7 @@ bot.on("messageCreate", async message => {
     : bot.config.prefix;
 
   if (message.content.indexOf(prefix) !== 0 || message.author.bot) return;
-  const args = message.content
-    .slice(prefix.length)
-    .trim()
-    .split(/ +/g);
+  const args = message.content.slice(prefix.length).trim().split(/ +/g);
   const command = args.shift().toLowerCase();
 });
 function xp(message) {
@@ -449,13 +478,12 @@ function xp(message) {
       message.guild.id === "264445053596991498" ||
       message.guild.id === "808770886718193705" ||
       message.guild.id === "264445053596991498" ||
-      
       bot.db.get(`${message.guild.id}_lvlupmsg`) === "no"
     )
       return;
     message.channel
       .send(`${message.author.toString()} is now on level ${newLevel}!`)
-      .then(ms => {
+      .then((ms) => {
         ms.delete({ timeout: "5000" });
       });
   }
@@ -483,13 +511,13 @@ function serverxp(message) {
       .send(
         `${message.author.toString()} is now on level ${newLevel} in this server!`
       )
-      .then(ms => {
+      .then((ms) => {
         ms.delete({ timeout: "5000" });
       });
   }
 }
 
-bot.on("guildMemberAdd", async member => {
+bot.on("guildMemberAdd", async (member) => {
   if (
     bot.db.get(`${member.guild.id}_autorole`) &&
     !bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)
@@ -497,13 +525,13 @@ bot.on("guildMemberAdd", async member => {
     if (bot.db.get(`${member.guild.id}_autorolesys`) === "disabled") return;
     let autorole = bot.db.get(`${member.guild.id}_autorole`);
     member.roles
-      .add(member.guild.roles.cache.find(r => r.id === autorole))
-      .catch(err => {
+      .add(member.guild.roles.cache.find((r) => r.id === autorole))
+      .catch((err) => {
         bot.db.delete(`${member.guild.id}_autorole`);
       });
     member.roles
-      .add(member.guild.roles.cache.find(r => r.id === autorole).id)
-      .catch(err => {
+      .add(member.guild.roles.cache.find((r) => r.id === autorole).id)
+      .catch((err) => {
         bot.db.delete(`${member.guild.id}_autorole`);
       });
   }
@@ -513,7 +541,7 @@ bot.on("guildMemberAdd", async member => {
 
   if (bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)) {
     if (!bot.db.get(`${member.guild.id}_muterole`)) {
-      let muterale = member.guild.roles.cache.find(r => r.name === "Muted");
+      let muterale = member.guild.roles.cache.find((r) => r.name === "Muted");
       //bot.db.set(`${message.guild.id}_muterole`,message.guild.roles.cache.find(r => r.name === 'Muted').id);
       if (!muterale) {
         try {
@@ -521,12 +549,12 @@ bot.on("guildMemberAdd", async member => {
             data: {
               name: "Muted",
               color: "#222222",
-              permissions: []
-            }
+              permissions: [],
+            },
           });
           member.guild.channels.cache.forEach(async (channel, id) => {
             await channel.permissionOverwrite.create(
-              member.guild.roles.cache.find(r => r.name === "muted"),
+              member.guild.roles.cache.find((r) => r.name === "muted"),
               {
                 CREATE_INSTANT_INVITE: true,
                 ADD_REACTIONS: false,
@@ -540,7 +568,7 @@ bot.on("guildMemberAdd", async member => {
                 CONNECT: false,
                 SPEAK: false,
                 USE_VAD: false,
-                CHANGE_NICKNAME: true
+                CHANGE_NICKNAME: true,
               }
             );
           });
@@ -550,7 +578,7 @@ bot.on("guildMemberAdd", async member => {
       }
       muterole = bot.db.set(
         `${member.guild.id}_muterole`,
-        member.guild.roles.cache.find(r => r.name === "Muted").id.toString()
+        member.guild.roles.cache.find((r) => r.name === "Muted").id.toString()
       );
     }
     let muteroles = bot.db.set(
@@ -560,24 +588,26 @@ bot.on("guildMemberAdd", async member => {
 
     console.log(muterole + "\n" + muteroles);
 
-    setTimeout(function() {
+    setTimeout(function () {
       targe.roles
-        .add(member.guild.roles.cache.find(r => r.id === muteroles))
+        .add(member.guild.roles.cache.find((r) => r.id === muteroles))
         .catch(() => {
           targe.roles.add(muteroles);
           targe.roles.remove(
-            member.guild.roles.cache.find(r => r.id === muterole)
+            member.guild.roles.cache.find((r) => r.id === muterole)
           );
           targe.roles.remove(
-            member.guild.roles.cache.find(r => r.id === muterole).id
+            member.guild.roles.cache.find((r) => r.id === muterole).id
           );
           bot.db.delete(`${member.guild.id}_${userm.user.id}mutetime`);
           bot.db.delete(`${member.guild.id}_${userm.user.id}muteroles`);
         });
 
-      targe.roles.remove(member.guild.roles.cache.find(r => r.id === muterole));
       targe.roles.remove(
-        member.guild.roles.cache.find(r => r.id === muterole).id
+        member.guild.roles.cache.find((r) => r.id === muterole)
+      );
+      targe.roles.remove(
+        member.guild.roles.cache.find((r) => r.id === muterole).id
       );
       bot.db.delete(`${member.guild.id}_${userm.user.id}muteroles`);
       bot.db.delete(`${member.guild.id}_${userm.user.id}mutetime`);
@@ -586,21 +616,21 @@ bot.on("guildMemberAdd", async member => {
         if (bot.db.get(`${member.guild.id}_autorolesys`) === "disabled") return;
         let autorole = bot.db.get(`${member.guild.id}_autorole`);
         member.roles
-          .add(member.guild.roles.cache.find(r => r.id === autorole))
-          .catch(err => {
+          .add(member.guild.roles.cache.find((r) => r.id === autorole))
+          .catch((err) => {
             bot.db.delete(`${member.guild.id}_autorole`);
           });
         member.roles
-          .add(member.guild.roles.cache.find(r => r.id === autorole).id)
-          .catch(err => {
+          .add(member.guild.roles.cache.find((r) => r.id === autorole).id)
+          .catch((err) => {
             bot.db.delete(`${member.guild.id}_autorole`);
           });
       }
     }, ms(bot.db.get(`${member.guild.id}_${userm.user.id}mutetime`)));
 
     targe.roles.remove(targe.roles.cache);
-    targe.roles.add(member.guild.roles.cache.find(r => r.id === muterole));
-    targe.roles.add(member.guild.roles.cache.find(r => r.id === muterole).id);
+    targe.roles.add(member.guild.roles.cache.find((r) => r.id === muterole));
+    targe.roles.add(member.guild.roles.cache.find((r) => r.id === muterole).id);
   }
 
   console.log(`${bot.db.get(`${member.guild.id}_welcomechannel`)}
@@ -648,7 +678,7 @@ ${bot.db.get(`${member.guild.id}_welcomemessagesys`)}`);
       if (bot.db.get(`${member.guild.id}_welcomeembed`) === "no") {
         return bot.channels.cache
           .get(bot.db.get(`${member.guild.id}_welcomechannel`))
-          .send({content:msg});
+          .send({ content: msg });
       }
       const Embed = new discord.MessageEmbed()
         .setThumbnail(member.user.avatarURL({ dynamic: true }))
@@ -656,7 +686,7 @@ ${bot.db.get(`${member.guild.id}_welcomemessagesys`)}`);
         .setColor("RANDOM");
       bot.channels.cache
         .get(bot.db.get(`${member.guild.id}_welcomechannel`))
-        .send({embeds:[Embed]});
+        .send({ embeds: [Embed] });
       return;
     }
 
@@ -669,7 +699,7 @@ ${bot.db.get(`${member.guild.id}_welcomemessagesys`)}`);
         "https://i.imgur.com/5SABV1P.gif",
         "https://i.imgur.com/EpeiJq8.gif",
         "https://i.imgur.com/fFNLyAx.gif",
-        "https://i.imgur.com/5s8vsTH.gif"
+        "https://i.imgur.com/5s8vsTH.gif",
       ];
       var rand = list[Math.floor(Math.random() * list.length)];
       console.log(rand);
@@ -684,18 +714,18 @@ ${bot.db.get(`${member.guild.id}_welcomemessagesys`)}`);
         console.log(rand);
         bot.channels.cache
           .get(bot.db.get(`${member.guild.id}_welcomechannel`))
-          .send({embeds:[Embed]});
+          .send({ embeds: [Embed] });
         return;
       }
 
       bot.channels.cache
         .get(bot.db.get(`${member.guild.id}_welcomechannel`))
-        .send({content:msg, file:[image]});
+        .send({ content: msg, file: [image] });
       return;
     }
   }
 });
-bot.on("guildMemberRemove", async member => {
+bot.on("guildMemberRemove", async (member) => {
   console.log(`${bot.db.get(`${member.guild.id}_leavechannel`)}
   ${bot.db.get(`${member.guild.id}_leavemessage`)}
 ${bot.db.get(`${member.guild.id}_goodbyemessagesys`)}`);
@@ -726,11 +756,8 @@ ${bot.db.get(`${member.guild.id}_goodbyemessagesys`)}`);
 
     return bot.channels.cache
       .get(bot.db.get(`${member.guild.id}_leavechannel`))
-      .send({content:msg});
+      .send({ content: msg });
   }
 });
-
-
-
 
 bot.login(process.env.DISCORD_BOT_TOKEN);
