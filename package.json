@@ -34,7 +34,7 @@
     "better-sqlite3": "^7.4.3",
     "node-superfetch": "^0.2.3",
     "discord-inline-replys": "^1.0.3",
-    "botarcapi_lib": "^1.1.4",
+    "botarcapi_lib": "^1.1.8",
     "axios": "^0.26.1",
     "youtubei": "^0.0.1-rc.14",
     "unix-timestamp": "^0.2.0"
