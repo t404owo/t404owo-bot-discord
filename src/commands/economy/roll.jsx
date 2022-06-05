@@ -15,7 +15,7 @@ exports.run = async (client, message, args) => {
     .setTitle("Dice | Bad luck, man...")
     .setDescription( "🎲 | You got rolled a "+diceresult)
     .setThumbnail(message.author.displayAvatarURL({size: 4096, dynamic: true}))
-    .setFooter(`You lost $${money}, sadly...`)
+    .setFooter({text:`You lost $${money}, sadly...`})
     client.db.add(`account.${message.author.id}.balance`, moneyadd)
     
   } else {
@@ -24,7 +24,7 @@ exports.run = async (client, message, args) => {
     .setTitle("Dice | Lucky!")
     .setDescription("``🎲`` | You got rolled a "+roll)
     .setThumbnail(message.author.displayAvatarURL({size: 4096, dynamic: true}))
-    .setFooter(`You win $${money}, smile yay!`)
+    .setFooter({text:`You win $${money}, smile yay!`})
     client.db.add(`account.${message.author.id}.balance`, money)
     
   }

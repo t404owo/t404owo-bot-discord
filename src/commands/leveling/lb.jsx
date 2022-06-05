@@ -37,7 +37,7 @@ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:80141955393
     lb.forEach(d => {
         embed.addField(`${d.rank}. ${d.user.tag}`, `**Level** - ${d.level}\n**XP** - ${d.xp} / ${d.xpreq}`);
     });
-    embed.setFooter(`Your Position: #${myrank}`);
+    embed.setFooter({text:`Your Position: #${myrank}`});
       client.sleep(2000);
     
     return message.reply({embeds:[embed], allowedMentions: { repliedUser: false }});
@@ -75,7 +75,7 @@ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:80141955393
     lb.forEach(d => {
         embed.addField(`${d.rank}. ${d.user.tag}`, `**Level** - ${d.level}\n**XP** - ${d.xp} / ${d.xpreq}`);
     });
-    embed.setFooter(`Your Position: #${myrank}`);
+    embed.setFooter({text:`Your Position: #${myrank}`});
       client.sleep(2000)
       
     return message.reply({embeds:[embed], allowedMentions: { repliedUser: false }});
@@ -114,7 +114,7 @@ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:80141955393
     lb.forEach(d => {
         embed.addField(`${d.rank}. ${d.user.tag}`, `**Level** - ${d.level}\n**XP** - ${d.xp} / ${d.xpreq}`);
     });
-    embed.setFooter(`Your Position: #${myrank}`);client.sleep(2000)
+    embed.setFooter({text:`Your Position: #${myrank}`});client.sleep(2000)
     
     return message.reply({embeds:[embed], allowedMentions: { repliedUser: false }});
 
@@ -154,7 +154,7 @@ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:80141955393
     lb.forEach(d => {
         embed.addField(`${d.rank}. ${d.user.tag}`, `**Level** - ${d.level||1}\n**XP** - ${d.xp} / ${d.xpreq||100}`);
     });
-    embed.setFooter(`Your Position: #${myrank}`);
+    embed.setFooter({text:`Your Position: #${myrank}`});
       client.sleep(2000)
       
     return message.reply({embeds:[embed], allowedMentions: { repliedUser: false }});
@@ -189,7 +189,7 @@ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:80141955393
     lb.forEach(d => {
         embed.addField(`${d.rank}. ${d.user.tag}`, `**Level** - ${d.level||1}\n**XP** - ${d.xp} / ${d.xpreq}`);
     });
-    embed.setFooter(`Your Position: #${myrank}`);
+    embed.setFooter({text:`Your Position: #${myrank}`});
       client.sleep(2000)
       
     return message.reply({embeds:[embed], allowedMentions: { repliedUser: false }});
@@ -224,7 +224,7 @@ return message.mentionReply(`${process.env.EMOTE_NO || '<:tairitsuno:80141955393
     lb.forEach(d => {
         embed.addField(`${d.rank}. ${d.user.tag}`, `**Level** - ${d.level||1}\n**XP** - ${d.xp} / ${d.xpreq||100}`);
     });
-    embed.setFooter(`Your Position: #${myrank}`);client.sleep(2000)
+    embed.setFooter({text:`Your Position: #${myrank}`});client.sleep(2000)
 
     return message.reply({embeds:[embed], allowedMentions: { repliedUser: false }});
 };

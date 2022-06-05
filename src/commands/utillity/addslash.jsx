@@ -1,7 +1,10 @@
 const { MessageEmbed, Permissions } = require("discord.js");
-
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 const fs=require('fs')
-exports.run = (bot, message, args) => {
+const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_BOT_TOKEN);
+const slash_commands = [];
+exports.run = async (bot, message, args) => {
   let perm=message.channel.permissionsFor(message.member)//perm.has()
       if (!perm.has(Permissions.FLAGS.MANAGE_GUILD)&&!bot.config.owners.includes(message.author.id)&&!perm.has(Permissions.FLAGS.MANAGE_CHANNELS)&&!perm.has(Permissions.FLAGS.ADMINISTRATOR))
       return message.mentionReply(
@@ -32,18 +35,30 @@ if(!message.guild)return
 
         bot.helps.get(category).cmds.push(prop.info.name);
 
-bot.api.applications(bot.user.id).guilds(message.guild.id).commands.post({
+/*bot.api.applications(bot.user.id).guilds(message.guild.id).commands.post({
         data: {
             name: prop.info.name,
             description: prop.info.description,
 	     options:prop.options
         }
-    });//command for slash
+    });//command for slash*/
+        let data= {
+            name: prop.info.name,
+             name_localizations: undefined,
+            description: prop.info.description,
+            description_localizations: undefined,
+	     options:prop.options
+        }
+           slash_commands.push(data)
 
  })
 })
 })
 })
+        await rest.put(
+			Routes.applicationGuildCommands(bot.user.id, message.guild.id.toString()),
+			{ body: slash_commands },
+		);
    return message.noMentionReply(
         `${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Slash command succesfully exported!`
       );

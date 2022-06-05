@@ -21,8 +21,8 @@ let x;
     .setTitle(`Global level Card From: ${x.username}#${x.discriminator}`)
     .addField("Level", level)
     .addField("XP", `${exp}/${neededXP}`)
-   if(usera.id === message.author.id) {card.setFooter("You're now currently on rank #"+rank)}
-  if(usera.id !== message.author.id) {card.setFooter("That user is/are on rank #"+rank)}
+   if(usera.id === message.author.id) {card.setFooter({text:`You're now currently on rank #${rank}`})}
+  if(usera.id !== message.author.id) {card.setFooter({text:`That user is/are on rank #${rank}`})}
   
 
 card.setColor(x.displayHexColor === "#000000" ? "#ffffff" : x.displayHexColor)
@@ -52,8 +52,8 @@ let x;
     .setTitle(`Level Card From: ${x.username}#${x.discriminator}`)
     .addField("Level", level)
     .addField("XP", `${exp}/${neededXP}`)
-   if(usera.id === message.author.id) {card.setFooter("You're now currently on rank #"+rank)}
-  if(usera.id !== message.author.id) {card.setFooter("That user is/are on rank #"+rank)}
+   if(usera.id === message.author.id) {card.setFooter({text:`You're now currently on rank #${rank}`})}
+  if(usera.id !== message.author.id) {card.setFooter({text:`That user is/are on rank #${rank}`})}
   
 
 card.setColor(x.displayHexColor === "#000000" ? "#ffffff" : x.displayHexColor)

@@ -40,6 +40,8 @@ const bot = new Client({
     "GUILD_SCHEDULED_EVENT",
   ],
 });
+const { REST } = require('@discordjs/rest');
+const { Routes } = require('discord-api-types/v9');
 bot.createAPIMessage = async (interaction, content) => {
   let data = {
     embeds: [content],
@@ -144,57 +146,10 @@ fs.readdir("./src/commands/", (err, categories) => {
     });
   });
 });
-bot.on("ready", () => {
-  bot.guilds.cache.forEach((guild) => {
-
-    fs.readdir("./src/commands/", (err, categories) => {
-      const axios = require("axios");
-      if (err) console.log(err);
-      categories.forEach((category) => {
-        let moduleConf = require(`./commands/${category}/module.json`);
-        moduleConf.path = `./commands/${category}`;
-        moduleConf.cmds = [];
-        if (!moduleConf) return;
-        bot.helps.set(category, moduleConf);
-
-        fs.readdir(`./src/commands/${category}`, (err, files) => {
-          if (err) console.log(err);
-
-          files.forEach((file) => {
-            if (!file.endsWith(".js")) return;
-            let prop = require(`./commands/${category}/${file}`);
-            let cmdName = file.split(".")[0];
-            if (!prop.options || !prop.interaction) return;
-
-            bot.helps.get(category).cmds.push(prop.info.name);
-            axios.post(
-              `https://discord.com/api/v10/applications/${bot.user.id}/guilds/${guild.id}/commands`,
-              {
-                name: prop.info.name,
-                type: 1,
-                description: prop.info.description,
-                options: prop.options,
-              },
-              {
-                headers: {
-                  Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-                },
-              }
-            );
-
-            /*bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
-        data: {
-            name: prop.info.name,
-            type:1,
-            description: prop.info.description,
-	     options:prop.options
-        }
-    });//command for slash*/
-            console.log("Finished exported slash command :D!");
-          });
-        });
-      });
-    });
+bot.on("ready", async () => {
+  const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_BOT_TOKEN);
+  const slash_commands = [];
+  bot.guilds.cache.forEach(async(guild) => {
     fs.readdir("./src/applications.commands/", (err, categories) => {
       categories.forEach((category) => {
         let moduleConf = require(`./applications.commands/${category}/module.json`);
@@ -246,8 +201,55 @@ bot.on("ready", () => {
         });
       });
     });
+
+    fs.readdir("./src/commands/", (err, categories) => {
+      const axios = require("axios");
+      if (err) console.log(err);
+      categories.forEach((category) => {
+        let moduleConf = require(`./commands/${category}/module.json`);
+        moduleConf.path = `./commands/${category}`;
+        moduleConf.cmds = [];
+        if (!moduleConf) return;
+        bot.helps.set(category, moduleConf);
+  
+        fs.readdir(`./src/commands/${category}`, (err, files) => {
+          if (err) console.log(err);
+
+          files.forEach((file) => {
+            if (!file.endsWith(".js")) return;
+            let prop = require(`./commands/${category}/${file}`);
+            let cmdName = file.split(".")[0];
+            if (!prop.options || !prop.interaction) return;
+
+            bot.helps.get(category).cmds.push(prop.info.name);
+            
+           let data= {
+            name: prop.info.name,
+             name_localizations: undefined,
+            description: prop.info.description,
+            description_localizations: undefined,
+	     options:prop.options
+        }
+           slash_commands.push(data)
+            /*bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
+        data: {
+            name: prop.info.name,
+            type:1,
+            description: prop.info.description,
+	     options:prop.options
+        }
+    });//command for slash*/
+            //console.log("Finished exported slash command!");
+          });
+        });
+      });
+    });
+    await rest.put(
+			Routes.applicationGuildCommands(bot.user.id, guild.id.toString()),
+			{ body: slash_commands },
+		);
   });
-  //console.log("Finished exported slash command!");
+  console.log("Finished exported slash command!");
 
   bot.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
