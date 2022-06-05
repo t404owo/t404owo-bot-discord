@@ -1,4 +1,4 @@
-## T404owo's bot (with Aercaea command) Selfhosting
+## T404owo's bot (with Arcaea command) Selfhosting
 There're some Rules before we start to selfhost my bot.
 1. Code Fixing are not allowed, do it at your own risk.
 2. Asking me for fixing any bugs are tolerated, but please don't ask me for give you more extend codes or ask me about how to fix the bug for your selfhosted bot.
