@@ -12,7 +12,7 @@
     "@types/express": "^4.17.13"
   },
   "dependencies": {
-    "discord.js": "^13.6.0",
+    "discord.js": "^13.8.0",
     "express": "^4.17.3",
     "mathjs": "^10.6.0",
     "ms": "^2.1.3",
