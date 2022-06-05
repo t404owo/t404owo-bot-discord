@@ -1,4 +1,4 @@
-## T404owo's bot (with Aercaea command) Selfhosting
+## T404owo's bot (with Arcaea command) Selfhosting
 So some of you guys want to selfhost my own bot, and some has already selfhosted the prievous version.
 During to Some Problems, I deleted the Arcaea Bot Project bcz it's Arcaea's ToS breaking.
 And bcz some guys love spoonfeeding instead of coding their own bot, I refuse to let the selfhost continue existing.
