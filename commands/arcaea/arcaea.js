@@ -22,6 +22,7 @@ module.exports = {
     let arg = args, a;
     //console.log(args[0].toLowerCase())
     if (!arg[0]) {
+if(process.env.ARCAPI_URL&&process.env.ARCAPI_USERAGENT){
       //  console.log("a")
       if (bot.db.get(`${message.author.id}_arcaea_acc`)) {
         a = bot.db.get(`${message.author.id}_arcaea_acc`);
@@ -114,7 +115,10 @@ if (score.song_id === "melodyoflove") {
           `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}.jpg`
         );
       return message.noMentionReply(embed);
-    }
+      }
+else return;
+      }
+    
     if (args[0]) {
       // console.log("ok")
       if (args[0].toLowerCase() === "h" || args[0].toLowerCase() === "help") {
@@ -265,7 +269,9 @@ Make sure you use like this: \`${bot.config.prefix}arcaea <command>\``
             );
           return message.noMentionReply(embed);
         }
-      } else if (
+      } else 
+        if(process.env.ARCAPI_URL&&process.env.ARCAPI_USERAGENT){
+          if (
         args[0].toLowerCase() === "bind" ||
         args[0].toLowerCase() === "b"
       ) {
@@ -1449,6 +1455,10 @@ if (score.song_id === "melodyoflove") {
           `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}.jpg`
         );
       return message.noMentionReply(embed);
+      }
+        }
+      else{
+        return
       }
     }
   },
