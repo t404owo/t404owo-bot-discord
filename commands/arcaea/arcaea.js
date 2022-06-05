@@ -462,7 +462,7 @@ Notes: ${result.difficulties[2].note}`
               byddiff = "10+";
             else if (
               result.difficulties[3].rating >= 97 &&
-              result.difficulties[3].rating <= 9.9
+              result.difficulties[3].rating <= 99
             )
               byddiff = "9+";
             else if (result.difficulties[3].rating < 1) byddiff = "?";
@@ -1613,7 +1613,6 @@ if (score.song_id === "melodyoflove") {
   ],
   interaction: async (bot, interaction, arg) => {
       // console.log("ok")
-    
       /*let args= [];
       if (arg.find(arg => arg.name.toLowerCase() == "help")) args[0]=
       arg.find(arg => arg.name.toLowerCase() == "help")
@@ -1629,6 +1628,7 @@ if (score.song_id === "melodyoflove") {
       arg.find(arg => arg.name.toLowerCase() == "score")
       else if (arg.find(arg => arg.name.toLowerCase() == "recent")) args[0]=
       arg.find(arg => arg.name.toLowerCase() == "recent")*/
+      
 
   },
   conf: {
