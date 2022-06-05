@@ -391,8 +391,6 @@ bot.config={
 
 bot.on("message", async message => {
   if (message.author.bot || message.author === bot.user) return;
-  
-  
   if (!message.guild) {
     bot.config = {
       owners: process.env.DISCORD_BOT_OWNER_ID,
@@ -420,10 +418,10 @@ bot.on("message", async message => {
     let cmd = args.shift().toLowerCase();
     let sender = message.author;
 
-    message.flags = [];
+    /*message.flags = [];
     while (args[0] && args[0][0] === "-") {
       message.flags.push(args.shift().slice(1));
-    }
+    }*/
 
     let commandFile =
       bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
@@ -473,10 +471,10 @@ bot.on("message", async message => {
     let cmd = args.shift().toLowerCase();
     let sender = message.author;
 
-    message.flags = [];
+    /*message.flags = [];
     while (args[0] && args[0][0] === "-") {
       message.flags.push(args.shift().slice(1));
-    }
+    }*/
 
     let commandFile =
       bot.commands.get(cmd) || bot.commands.get(bot.aliases.get(cmd));
