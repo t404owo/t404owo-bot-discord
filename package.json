@@ -12,6 +12,7 @@
     "@types/express": "^4.17.13"
   },
   "dependencies": {
+
     "discord.js": "^13.8.0",
     "express": "^4.17.3",
     "mathjs": "^10.6.0",
@@ -42,8 +43,7 @@
     "@discordjs/voice": "^0.10.0",
     "ffmpeg": "^0.0.4",
     "@discordjs/rest": "^0.5.0",
-    "@discordjs/builders": "^0.14.0",
-    "botarcapi_lib": "^1.1.8"
+    "@discordjs/builders": "^0.14.0"
   },
   "engines": {
     "node": "16.x"
