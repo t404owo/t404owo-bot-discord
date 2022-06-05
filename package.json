@@ -50,7 +50,7 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn ./src/shard.ts",
-    "test": ""
+    "test": "node .test/main.jsx"
   },
   "license": "MIT"
 }
