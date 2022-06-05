@@ -89,30 +89,30 @@ title.difficulties[score.difficulty].difficulty = title.difficulties[score.diffi
 )
         if(result.account_info.is_char_uncapped === true) embed.setFooter(
           `Played by ${result.account_info.name}`,
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}u_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}u_icon.png`
         );
         else embed.setFooter(
           `Played by ${result.account_info.name}`,
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}_icon.png`
         );
 
 if (score.song_id === "melodyoflove") {
         let night_day = parseInt(moment(new Date()).format("HH"));
         if (night_day >= 20 && night_day < 6)
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}night.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}night.jpg`
           );
         else
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}day.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}day.jpg`
           );
       } else if (score.difficulty === 3)
         embed.setThumbnail(
-          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}byd.jpg`
+          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}byd.jpg`
         );
       else
         embed.setThumbnail(
-          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}.jpg`
+          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}.jpg`
         );
       return message.noMentionReply(embed);
       }
@@ -413,15 +413,15 @@ Release date: <t:${result.difficulties[0].date}:F> (<t:${result.difficulties[0].
             let night_day = parseInt(moment(new Date()).format("HH"));
             if (night_day >= 20 && night_day < 6)
               embed.setThumbnail(
-                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${result.song_id}night.jpg`
+                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${result.song_id}night.jpg`
               );
             else
               embed.setThumbnail(
-                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${result.song_id}day.jpg`
+                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${result.song_id}day.jpg`
               );
           } else
             embed.setThumbnail(
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${result.song_id}.jpg`
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${result.song_id}.jpg`
             );
 
           if (result.difficulties[0]) {
@@ -472,7 +472,7 @@ Notes: ${result.difficulties[2].note}`
               `Level:${byddiff}
 Rating: ${result.difficulties[3].rating/10}
 Designer: ${result.difficulties[3].chart_designer}
-Illustration: [${result.difficulties[3].jacket_designer}](https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${result.song_id}byd.jpg)
+Illustration: [${result.difficulties[3].jacket_designer}](https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${result.song_id}byd.jpg)
 Notes: ${result.difficulties[3].note}`
             );
           }
@@ -563,10 +563,10 @@ Notes: ${result.difficulties.note}`
             `<t:${parseInt(result.account_info.join_date/1000)}:F> (<t:${parseInt(result.account_info.join_date/1000)}:R>)`
           );
           if(result.account_info.is_char_uncapped === true) embed.setThumbnail(
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}u_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}u_icon.png`
         );
         else embed.setThumbnail(
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}_icon.png`
         );
         
         message.noMentionReply(embed);
@@ -651,56 +651,56 @@ Notes: ${result.difficulties.note}`
         if(user.is_char_uncapped=== true) {
           embeds[0]
             .setTitle(`Best 30 List | ${user.name} | Page 1/6`)
-            .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}u.png`)
+            .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u.png`)
             .setFooter(
               `Played by ${user.name} | React ">" to go to page 2`,
-              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}u_icon.png`
+              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u_icon.png`
             );
           
           embeds[5]
             .setTitle(`Best 30 List | ${user.name} | Page 6/6`)
-             .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}u.png`)
+             .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u.png`)
             .setFooter(
               `Played by ${user.name} | React "<" to go back to page 5`,
-              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}u_icon.png`
+              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u_icon.png`
             );
 
           for (let x = 1; x < 5; x++) {
             embeds[x]
               .setTitle(`Best 30 List | ${user.name} | Page ${x + 1}/6`)
-              .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}u.png`)
+              .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u.png`)
               .setFooter(
                 `Played by ${user.name} | React ">" to go to page ${x +
                   2} or "<" to go back to page ${x}`,
-                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}u_icon.png`
+                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u_icon.png`
               );
           }
         }
         else {
           embeds[0]
             .setTitle(`Best 30 List | ${user.name} | Page 1/6`)
-            .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}.png`)
+            .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}.png`)
             .setFooter(
               `Played by ${user.name} | React ">" to go to page 2`,
-              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}_icon.png`
+              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}_icon.png`
             );
           
           embeds[5]
             .setTitle(`Best 30 List | ${user.name} | Page 6/6`)
-             .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}.png`)
+             .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}.png`)
             .setFooter(
               `Played by ${user.name} | React "<" to go back to page 5`,
-              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}_icon.png`
+              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}_icon.png`
             );
 
           for (let x = 1; x < 5; x++) {
             embeds[x]
               .setTitle(`Best 30 List | ${user.name} | Page ${x + 1}/6`)
-              .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}.png`)
+              .setThumbnail(`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}.png`)
               .setFooter(
                 `Played by ${user.name} | React ">" to go to page ${x +
                   2} or "<" to go back to page ${x}`,
-                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${user.character}_icon.png`
+                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}_icon.png`
               );
           }
         }
@@ -997,30 +997,30 @@ title.difficulties[score.difficulty].difficulty = title.difficulties[score.diffi
 )
         if(result.account_info.is_char_uncapped === true) embed.setFooter(
           `Played by ${result.account_info.name}`,
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}u_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}u_icon.png`
         );
         else embed.setFooter(
           `Played by ${result.account_info.name}`,
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}_icon.png`
         );
 
 if (score.song_id === "melodyoflove") {
         let night_day = parseInt(moment(new Date()).format("HH"));
         if (night_day >= 20 && night_day < 6)
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}night.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}night.jpg`
           );
         else
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}day.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}day.jpg`
           );
       } else if (score.difficulty === 3)
         embed.setThumbnail(
-          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}byd.jpg`
+          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}byd.jpg`
         );
       else
         embed.setThumbnail(
-          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}.jpg`
+          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}.jpg`
         );
         message.noMentionReply(embed);
         score = null;
@@ -1318,30 +1318,30 @@ if (score.song_id === "melodyoflove") {
           if (score.account_info.is_char_uncapped=== true)
           embed.setFooter(
             `Played by ${score.account_info.name}`,
-            `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${score.account_info.character}u_icon.png`
+            `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${score.account_info.character}u_icon.png`
           )
           else
           embed.setFooter(
             `Played by ${score.account_info.name}`,
-            `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${score.account_info.character}_icon.png`
+            `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${score.account_info.character}_icon.png`
           )
         if (title.difficulties[score.record.difficulty].id === "melodyoflove") {
           let night_day = parseInt(moment(new Date()).format("HH"));
           if (night_day >= 20 && night_day < 6)
             embed.setThumbnail(
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.record.difficulty].id}night.jpg`
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.record.difficulty].id}night.jpg`
             );
           else
             embed.setThumbnail(
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.record.difficulty].id}day.jpg`
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.record.difficulty].id}day.jpg`
             );
         } else if (score.record.difficulty === 3)
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.record.difficulty].id}byd.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.record.difficulty].id}byd.jpg`
           );
         else
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.record.difficulty].id}.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.record.difficulty].id}.jpg`
           );
         message.noMentionReply(embed);
       } 
@@ -1429,30 +1429,30 @@ title.difficulties[score.difficulty].difficulty = title.difficulties[score.diffi
 )
         if(result.account_info.is_char_uncapped === true) embed.setFooter(
           `Played by ${result.account_info.name}`,
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}u_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}u_icon.png`
         );
         else embed.setFooter(
           `Played by ${result.account_info.name}`,
-          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b%2F${result.account_info.character}_icon.png`
+          `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}_icon.png`
         );
 
 if (score.song_id === "melodyoflove") {
         let night_day = parseInt(moment(new Date()).format("HH"));
         if (night_day >= 20 && night_day < 6)
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}night.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}night.jpg`
           );
         else
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}day.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}day.jpg`
           );
       } else if (score.difficulty === 3)
         embed.setThumbnail(
-          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}byd.jpg`
+          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}byd.jpg`
         );
       else
         embed.setThumbnail(
-          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b%2F${title.difficulties[score.difficulty].id}.jpg`
+          `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.difficulties[score.difficulty].id}.jpg`
         );
       return message.noMentionReply(embed);
       }
