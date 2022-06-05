@@ -66,7 +66,9 @@ for Repl:
   "EMOTE_OK":"a custom tick emote( has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:hikariok:39382847282> e.g))",
   "EMOTE_NO":"a custom emote(make sure the custom emote has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:tairitsuno:69383859583> e.g))",
   "EMOTE_RIGHT":"a custom right arrow emote",
-  "EMOTE_LEFT":"a custom left arrow emote"
+  "EMOTE_LEFT":"a custom left arrow emote",
+  "ARCAPI_USERAGENT":"api useragent code/name",
+  "ARCAPI_URL":"https://replace.arcapi_link.here/"
 }
 ```
 Then click the button with the lock, then click the Open raw editor and put the code in it
