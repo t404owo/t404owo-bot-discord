@@ -388,6 +388,20 @@ Version: ${result.difficulties[0].version}
 Release date: <t:${result.difficulties[0].date}:F> (<t:${result.difficulties[0].date}:R>)`
           )
           .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf");
+        if (result.difficulties[0].remote_download
+            &&result.difficulties[0].world_unlock) {
+            embed.setFooter(
+              "You need to download and unlock this song in World mode to play!"
+            );
+          } else if (result.difficulties[0].remote_download
+            &&!result.difficulties[0].world_unlock) {
+            embed.setFooter("You need to download this song to play!");
+          }
+          else if(result.difficulties[0].world_unlock) {
+            embed.setFooter(
+              "You need to unlock this song in World mode to play!"
+            );
+        }
         try {
           if (result.id === "melodyoflove") {
             let night_day = parseInt(moment(new Date()).format("HH"));
@@ -466,22 +480,7 @@ Illustration: ${result.difficulties.jacket_designer}
 Notes: ${result.difficulties.note}`
           );
         }
-        if (result.difficulties[0].remote_dl === true) {
-          if (result.difficulties[0].world_unlock === true) {
-            embed.setFooter(
-              "You need to download and unlock this song in World mode to play!"
-            );
-          } else {
-            embed.setFooter("You need to download this song to play!");
-          }
-        } else {
-          if (result.difficulties[0].world_unlock === true) {
-            embed.setFooter(
-              "You need to unlock this song in World mode to play!"
-            );
-          }
-        }
-        message.noMentionReply(embed);
+       return message.noMentionReply(embed);
       } else if (
         args[0].toLowerCase() === "userinfo" ||
         args[0].toLowerCase() === "playerinfo" ||
@@ -1602,7 +1601,26 @@ if (score.song_id === "melodyoflove") {
       ]
     },
   ],
-  interaction: async (bot, interaction, arg) => {},
+  interaction: async (bot, interaction, arg) => {
+      // console.log("ok")
+    
+      /*let args= [];
+      if (arg.find(arg => arg.name.toLowerCase() == "help")) args[0]=
+      arg.find(arg => arg.name.toLowerCase() == "help")
+      else if (arg.find(arg => arg.name.toLowerCase() == "bind")) args[0]=
+      arg.find(arg => arg.name.toLowerCase() == "bind")
+      else if (arg.find(arg => arg.name.toLowerCase() == "b30")) args[0]=
+      arg.find(arg => arg.name.toLowerCase() == "b30")
+      else if (arg.find(arg => arg.name.toLowerCase() == "user")) args[0]=
+      arg.find(arg => arg.name.toLowerCase() == "user")
+      else if (arg.find(arg => arg.name.toLowerCase() == "song")) args[0]=
+      arg.find(arg => arg.name.toLowerCase() == "song")
+      else if (arg.find(arg => arg.name.toLowerCase() == "score")) args[0]=
+      arg.find(arg => arg.name.toLowerCase() == "score")
+      else if (arg.find(arg => arg.name.toLowerCase() == "recent")) args[0]=
+      arg.find(arg => arg.name.toLowerCase() == "recent")*/
+
+  },
   conf: {
     cooldown: 0,
     dm: "yes"
