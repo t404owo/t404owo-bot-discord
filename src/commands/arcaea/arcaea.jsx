@@ -1476,13 +1476,13 @@ Recent 10 avg: ${b30.recent10_avg}`);
             );
           if (score.account_info.is_char_uncapped === true)
             embed.setFooter({
-            text: `Played by ${result.account_info.name}`,
-            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}u_icon.png`,
+            text: `Played by ${score.account_info.name}`,
+            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${score.account_info.character}u_icon.png`,
           });
         else
           embed.setFooter({
-            text: `Played by ${result.account_info.name}`,
-            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}_icon.png`,
+            text: `Played by ${score.account_info.name}`,
+            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${score.account_info.character}_icon.png`,
           });
           if (
             title.difficulties[score.record.difficulty].id === "melodyoflove"
@@ -1822,13 +1822,14 @@ Recent 10 avg: ${b30.recent10_avg}`);
   interaction: async (bot, message, arg) => {
     
     console.log(arg)
-    console.log(arg._hoistedOptions.length)
+    //console.log(arg._hoistedOptions.length)
     let args
     if(arg._hoistedOptions.length===3)args=[arg._subcommand, arg._hoistedOptions[0], arg._hoistedOptions[1], arg._hoistedOptions[2]]
     else if(arg._hoistedOptions.length===2)args=[arg._subcommand, arg._hoistedOptions[0], arg._hoistedOptions[1]]
     else if (arg._hoistedOptions.length===1)args=[arg._subcommand, arg._hoistedOptions[0]]
     else args=[arg._subcommand]
-    if(args[0]==="help") {
+    if(args[0]==="help") 
+    {
         let command;
         //args=args.slice(1)
         if (args[1]) {
@@ -1954,7 +1955,8 @@ Make sure you use like this: \`${bot.config.prefix}arcaea <command>\``
           });
         }
       } else if (process.env.ARCAPI_URL && process.env.ARCAPI_USERAGENT) {
-        if (args[0].toLowerCase() === "bind") {
+        if (args[0].toLowerCase() === "bind") 
+          {
           if (!args[1])
             return message.mentionReply(
               `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
@@ -2171,7 +2173,7 @@ Notes: ${result.difficulties.note}`
             allowedMentions: { repliedUser: false },
           });
         }
-        if(args[0]==="userinfo")
+        else if(args[0]==="userinfo")
           {
             let a;
           //console.log('userinfo:')
@@ -2258,7 +2260,7 @@ Notes: ${result.difficulties.note}`
           return;
         }
         
-        if(args[0]==="recent")
+        else if(args[0]==="recent")
           {
             let a;
             message.deferReply()
@@ -2425,7 +2427,7 @@ Notes: ${result.difficulties.note}`
           return;
         }
         
-        if (args[0]==="b30")
+        else if (args[0]==="b30")
           {
             let a;
           if (args[1]) {
@@ -2731,6 +2733,222 @@ const buttons = new MessageActionRow()
 });
         }
           
+        else if(args[0]==="score")
+          {
+            message.deferReply()
+          let diffic;
+            if(args[3]||args[3].name==="difficulty")diffic = args[3].value; 
+            else if (args[2]&&args[2].name==="difficulty")diffic =args[2].value
+            else diffic=2
+          
+          
+          let user_is_defined = true,
+            song_is_defined = true, error_is_defined=false;
+            
+          if(args[2]){
+            if(args[2].name==="user"){
+            
+            user_is_defined=true
+            api.user
+            .info(args[2].value, true)
+            .catch(() => {
+            error_is_defined=true
+               message.editReply({
+                  content:`${
+                    process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                  } | User is not found in Arcaea, please give the correct username or user's friend ID and the correct song!`
+              });
+            });
+          } else {
+            user_is_defined=false
+          }
+          } else {
+            user_is_defined=false
+          }
+            if(error_is_defined===true)return
+            let song=args[1].value
+          let detect_song = await api.song
+            .info(song, true)
+            .catch(() => {
+              error_is_defined=true
+               message.editReply({
+                  content:`${
+                    process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                  } | Song is not found in Arcaea, please give the correct username or user's friend ID and the correct song!`
+              });
+             });
+          if(error_is_defined===true)return
+          let a,
+            result;
+          if(diffic){
+            if(user_is_defined===true){
+              a=await api.user
+                  .best(
+                    args[2].value,
+                    true,
+                    args[1].value,
+                    parseInt(diffic)
+                  )
+            }
+            else 
+            if(bot.db.get(`${message.author.id}_arcaea_acc`)){
+                  a=await api.user
+                  .best(
+                    bot.db.get(`${message.author.id}_arcaea_acc`),
+                    true,
+                    args[1].value,
+                    parseInt(diffic)
+                  )
+                }
+            else {
+              error_is_defined=true
+               message.editReply({
+              content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+                " | You didn't binded your Arcaea account, please bind your Arcaea account like this: `" +
+                bot.config.prefix +
+                "arcaea bind <userid or username>` or `" +
+                bot.config.prefix +
+                "arcaeabind <userid or username>`"
+            });
+            }
+            
+          }
+            else {
+              if(user_is_defined===true){
+              a=await api.user
+                  .best(
+                    args[2].value,
+                    true,
+                    args[1].value
+                  )
+            }
+            else 
+            if(bot.db.get(`${message.author.id}_arcaea_acc`)){
+                  a=await api.user
+                  .best(
+                    bot.db.get(`${message.author.id}_arcaea_acc`),
+                    true,
+                    args[1].value
+                  )
+                }
+            else {
+              error_is_defined=true
+               message.editReply({
+              content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+                " | You didn't binded your Arcaea account, please bind your Arcaea account like this: `" +
+                bot.config.prefix +
+                "arcaea bind <userid or username>` or `" +
+                bot.config.prefix +
+                "arcaeabind <userid or username>`"
+            });
+            }
+            }
+            if(error_is_defined===true)return
+          let score = a;
+          console.log(score)
+          let title = await api.song.info(score.record.song_id);
+          //console.log(title)
+          let track = score.record.clear_type;
+          let clear_type = [
+              "Track Lost[L]",
+              "Normal Clear[C]",
+              "Full Recall[FR]",
+              "Pure Memory[PM]",
+              "Easy Clear[C]",
+              "Hard Clear[C]",
+            ],
+            clear = clear_type[track];
+          let difficulty = [
+            "Past(pst)",
+            "Present(prs)",
+            "Future(ftr)",
+            "Beyond(byn/byd/bynd)",
+          ];
+          if (
+            title.difficulties[score.record.difficulty].rating >= 107 &&
+            title.difficulties[score.record.difficulty].rating <= 109
+          )
+            title.difficulties[score.record.difficulty].difficulty = "10+";
+          if (
+            title.difficulties[score.record.difficulty].rating >= 97 &&
+            title.difficulties[score.record.difficulty].rating <= 99
+          )
+            title.difficulties[score.record.difficulty].difficulty = "9+";
+          if (!isNaN(title.difficulties[score.record.difficulty].difficulty))
+            title.difficulties[score.record.difficulty].difficulty =
+              title.difficulties[score.record.difficulty].difficulty / 2;
+          //console.log(score);
+          //console.log(title);
+          let embed = new MessageEmbed()
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+            .setAuthor({ name: "Arcaea | Best Score" })
+            .setTitle(
+              title.difficulties[score.record.difficulty].artist +
+                " - " +
+                title.difficulties[score.record.difficulty].name_en
+            )
+            .addField(
+              "Chart Info:",
+              `**Song**: ${
+                title.difficulties[score.record.difficulty].name_en
+              } by ${title.difficulties[score.record.difficulty].artist}
+**Difficulty**: ${difficulty[score.record.difficulty]} ${
+                title.difficulties[score.record.difficulty].rating
+              } (${title.difficulties[score.record.difficulty].ratingReal})
+**BPM**: ${title.difficulties[score.record.difficulty].bpm}
+**Rating**: ${score.record.rating}`
+            )
+            .addField(
+              "Score",
+              `**${score.record.score}** [**${clear}**]
+**Pure**: ${score.record.perfect_count}(+${score.record.shiny_perfect_count})
+**Far**: ${score.record.near_count}
+**Lost**: ${score.record.miss_count}
+**Collection/Recollection Gauge**: ${score.record.health}%`
+            );
+          if (score.account_info.is_char_uncapped === true)
+            embed.setFooter({
+            text: `Played by ${score.account_info.name}`,
+            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${score.account_info.character}u_icon.png`,
+          });
+        else
+          embed.setFooter({
+            text: `Played by ${score.account_info.name}`,
+            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${score.account_info.character}_icon.png`,
+          });
+          if (
+            title.difficulties[score.record.difficulty].id === "melodyoflove"
+          ) {
+            let night_day = parseInt(moment(new Date()).format("HH"));
+            if (night_day >= 20 && night_day < 6)
+              embed.setThumbnail(
+                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                  title.difficulties[score.record.difficulty].id
+                }night.jpg`
+              );
+            else
+              embed.setThumbnail(
+                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                  title.difficulties[score.record.difficulty].id
+                }day.jpg`
+              );
+          } else if (score.record.difficulty === 3)
+            embed.setThumbnail(
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                title.difficulties[score.record.difficulty].id
+              }byd.jpg`
+            );
+          else
+            embed.setThumbnail(
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                title.difficulties[score.record.difficulty].id
+              }.jpg`
+            );
+          message.editReply({
+            embeds: [embed],
+            allowedMentions: { repliedUser: false },
+          });
+        }
       } else return message.reply({content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` + " | This command won't work until my developer enables it!", ephemeral:true})
   },
   conf: {
