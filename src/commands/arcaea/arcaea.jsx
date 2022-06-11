@@ -1461,8 +1461,8 @@ Recent 10 avg: ${b30.recent10_avg}`);
                 title.difficulties[score.record.difficulty].name_en
               } by ${title.difficulties[score.record.difficulty].artist}
 **Difficulty**: ${difficulty[score.record.difficulty]} ${
-                title.difficulties[score.record.difficulty].rating
-              } (${title.difficulties[score.record.difficulty].ratingReal})
+                title.difficulties[score.record.difficulty].difficulty
+              } (${title.difficulties[score.record.difficulty].rating/10})
 **BPM**: ${title.difficulties[score.record.difficulty].bpm}
 **Rating**: ${score.record.rating}`
             )
@@ -2893,8 +2893,8 @@ const buttons = new MessageActionRow()
                 title.difficulties[score.record.difficulty].name_en
               } by ${title.difficulties[score.record.difficulty].artist}
 **Difficulty**: ${difficulty[score.record.difficulty]} ${
-                title.difficulties[score.record.difficulty].rating
-              } (${title.difficulties[score.record.difficulty].ratingReal})
+                title.difficulties[score.record.difficulty].difficulty
+              } (${title.difficulties[score.record.difficulty].rating/10})
 **BPM**: ${title.difficulties[score.record.difficulty].bpm}
 **Rating**: ${score.record.rating}`
             )
