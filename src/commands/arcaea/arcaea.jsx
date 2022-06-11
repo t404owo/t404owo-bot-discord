@@ -147,7 +147,7 @@ module.exports = {
 
     if (args[0]) {
       // console.log("ok")
-      if (args[0].toLowerCase() === "h" || args[0].toLowerCase() === "help") {
+      if (args[0].toLowerCase() === "h" || args[0].toLowerCase() === "help"){
         let command;
         //args=args.slice(1)
         if (args[1]) {
@@ -1819,23 +1819,360 @@ Recent 10 avg: ${b30.recent10_avg}`);
       ],
     },
   ],
-  interaction: async (bot, interaction, arg) => {
-    // console.log("ok")
-    /*let args = [];
-    if (arg.find((arg) => arg.name.toLowerCase() == "help"))
-      args[0] = arg.find((arg) => arg.name.toLowerCase() == "help");
-    else if (arg.find((arg) => arg.name.toLowerCase() == "bind"))
-      args[0] = arg.find((arg) => arg.name.toLowerCase() == "bind");
-    else if (arg.find((arg) => arg.name.toLowerCase() == "b30"))
-      args[0] = arg.find((arg) => arg.name.toLowerCase() == "b30");
-    else if (arg.find((arg) => arg.name.toLowerCase() == "user"))
-      args[0] = arg.find((arg) => arg.name.toLowerCase() == "user");
-    else if (arg.find((arg) => arg.name.toLowerCase() == "song"))
-      args[0] = arg.find((arg) => arg.name.toLowerCase() == "song");
-    else if (arg.find((arg) => arg.name.toLowerCase() == "score"))
-      args[0] = arg.find((arg) => arg.name.toLowerCase() == "score");
-    else if (arg.find((arg) => arg.name.toLowerCase() == "recent"))
-      args[0] = arg.find((arg) => arg.name.toLowerCase() == "recent");*/
+  interaction: async (bot, message, arg) => {
+    
+    console.log(arg)
+    console.log(arg._hoistedOptions.length)
+    let args
+    if(arg._hoistedOptions.length===3)args=[arg._subcommand, arg._hoistedOptions[0], arg._hoistedOptions[1], arg._hoistedOptions[2]]
+    else if(arg._hoistedOptions.length===2)args=[arg._subcommand, arg._hoistedOptions[0], arg._hoistedOptions[1]]
+    else if (arg._hoistedOptions.length===1)args=[arg._subcommand, arg._hoistedOptions[0]]
+    else args=[arg._subcommand]
+    if(args[0]==="help") {
+        let command;
+        //args=args.slice(1)
+        if (args[1]) {
+          if (
+            args[1].value === "bind"
+          ) {
+            command = {
+              name: "bind",
+              description:
+                "Bind your Arcaea account(id or username(must be correct))",
+              usage:
+                "<friend_id/username(lower or upper digits must be typed correctly)",
+              aliases: ["b"],
+            };
+          } else if (
+            args[1].value === "songinfo"
+          ) {
+            command = {
+              name: "songinfo",
+              description: "Query for a song/chart in Arcaea",
+              usage: "<song>",
+              aliases: [
+                "chartinfo",
+                "chart-info",
+                "chart",
+                "chart_info",
+                "chart_",
+                "chart-",
+                "song-info",
+                "song",
+                "song_info",
+                "song_",
+                "song-",
+              ],
+            };
+          } else if (
+            args[1].value === "userinfo"
+          ) {
+            command = {
+              name: "userinfo",
+              description: "Query for a user/player in Arcaea",
+              usage: "(<user>)",
+              aliases: [
+                "player",
+                "player-info",
+                "player",
+                "player_info",
+                "player_",
+                "player-",
+                "user-info",
+                "user",
+                "user_info",
+                "user_",
+                "user-",
+              ],
+            };
+          } else if (
+            args[1].value === "b30"
+          ) {
+            command = {
+              name: "b30",
+              description:
+                "Gets a list of best 30 scores (from a user/from yourself)",
+              usage: "(<user>)",
+              aliases: ["best30"],
+            };
+          } else if (
+            args[1].value === "recent"
+          ) {
+            command = {
+              name: "recent",
+              description:
+                "Get the score of the chart/song you(or a specified player) played recently in Arcaea",
+              usage: "(<user>)",
+              aliases: ["recent_score", "recent-score"],
+            };
+          } else if (
+            args[1].value === "score"
+          ) {
+            command = {
+              name: "score",
+              description:
+                "Get the best score of a certain chart/song you played in Arcaea",
+              usage: "(<user>) <song> (<difficulty>)",
+              aliases: ["best", "result"],
+            };
+          }
+
+          let embed = new MessageEmbed()
+            .setTitle("Command: " + command.name)
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+            .setDescription(`
+Name: ${command.name}
+Description: ${command.description}
+Usage: \`\`${bot.config.prefix}arc ${command.name}${
+            " " + command.usage || ""
+          }\`\`
+Aliases: ${command.aliases.join(", ")}
+
+about the brackets:
+\`blank\` means that you can leave it blank
+<>:Means that if something with a space which must be used in the command
+() or (<>):This can be left empty, or you can give argument after a space in
+"":Means that if something with a space is used, this will combine it to one`);
+          return message.reply({
+            embeds: [embed],
+            allowedMentions: { repliedUser: false },
+          });
+        } else {
+          let embed = new MessageEmbed()
+            .setTitle("Arcaea commands")
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+            .setDescription(
+              `\`bind\`, \`b30\`, \`userinfo\`, \`songinfo\`, \`score\`, \`recent\`
+Make sure you use like this: \`${bot.config.prefix}arcaea <command>\``
+            )
+            .setFooter({
+              text: `Use ${bot.config.prefix}arc help <command> for more informations.`,
+            });
+          return message.reply({
+            embeds: [embed],
+            allowedMentions: { repliedUser: false },
+          });
+        }
+      } else if (process.env.ARCAPI_URL && process.env.ARCAPI_USERAGENT) {
+        if (args[0].toLowerCase() === "bind" || args[0].toLowerCase() === "b") {
+          if (!args[1])
+            return message.mentionReply(
+              `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+                " | Please bind your Arcaea account like this: `" +
+                bot.config.prefix +
+                "arcaea bind <userid or username>` or `" +
+                bot.config.prefix +
+                "arcaeabind <userid or username>`"
+            );
+          message.deferReply({ ephemeral: true })
+          let found_user=true
+          let u = await api.user
+            .info(args[1].value, true)
+            .catch((e) => {
+              found_user=false
+              return message.editReply({
+                content:`${
+                  process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                }` + " | This user doesn't exist!"
+              });
+            });
+          if(found_user===false) return
+          
+            bot.db.set(
+              `${message.author.id}_arcaea_acc`,
+              args[1].value
+            );
+            message.editReply({content:`${process.env.EMOTE_OK || "<:hikariok:801419553841741904>"} | Arcaea User ID/Username binded successfully!`, ephemeral:true});
+            return;
+          }
+        if(args[0]==="songinfo")
+          {
+          let result = await api.song
+            .info(args[1].value, true)
+            .catch((e) => {
+              console.log(e);
+              return message.mentionReply(
+                `${
+                  process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                } | Song is not found in Arcaea, please give a correct song name`
+              );
+            });
+          //console.log(result);
+          let side = ["Light 🔆", "Conflict 🌙"],
+            difficulty = [
+              "Past(pst)",
+              "Present(prs)",
+              "Future(ftr)",
+              "Beyond(byn/byd/bynd)",
+            ];
+          let ftrdiff, prsdiff, pstdiff, byddiff;
+          try {
+            if (
+              result.difficulties[2].rating >= 100 &&
+              result.difficulties[2].rating <= 109
+            )
+              ftrdiff = "10+";
+            else if (
+              result.difficulties[2].rating >= 97 &&
+              result.difficulties[2].rating <= 99
+            )
+              ftrdiff = "9+";
+            else if (result.difficulties[2].rating < 1) ftrdiff = "?";
+            else ftrdiff = result.difficulties[2].rating;
+            if (
+              result.difficulties[1].rating >= 100 &&
+              result.difficulties[1].rating <= 109
+            )
+              prsdiff = "10+";
+            else if (
+              result.difficulties[1].rating >= 97 &&
+              result.difficulties[1].rating <= 99
+            )
+              prsdiff = "9+";
+            else if (result.difficulties[1].rating < 1) prsdiff = "?";
+            else prsdiff = result.difficulties[1].rating;
+            if (
+              result.difficulties[0].rating >= 100 &&
+              result.difficulties[0].rating <= 109
+            )
+              pstdiff = "10+";
+            else if (
+              result.difficulties[0].rating >= 97 &&
+              result.difficulties[0].rating <= 99
+            )
+              pstdiff = "9+";
+            else if (result.difficulties[0].difficulty < 1) pstdiff = "?";
+            else {
+              pstdiff = result.difficulties[0].difficulty / 2;
+              prsdiff = result.difficulties[1].difficulty / 2;
+              ftrdiff = result.difficulties[2].difficulty / 2;
+            }
+          } catch (e) {
+            console.log(e);
+          }
+          let embed = new MessageEmbed()
+            .setTitle(result.difficulties[0].name_en)
+            .setDescription(
+              `Name:${result.difficulties[0].name_en}
+Name(Japanese):${
+                result.difficulties[0].name_jp || result.difficulties[0].name_en
+              }
+Artist: ${result.difficulties[0].artist}
+BPM: ${result.difficulties[0].bpm}
+Side: ${side[result.difficulties[0].side]}
+Pack: ${result.difficulties[0].set_friendly}
+Version: ${result.difficulties[0].version} 
+Release date: <t:${result.difficulties[0].date}:F> (<t:${
+                result.difficulties[0].date
+              }:R>)`
+            )
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf");
+          if (
+            result.difficulties[0].remote_download &&
+            result.difficulties[0].world_unlock
+          ) {
+            embed.setFooter({
+              text:"You need to download and unlock this song in World mode to play!"
+            });
+          } else if (
+            result.difficulties[0].remote_download &&
+            !result.difficulties[0].world_unlock
+          ) {
+            embed.setFooter({text:"You need to download this song to play!"});
+          } else if (result.difficulties[0].world_unlock) {
+            embed.setFooter({
+              text:"You need to unlock this song in World mode to play!"
+            });
+          }
+          try {
+            if (result.id === "melodyoflove") {
+              let night_day = parseInt(moment(new Date()).format("HH"));
+              if (night_day >= 20 && night_day < 6)
+                embed.setThumbnail(
+                  `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${result.song_id}night.jpg`
+                );
+              else
+                embed.setThumbnail(
+                  `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${result.song_id}day.jpg`
+                );
+            } else
+              embed.setThumbnail(
+                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${result.song_id}.jpg`
+              );
+
+            if (result.difficulties[0]) {
+              embed.addField(
+                difficulty[0],
+                `Level:${pstdiff}
+Rating: ${result.difficulties[0].rating / 10}
+Designer: ${result.difficulties[0].chart_designer}
+Illustration: ${result.difficulties[0].jacket_designer}
+Notes: ${result.difficulties[0].note}`
+              );
+            }
+            if (result.difficulties[1]) {
+              embed.addField(
+                difficulty[1],
+                `Level:${prsdiff}
+Rating: ${result.difficulties[1].rating / 10}
+Designer: ${result.difficulties[1].chart_designer}
+Illustration: ${result.difficulties[1].jacket_designer}
+Notes: ${result.difficulties[1].note}`
+              );
+            }
+            if (result.difficulties[2]) {
+              embed.addField(
+                difficulty[2],
+                `Level:${ftrdiff}
+Rating: ${result.difficulties[2].rating / 10}
+Designer: ${result.difficulties[2].chart_designer}
+Illustration: ${result.difficulties[2].jacket_designer}
+Notes: ${result.difficulties[2].note}`
+              );
+            }
+            if (result.difficulties[3]) {
+              if (
+                result.difficulties[3].rating >= 100 &&
+                result.difficulties[3].rating <= 109
+              )
+                byddiff = "10+";
+              else if (
+                result.difficulties[3].rating >= 97 &&
+                result.difficulties[3].rating <= 99
+              )
+                byddiff = "9+";
+              else if (result.difficulties[3].rating < 1) byddiff = "?";
+              else byddiff = result.difficulties[3].rating;
+              embed.addField(
+                difficulty[3],
+                `Level:${byddiff}
+Rating: ${result.difficulties[3].rating / 10}
+Designer: ${result.difficulties[3].chart_designer}
+Illustration: [${
+                  result.difficulties[3].jacket_designer
+                }](https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                  result.song_id
+                }byd.jpg)
+Notes: ${result.difficulties[3].note}`
+              );
+            }
+          } catch (e) {
+            embed.addField(
+              difficulty[2],
+              `Level:${result.difficulties.difficulty}
+Rating: ${result.difficulties.rating / 10}
+Designer: ${result.difficulties.chart_designer}
+Illustration: ${result.difficulties.jacket_designer}
+Notes: ${result.difficulties.note}`
+            );
+          }
+          return message.reply({
+            embeds: [embed],
+            allowedMentions: { repliedUser: false },
+          });
+        }
+        
+      } else return message.reply({content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` + " | This command won't work until my developer enables it!", ephemeral:true})
   },
   conf: {
     cooldown: 0,
