@@ -41,7 +41,7 @@ const bot = new Client({
   ],
 });
 const { REST } = require('@discordjs/rest');
-const { Routes } = require('discord-api-types/v9');
+const { Routes } = require('discord-api-types/v10');
 bot.createAPIMessage = async (interaction, content) => {
   let data = {
     embeds: [content],
@@ -96,6 +96,7 @@ function seconds(seconds) {
 }
 
 bot.commands = new discord_.Collection();
+bot.application_commands = new Array();
 bot.aliases = new discord_.Collection();
 bot.songs = new discord_.Collection();
 bot.packs = new discord_.Collection();
@@ -142,95 +143,19 @@ fs.readdir("./src/commands/", (err, categories) => {
         });
 
         bot.helps.get(category).cmds.push(prop.info.name);
-      });
-    });
-  });
-});
-bot.on("ready", async () => {
-  const rest = new REST({ version: '9' }).setToken(process.env.DISCORD_BOT_TOKEN);
-  const slash_commands = [];
-  bot.guilds.cache.forEach(async(guild) => {
-    fs.readdir("./src/applications.commands/", (err, categories) => {
-      categories.forEach((category) => {
-        let moduleConf = require(`./applications.commands/${category}/module.json`);
-        moduleConf.path = `./applications.commands/${category}`;
-        moduleConf.cmds = [];
-        if (!moduleConf) return;
-        bot.applications.helps.set(category, moduleConf);
+        if (!prop.options || !prop.interaction) return;
 
-        fs.readdir(`./src/applications.commands/${category}`, (err, files) => {
-          if (err) console.log(err);
-
-          files.forEach((file) => {
-            if (
-              !file.endsWith(".js") &&
-              !file.endsWith(".jsx") &&
-              !file.endsWith(".ts")
-            )
-              return;
-            let prop = require(`./applications.commands/${category}/${file}`);
-            let cmdName = file.split(".")[0];
-            if (!prop.options || !prop.interaction) return;
-
-            bot.applications.helps.get(category).cmds.push(prop.info.name);
-            if (category === "user") {
-              bot.api
-                .applications(bot.user.id)
-                .guilds(guild.id.toString())
-                .commands.post({
-                  data: {
-                    name: prop.info.name,
-                    type: 2,
-                    description: "",
-                  },
-                }); //command for user apps list
-            } else {
-              bot.api
-                .applications(bot.user.id)
-                .guilds(guild.id.toString())
-                .commands.post({
-                  data: {
-                    name: prop.info.name,
-                    type: 3,
-                    description: "",
-                  },
-                }); //command for message apps list
-            }
-            //console.log('Finished expoerted slash command!')
-          });
-        });
-      });
-    });
-
-    fs.readdir("./src/commands/", (err, categories) => {
-      const axios = require("axios");
-      if (err) console.log(err);
-      categories.forEach((category) => {
-        let moduleConf = require(`./commands/${category}/module.json`);
-        moduleConf.path = `./commands/${category}`;
-        moduleConf.cmds = [];
-        if (!moduleConf) return;
-        bot.helps.set(category, moduleConf);
-  
-        fs.readdir(`./src/commands/${category}`, (err, files) => {
-          if (err) console.log(err);
-
-          files.forEach((file) => {
-            if (!file.endsWith(".js")) return;
-            let prop = require(`./commands/${category}/${file}`);
-            let cmdName = file.split(".")[0];
-            if (!prop.options || !prop.interaction) return;
-
-            bot.helps.get(category).cmds.push(prop.info.name);
-            
-           let data= {
-            name: prop.info.name,
-             name_localizations: undefined,
-            description: prop.info.description,
-            description_localizations: undefined,
-	     options:prop.options
-        }
-           slash_commands.push(data)
+            bot.application_commands.push({
+                options:prop.options,
+                name: prop.info.name,
+                name_localizations: undefined,
+                description: prop.info.description,
+                description_localizations: undefined,
+                default_permission: undefined,
+                default_member_permissions: undefined,
+                dm_permission: prop.conf.dm==="yes",
+            })
+        
             /*bot.api.applications(bot.user.id).guilds(guild.id.toString()).commands.post({
         data: {
             name: prop.info.name,
@@ -239,18 +164,19 @@ bot.on("ready", async () => {
 	     options:prop.options
         }
     });//command for slash*/
-            //console.log("Finished exported slash command!");
-          });
-        });
       });
     });
-    await rest.put(
-			Routes.applicationGuildCommands(bot.user.id, guild.id.toString()),
-			{ body: slash_commands },
-		);
   });
-  console.log("Finished exported slash command!");
-
+});
+bot.on("ready", async () => {
+  const rest = new REST({ version: '10' }).setToken(process.env.DISCORD_BOT_TOKEN);
+  
+      bot.guilds.cache.forEach(async(guild) => {
+        await rest.put(
+			Routes.applicationGuildCommands(bot.user.id.toString(), guild.id.toString()),
+			{ body: bot.application_commands },
+		);
+    });  
   bot.on("interactionCreate", async (interaction) => {
     if (!interaction.isCommand()) return;
     interaction.noMentionReply = (content) =>
@@ -276,17 +202,6 @@ bot.on("ready", async () => {
       bot.commands.get(command).interaction(bot, interaction, args);
     }
   });
-  /*bot.ws.on('INTERACTION_CREATE', async interaction => {
-        const command = interaction.data.name.toLowerCase();
-        const args = interaction.data.options;
-
-bot.config={
-  prefix:bot.db.get(`${interaction.guild_id}_prefix`) || process.env.DISCORD_BOT_PREFIX
-}
-        if(bot.commands.get(command.toLowerCase())){
-          bot.commands.get(command).interaction(bot, interaction, args);
-        }
-    });*/
 });
 var actions = ["WATCHING", "PLAYING", "LISTENING"];
 let guildssize = [],
