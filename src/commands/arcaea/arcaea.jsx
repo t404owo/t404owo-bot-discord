@@ -1741,7 +1741,7 @@ Recent 10 avg: ${b30.recent10_avg}`);
           description:
             "**Note**: Please type the correct username or friend id!",
           type: 3,
-          required: true,
+          required: false,
         },
       ],
     },
@@ -1954,7 +1954,7 @@ Make sure you use like this: \`${bot.config.prefix}arcaea <command>\``
           });
         }
       } else if (process.env.ARCAPI_URL && process.env.ARCAPI_USERAGENT) {
-        if (args[0].toLowerCase() === "bind" || args[0].toLowerCase() === "b") {
+        if (args[0].toLowerCase() === "bind") {
           if (!args[1])
             return message.mentionReply(
               `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
@@ -2170,6 +2170,92 @@ Notes: ${result.difficulties.note}`
             embeds: [embed],
             allowedMentions: { repliedUser: false },
           });
+        }
+        if(args[0]==="userinfo")
+          {
+            let a;
+          //console.log('userinfo:')
+            message.deferReply({ephemeral:true});
+          if (args[1]) {
+            if (
+              bot.db.get(
+                `${args[1].value
+                  .replace("<@!", "")
+                  .replace("<@", "")
+                  .replace(">", "")}_arcaea_acc`
+              )
+            )
+              a = bot.db.get(
+                `${args[1].value
+                  .replace("<@!", "")
+                  .replace("<@", "")
+                  .replace(">", "")}_arcaea_acc`
+              );
+            else {
+              let b = await api.user
+                .info(args[1].value, true)
+                .catch((e) => {
+                  return message.editReply({
+                    content:`${
+                      process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                    }` + " | This user doesn't exist!", ephemaral:true
+                  });
+                });
+              if (b) {
+                a = args[1].value;
+              } else {
+                return message.editReply({
+                    content:`${
+                      process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                    }` + " | This user doesn't exist!", ephemaral:true
+                  });
+              }
+            }
+          } else if (
+            !args[1] &&
+            bot.db.get(`${message.author.id}_arcaea_acc`)
+          ) {
+            a = bot.db.get(`${message.author.id}_arcaea_acc`);
+          } else
+            return message.editReply({
+              content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+                " | You didn't binded your Arcaea account, please bind your Arcaea account like this: `" +
+                bot.config.prefix +
+                "arcaea bind <userid or username>` or `" +
+                bot.config.prefix +
+                "arcaeabind <userid or username>`",
+              ephemeral:true
+            });
+
+          let result = await api.user.info(a, true).catch(console.error);
+          //     console.log(result)
+
+          let embed = new MessageEmbed()
+            .setTitle(`Information from ${result.account_info.name}`)
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+            .addField("Name", result.account_info.name)
+            .addField("Potential", `${result.account_info.rating / 100}`)
+            .addField("Friend ID", result.account_info.code)
+            .addField(
+              "Created At",
+              `<t:${parseInt(
+                result.account_info.join_date / 1000
+              )}:F> (<t:${parseInt(result.account_info.join_date / 1000)}:R>)`
+            );
+          if (result.account_info.is_char_uncapped === true)
+            embed.setThumbnail(
+              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}u_icon.png`
+            );
+          else
+            embed.setThumbnail(
+              `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}_icon.png`
+            );
+
+          message.editReply({
+            embeds: [embed],
+            allowedMentions: { repliedUser: false },
+          });
+          return;
         }
         
       } else return message.reply({content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` + " | This command won't work until my developer enables it!", ephemeral:true})
