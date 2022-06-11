@@ -56,9 +56,19 @@ const fetch = require("node-fetch");
 setInterval(async () => {
   await fetch(`https://${process.env.PROJECT_DOMAIN}.glitch.me`); //main projects site
 }, 60000);
+/*const { QuickDB } = require('quick.db');
+const db = new QuickDB({filePath:"./.data/json.sqlite"});*/
 
-bot.db = require("quick.db");
-
+/*bot.db = {
+  all: async()=>await db.all(),
+  add: async(x,y)=>await db.add(x,y),
+  get: async(x)=>await db.get(x),
+  has: async(x)=>await db.has(x),
+  set: async(x,y)=>await db.set(x,y),
+  delete: async(x)=>await db.delete(x),
+}*///too lazy to put async... 10000+ lines of codes to find all stuffs and can't search without help of vscode tho, tl;dr lmfao (and I'm gonn skip some parts instead of sitting months for this...)
+const { Database } = require("@devsnowflake/quick.db");
+bot.db = new Database("./.data/json.sqlite", { path: "./.data"});
 bot.sleep = promisify(setTimeout);
 bot.vote = new Map();
 
