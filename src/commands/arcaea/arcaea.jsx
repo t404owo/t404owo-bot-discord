@@ -794,10 +794,10 @@ Notes: ${result.difficulties.note}`
           // a_song_names=[]
           for (let id_x = 0; id_x < 30; id_x++) {
             let output = await api.song.info(a[id_x].song_id, true);
-            console.log(output.difficulties[a[id_x].difficulty].name_en + ":a");
+            //console.log(output.difficulties[a[id_x].difficulty].name_en + ":a");
             a_song_names.push(output.difficulties[a[id_x].difficulty].name_en);
 
-            console.log(a_song_names[id_x] + ":b");
+            //console.log(a_song_names[id_x] + ":b");
           }
           //.setTitle(`${b30.userInfo.name}'s best 30 songs`)
           async function embedcontent(ct, a_song_name) {
@@ -2175,7 +2175,7 @@ Notes: ${result.difficulties.note}`
           {
             let a;
           //console.log('userinfo:')
-            message.deferReply({ephemeral:true});
+            message.deferReply({ephemeral:false});
           if (args[1]) {
             if (
               bot.db.get(
@@ -2198,7 +2198,7 @@ Notes: ${result.difficulties.note}`
                   return message.editReply({
                     content:`${
                       process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
-                    }` + " | This user doesn't exist!", ephemaral:true
+                    }` + " | This user doesn't exist!", ephemaral:false
                   });
                 });
               if (b) {
@@ -2207,7 +2207,7 @@ Notes: ${result.difficulties.note}`
                 return message.editReply({
                     content:`${
                       process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
-                    }` + " | This user doesn't exist!", ephemaral:true
+                    }` + " | This user doesn't exist!", ephemaral:false
                   });
               }
             }
@@ -2224,7 +2224,7 @@ Notes: ${result.difficulties.note}`
                 "arcaea bind <userid or username>` or `" +
                 bot.config.prefix +
                 "arcaeabind <userid or username>`",
-              ephemeral:true
+              ephemeral:false
             });
 
           let result = await api.user.info(a, true).catch(console.error);
@@ -2258,6 +2258,479 @@ Notes: ${result.difficulties.note}`
           return;
         }
         
+        if(args[0]==="recent")
+          {
+            let a;
+            message.deferReply()
+          if (args[1]) {
+            if (
+              bot.db.get(
+                `${args[1].value
+                  .replace("<@!", "")
+                  .replace("<@", "")
+                  .replace(">", "")}_arcaea_acc`
+              )
+            ) {
+              a = bot.db.get(
+                `${args[1].value
+                  .replace("<@!", "")
+                  .replace("<@", "")
+                  .replace(">", "")}_arcaea_acc`
+              );
+              //console.log(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`))
+              //console.log(a);
+            } else {
+              let b = await api.user
+                .info(args[1].value, true)
+                .catch((e) => {
+                  return message.editReply({
+                    content:`${
+                      process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                    }` + " | This user doesn't exist!"
+                  });
+                });
+              if (b) {
+                a = args[1].value;
+              } else {
+                return message.editReply({
+                    content:`${
+                      process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                    }` + " | This user doesn't exist!"
+                  });
+              }
+            }
+          } else if (
+            !args[1] &&
+            bot.db.get(`${message.author.id}_arcaea_acc`)
+          ) {
+            a = bot.db.get(`${message.author.id}_arcaea_acc`);
+          } else {
+            return message.mentionReply(
+              `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+                " | You didn't binded your Arcaea account, please bind your Arcaea account like this: `" +
+                bot.config.prefix +
+                "arcaea bind <userid or username>` or `" +
+                bot.config.prefix +
+                "arcaeabind <userid or username>`"
+            );
+          }
+
+          let result = await api.user.info(a, true, 1).catch(console.error);
+          let score = result.recent_score[0];
+          //console.log(score)
+          let title = await api.song.info(score.song_id);
+          //console.log(title)
+          let track = score.clear_type;
+          let clear_type = [
+              "Track Lost[L]",
+              "Normal Clear[C]",
+              "Full Recall[FR]",
+              "Pure Memory[PM]",
+              "Easy Clear[C]",
+              "Hard Clear[C]",
+            ],
+            clear = clear_type[track];
+          let difficulty = [
+            "Past(pst)",
+            "Present(prs)",
+            "Future(ftr)",
+            "Beyond(byn/byd/bynd)",
+          ];
+          if (
+            title.difficulties[score.difficulty].rating >= 107 &&
+            title.difficulties[score.difficulty].rating <= 109
+          )
+            title.difficulties[score.difficulty].difficulty = "10+";
+          if (
+            title.difficulties[score.difficulty].rating >= 97 &&
+            title.difficulties[score.difficulty].rating <= 99
+          )
+            title.difficulties[score.difficulty].difficulty = "9+";
+          else {
+            if (!isNaN(title.difficulties[score.difficulty].difficulty)) {
+              title.difficulties[score.difficulty].difficulty =
+                title.difficulties[score.difficulty].difficulty / 2;
+            }
+          }
+
+          let embed = new MessageEmbed()
+            .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
+            .setAuthor({ name: "Arcaea | Recent" })
+            .setTitle(
+              title.difficulties[score.difficulty].artist +
+                " - " +
+                title.difficulties[score.difficulty].name_en
+            )
+            .addField(
+              "Chart Info:",
+              `**Song**: ${title.difficulties[score.difficulty].name_en} by ${
+                title.difficulties[score.difficulty].artist
+              }
+**Difficulty**: ${difficulty[score.difficulty]} ${
+                title.difficulties[score.difficulty].difficulty
+              } (${title.difficulties[score.difficulty].rating / 10})
+**BPM**: ${title.difficulties[score.difficulty].bpm}
+**Rating**: ${score.rating}`
+            )
+            .addField(
+              "Score",
+              `**${score.score}** [**${clear}**]
+**Pure**: ${score.perfect_count}(+${score.shiny_perfect_count})
+**Far**: ${score.near_count}
+**Lost**: ${score.miss_count}
+**Collection/Recollection Gauge**: ${score.health}%`
+            );
+          if (result.account_info.is_char_uncapped === true)
+            embed.setFooter({
+            text: `Played by ${result.account_info.name}`,
+            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}u_icon.png`,
+          });
+        else
+          embed.setFooter({
+            text: `Played by ${result.account_info.name}`,
+            iconURL: `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${result.account_info.character}_icon.png`,
+          });
+
+          if (score.song_id === "melodyoflove") {
+            let night_day = parseInt(moment(new Date()).format("HH"));
+            if (night_day >= 20 && night_day < 6)
+              embed.setThumbnail(
+                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                  title.difficulties[score.difficulty].id
+                }night.jpg`
+              );
+            else
+              embed.setThumbnail(
+                `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                  title.difficulties[score.difficulty].id
+                }day.jpg`
+              );
+          } else if (score.difficulty === 3)
+            embed.setThumbnail(
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                title.difficulties[score.difficulty].id
+              }byd.jpg`
+            );
+          else
+            embed.setThumbnail(
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${
+                title.difficulties[score.difficulty].id
+              }.jpg`
+            );
+          message.editReply({
+            embeds: [embed],
+            allowedMentions: { repliedUser: false },
+          });
+          score = null;
+          return;
+        }
+        
+        if (args[0]==="b30")
+          {
+            let a;
+          if (args[1]) {
+            if (
+              bot.db.get(
+                `${args[1].value
+                  .replace("<@!", "")
+                  .replace("<@", "")
+                  .replace(">", "")}_arcaea_acc`
+              )
+            ) {
+              a = bot.db.get(
+                `${args[1].value
+                  .replace("<@!", "")
+                  .replace("<@", "")
+                  .replace(">", "")}_arcaea_acc`
+              );
+              //console.log(bot.db.get(`${args[1].replace("<@!","").replace("<@", "").replace(">","")}_arcaea_acc`))
+              //console.log(a);
+            } else {
+              let b = await api.user
+                .info(args[1].value, true)
+                .catch((e) => {
+                  return message.editReply({
+                   content: `${
+                      process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                    }` + " | This user doesn't exist!"
+                  });
+                });
+              if (b) {
+                a = args[1].value;
+              } else {
+                return message.editReply({
+                 content: `${
+                    process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
+                  }` + " | This user doesn't exist!"
+                });
+              }
+            }
+          } else if (
+            !args[1] &&
+            bot.db.get(`${message.author.id}_arcaea_acc`)
+          ) {
+            a = bot.db.get(`${message.author.id}_arcaea_acc`);
+          } else {
+            return message.editReply({
+              content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
+                " | You didn't binded your Arcaea account, please bind your Arcaea account like this: `" +
+                bot.config.prefix +
+                "arcaea bind <userid or username>` or `" +
+                bot.config.prefix +
+                "arcaeabind <userid or username>`"
+            });
+          }
+          let difficulties = ["Past", "Present", "Future", "Beyond"],
+            clear_type = [
+              "Track Lost[L]",
+              "Normal Clear[C]",
+              "Full Recall[FR]",
+              "Pure Memory[PM]",
+              "Easy Clear[C]",
+              "Hard Clear[C]",
+            ],
+            page = 0;
+          let sendmessage = await message.noMentionReply(
+            "Loading 30 scores..."
+          );
+          let b30 = await api.user.best30(a, true).catch(console.error);
+          let user = b30.account_info;
+          let c = b30.best30_list;
+          a = c;
+          let arc_embeds = [
+            new MessageEmbed(),
+            new MessageEmbed(),
+            new MessageEmbed(),
+            new MessageEmbed(),
+            new MessageEmbed(),
+            new MessageEmbed(),
+          ];
+
+          if (user.is_char_uncapped === true) {
+            arc_embeds[0]
+              .setTitle(`Best 30 List | ${user.name} | Page 1/6`)
+              .setThumbnail(
+                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u.png`
+              )
+              .setFooter({
+                text:`Played by ${user.name} | React ">" to go to page 2`,
+                iconURL:`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u_icon.png`
+            });
+
+            arc_embeds[5]
+              .setTitle(`Best 30 List | ${user.name} | Page 6/6`)
+              .setThumbnail(
+                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u.png`
+              )
+              .setFooter({
+                text:`Played by ${user.name} | React "<" to go back to page 5`,
+                iconURL:`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u_icon.png`
+                         });
+
+            for (let x = 1; x < 5; x++) {
+              arc_embeds[x]
+                .setTitle(`Best 30 List | ${user.name} | Page ${x + 1}/6`)
+                .setThumbnail(
+                  `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u.png`
+                )
+                .setFooter({
+                  text:`Played by ${user.name} | React ">" to go to page ${
+                    x + 2
+                  } or "<" to go back to page ${x}`,
+                  iconURL:`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}u_icon.png`
+              });
+            }
+          } else {
+            arc_embeds[0]
+              .setTitle(`Best 30 List | ${user.name} | Page 1/6`)
+              .setThumbnail(
+                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}.png`
+              )
+              .setFooter({
+                text:`Played by ${user.name} | React ">" to go to page 2`,
+                iconURL:`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}_icon.png`
+            });
+
+            arc_embeds[5]
+              .setTitle(`Best 30 List | ${user.name} | Page 6/6`)
+              .setThumbnail(
+                `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}.png`
+              )
+              .setFooter({
+                text:`Played by ${user.name} | React "<" to go back to page 5`,
+                iconURL:`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}_icon.png`
+                         });
+
+            for (let x = 1; x < 5; x++) {
+              arc_embeds[x]
+                .setTitle(`Best 30 List | ${user.name} | Page ${x + 1}/6`)
+                .setThumbnail(
+                  `https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}.png`
+                )
+                .setFooter({
+                  text:`Played by ${user.name} | React ">" to go to page ${
+                    x + 2
+                  } or "<" to go back to page ${x}`,
+                  iconURL:`https://cdn.glitch.com/a807634f-7022-4168-b42a-f2974966221b/${user.character}_icon.png`
+          });
+            }
+          }
+
+          let a_song_names = [];
+
+          // a_song_names=[]
+          for (let id_x = 0; id_x < 30; id_x++) {
+            let output = await api.song.info(a[id_x].song_id, true);
+            //console.log(output.difficulties[a[id_x].difficulty].name_en + ":a");
+            a_song_names.push(output.difficulties[a[id_x].difficulty].name_en);
+
+            //console.log(a_song_names[id_x] + ":b");
+          }
+          //.setTitle(`${b30.userInfo.name}'s best 30 songs`)
+          async function embedcontent(ct, a_song_name) {
+            page = ct;
+
+            arc_embeds[ct].addFields(
+              {
+                name:
+                  `\`${1 + parseInt(page * 5)}\`` +
+                  ":" +
+                  a_song_names[parseInt(page * 5)] +
+                  ` [${difficulties[a[page * 5].difficulty]}]`,
+                value: `${a[page * 5].score} (${
+                  clear_type[a[page * 5].clear_type]
+                })
+Pure: ${a[page * 5].perfect_count}(+${a[page * 5].shiny_perfect_count})
+Far: ${a[page * 5].near_count}
+Lost: ${a[page * 5].miss_count}`,
+              },
+              {
+                name:
+                  `\`${2 + parseInt(page * 5)}\`` +
+                  ":" +
+                  a_song_names[1 + parseInt(page * 5)] +
+                  ` [${difficulties[a[1 + parseInt(page * 5)].difficulty]}]`,
+                value: `${a[1 + parseInt(page * 5)].score} (${
+                  clear_type[a[1 + parseInt(page * 5)].clear_type]
+                })
+Pure: ${a[1 + parseInt(page * 5)].perfect_count}(+${
+                  a[1 + parseInt(page * 5)].shiny_perfect_count
+                })
+Far: ${a[1 + parseInt(page * 5)].near_count}
+Lost: ${a[1 + parseInt(page * 5)].miss_count}`,
+              },
+              {
+                name:
+                  `\`${3 + parseInt(page * 5)}\`` +
+                  ":" +
+                  a_song_names[2 + parseInt(page * 5)] +
+                  ` [${difficulties[a[2 + parseInt(page * 5)].difficulty]}]`,
+                value: `${a[2 + parseInt(page * 5)].score} (${
+                  clear_type[a[2 + parseInt(page * 5)].clear_type]
+                })
+Pure: ${a[2 + parseInt(page * 5)].perfect_count}(+${
+                  a[2 + parseInt(page * 5)].shiny_perfect_count
+                })
+Far: ${a[2 + parseInt(page * 5)].near_count}
+Lost: ${a[2 + parseInt(page * 5)].miss_count}`,
+              },
+              {
+                name:
+                  `\`${4 + parseInt(page * 5)}\`` +
+                  ":" +
+                  a_song_names[3 + parseInt(page * 5)] +
+                  ` [${difficulties[a[3 + parseInt(page * 5)].difficulty]}]`,
+                value: `${a[3 + parseInt(page * 5)].score} (${
+                  clear_type[a[3 + parseInt(page * 5)].clear_type]
+                })
+Pure: ${a[3 + parseInt(page * 5)].perfect_count}(+${
+                  a[3 + parseInt(page * 5)].shiny_perfect_count
+                })
+Far: ${a[3 + parseInt(page * 5)].near_count}
+Lost: ${a[3 + parseInt(page * 5)].miss_count}`,
+              },
+              {
+                name:
+                  `\`${5 + parseInt(page * 5)}\`` +
+                  ":" +
+                  a_song_names[4 + parseInt(page * 5)] +
+                  ` [${difficulties[a[4 + parseInt(page * 5)].difficulty]}]`,
+                value: `${a[4 + parseInt(page * 5)].score} (${
+                  clear_type[a[4 + parseInt(page * 5)].clear_type]
+                })
+Pure: ${a[4 + parseInt(page * 5)].perfect_count}(+${
+                  a[4 + parseInt(page * 5)].shiny_perfect_count
+                })
+Far: ${a[4 + parseInt(page * 5)].near_count}
+Lost: ${a[4 + parseInt(page * 5)].miss_count}`,
+              }
+            );
+            page = 0;
+          }
+          for (let あ = 0; あ < 6; あ++) {
+            arc_embeds[あ].setColor(
+              process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf"
+            ).setDescription(`Potential: ${user.rating / 100}
+Best 30 avg: ${b30.best30_avg}
+Recent 10 avg: ${b30.recent10_avg}`);
+            embedcontent(あ);
+          }
+const {MessageActionRow, MessageButton}=require("discord.js")
+const buttons = new MessageActionRow()
+			.addComponents(
+      new MessageButton()
+	.setCustomId('left')
+	.setStyle('PRIMARY')
+	.setEmoji(process.env.EMOTE_LEFT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,"").replace(/>/g, "").replace(" ", ""))
+      )
+      .addComponents(
+      new MessageButton()
+	.setCustomId('right')
+	.setStyle('PRIMARY')
+	.setEmoji(process.env.EMOTE_RIGHT.replace(/<(a):([^+]*)([A-Za-z0-9]*)([^+]*)([A-Za-z0-9]*):/g,"").replace(/>/g, "").replace(" ", ""))
+      )
+      .addComponents(
+      new MessageButton()
+  .setLabel("🗑️")
+	.setCustomId('delete')
+	.setStyle('DANGER')
+        )
+            
+        
+      message.editReply({embeds:[arc_embeds[0]], components:[buttons]})
+          const filter = i => {
+          return(i.customId === 'left' && i.user.id === message.user.id)||(i.customId === 'right' && i.user.id === message.user.id)||(i.customId === 'delete' && i.user.id === message.user.id);}
+          const collect = await message.fetchReply()
+          const collection= await message.channel.messages.fetch(collect.id)
+          const collector= collection.createMessageComponentCollector({ filter, time: 60000 });
+          collector.on('collect', async i => {
+            const fs = require('fs');
+
+	if (i.customId === 'right') {
+    if (page >= 5) return i.deferUpdate();
+                    page++;
+
+                    message.editReply({
+                      embeds: [arc_embeds[page]],
+                    });
+     return i.deferUpdate()
+  }
+   else if (i.customId === 'left') {
+     if (page <= 0) return i.deferUpdate();
+                    page--;
+
+                    message.editReply({
+                      embeds: [arc_embeds[page]],
+                    });
+     return i.deferUpdate()
+   } else if (i.customId === 'delete') {
+
+    i.deferUpdate()
+		await message.deleteReply();
+	}
+});
+        }
+          
       } else return message.reply({content:`${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` + " | This command won't work until my developer enables it!", ephemeral:true})
   },
   conf: {
