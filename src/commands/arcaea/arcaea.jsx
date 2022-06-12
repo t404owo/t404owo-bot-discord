@@ -2737,7 +2737,7 @@ const buttons = new MessageActionRow()
           {
             message.deferReply()
           let diffic;
-            if(args[3]||args[3].name==="difficulty")diffic = args[3].value; 
+            if(args[3])if(args[3].name==="difficulty")diffic = args[3].value; 
             else if (args[2]&&args[2].name==="difficulty")diffic =args[2].value
             else diffic=2
           
