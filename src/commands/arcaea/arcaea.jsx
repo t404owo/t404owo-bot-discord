@@ -2772,7 +2772,6 @@ Recent 10 avg: ${b30.recent10_avg}`);
           embed.setThumbnail(
             `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}.jpg`
           );
-
         message.editReply({
           embeds: [embed],
           allowedMentions: { repliedUser: false },
