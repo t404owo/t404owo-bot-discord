@@ -1735,7 +1735,7 @@ Recent 10 avg: ${b30.recent10_avg}`);
     },
   ],
   interaction: async (bot, message, arg) => {
-    console.log(arg);
+    //console.log(arg);
     //console.log(arg._hoistedOptions.length)
     let args;
     if (arg._hoistedOptions.length === 3)
@@ -2214,10 +2214,10 @@ Notes: ${result.difficulties.note}`
           );
         }
 
-        let result = await api.user.info(a, true, 1).catch(console.error);
+        let result = await api.user.info(a, true, 1,true).catch(console.error);
         let score = result.recent_score[0];
         //console.log(score)
-        let title = await api.song.info(score.song_id);
+        let title = result.songinfo[0];
         //console.log(title)
         let track = score.clear_type;
         let clear_type = [
@@ -2236,19 +2236,19 @@ Notes: ${result.difficulties.note}`
           "Beyond(byn/byd/bynd)",
         ];
         if (
-          title.difficulties[score.difficulty].rating >= 107 &&
-          title.difficulties[score.difficulty].rating <= 109
+          title.rating >= 107 &&
+          title.rating <= 109
         )
-          title.difficulties[score.difficulty].difficulty = "10+";
+          title.difficulty = "10+";
         if (
-          title.difficulties[score.difficulty].rating >= 97 &&
-          title.difficulties[score.difficulty].rating <= 99
+          title.rating >= 97 &&
+          title.rating <= 99
         )
-          title.difficulties[score.difficulty].difficulty = "9+";
+          title.difficulty = "9+";
         else {
-          if (!isNaN(title.difficulties[score.difficulty].difficulty)) {
-            title.difficulties[score.difficulty].difficulty =
-              title.difficulties[score.difficulty].difficulty / 2;
+          if (!isNaN(title.difficulty)) {
+            title.difficulty =
+              title.difficulty / 2;
           }
         }
 
@@ -2256,19 +2256,19 @@ Notes: ${result.difficulties.note}`
           .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
           .setAuthor({ name: "Arcaea | Recent" })
           .setTitle(
-            title.difficulties[score.difficulty].artist +
+            title.artist +
               " - " +
-              title.difficulties[score.difficulty].name_en
+              title.name_en
           )
           .addField(
             "Chart Info:",
-            `**Song**: ${title.difficulties[score.difficulty].name_en} by ${
-              title.difficulties[score.difficulty].artist
+            `**Song**: ${title.name_en} by ${
+              title.artist
             }
 **Difficulty**: ${difficulty[score.difficulty]} ${
-              title.difficulties[score.difficulty].difficulty
-            } (${title.difficulties[score.difficulty].rating / 10})
-**BPM**: ${title.difficulties[score.difficulty].bpm}
+              title.difficulty
+            } (${title.rating / 10})
+**BPM**: ${title.bpm}
 **Rating**: ${score.rating}`
           )
           .addField(
@@ -2294,19 +2294,19 @@ Notes: ${result.difficulties.note}`
           let night_day = parseInt(moment(new Date()).format("HH"));
           if (night_day >= 20 && night_day < 6)
             embed.setThumbnail(
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.song_id}night.jpg`
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}night.jpg`
             );
           else
             embed.setThumbnail(
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.song_id}day.jpg`
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}day.jpg`
             );
         } else if (score.difficulty === 3)
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.song_id}byd.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}byd.jpg`
           );
         else
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${title.song_id}.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}.jpg`
           );
         message.editReply({
           embeds: [embed],
@@ -2377,7 +2377,7 @@ Notes: ${result.difficulties.note}`
           ],
           page = 0;
         let sendmessage = await message.noMentionReply("Loading 30 scores...");
-        let b30 = await api.user.best30(a, true).catch(console.error);
+        let b30 = await api.user.best30(a, true, true).catch(console.error);
         let user = b30.account_info;
         let c = b30.best30_list;
         a = c;
@@ -2460,16 +2460,7 @@ Notes: ${result.difficulties.note}`
           }
         }
 
-        let a_song_names = [];
-
-        // a_song_names=[]
-        for (let id_x = 0; id_x < 30; id_x++) {
-          let output = await api.song.info(a[id_x].song_id, true);
-          //console.log(output.difficulties[a[id_x].difficulty].name_en + ":a");
-          a_song_names.push(output.difficulties[a[id_x].difficulty].name_en);
-
-          //console.log(a_song_names[id_x] + ":b");
-        }
+        
         //.setTitle(`${b30.userInfo.name}'s best 30 songs`)
         async function embedcontent(ct, a_song_name) {
           page = ct;
@@ -2479,7 +2470,7 @@ Notes: ${result.difficulties.note}`
               name:
                 `\`${1 + parseInt(page * 5)}\`` +
                 ":" +
-                a_song_names[parseInt(page * 5)] +
+                b30.best30_songinfo[parseInt(page * 5)].name_en +
                 ` [${difficulties[a[page * 5].difficulty]}]`,
               value: `${a[page * 5].score} (${
                 clear_type[a[page * 5].clear_type]
@@ -2492,7 +2483,7 @@ Lost: ${a[page * 5].miss_count}`,
               name:
                 `\`${2 + parseInt(page * 5)}\`` +
                 ":" +
-                a_song_names[1 + parseInt(page * 5)] +
+                b30.best30_songinfo[1 + parseInt(page * 5)].name_en +
                 ` [${difficulties[a[1 + parseInt(page * 5)].difficulty]}]`,
               value: `${a[1 + parseInt(page * 5)].score} (${
                 clear_type[a[1 + parseInt(page * 5)].clear_type]
@@ -2507,7 +2498,7 @@ Lost: ${a[1 + parseInt(page * 5)].miss_count}`,
               name:
                 `\`${3 + parseInt(page * 5)}\`` +
                 ":" +
-                a_song_names[2 + parseInt(page * 5)] +
+                b30.best30_songinfo[2 + parseInt(page * 5)].name_en +
                 ` [${difficulties[a[2 + parseInt(page * 5)].difficulty]}]`,
               value: `${a[2 + parseInt(page * 5)].score} (${
                 clear_type[a[2 + parseInt(page * 5)].clear_type]
@@ -2522,7 +2513,7 @@ Lost: ${a[2 + parseInt(page * 5)].miss_count}`,
               name:
                 `\`${4 + parseInt(page * 5)}\`` +
                 ":" +
-                a_song_names[3 + parseInt(page * 5)] +
+                b30.best30_songinfo[3 + parseInt(page * 5)].name_en +
                 ` [${difficulties[a[3 + parseInt(page * 5)].difficulty]}]`,
               value: `${a[3 + parseInt(page * 5)].score} (${
                 clear_type[a[3 + parseInt(page * 5)].clear_type]
@@ -2537,7 +2528,7 @@ Lost: ${a[3 + parseInt(page * 5)].miss_count}`,
               name:
                 `\`${5 + parseInt(page * 5)}\`` +
                 ":" +
-                a_song_names[4 + parseInt(page * 5)] +
+                b30.best30_songinfo[4 + parseInt(page * 5)].name_en +
                 ` [${difficulties[a[4 + parseInt(page * 5)].difficulty]}]`,
               value: `${a[4 + parseInt(page * 5)].score} (${
                 clear_type[a[4 + parseInt(page * 5)].clear_type]
