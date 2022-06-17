@@ -1467,18 +1467,18 @@ Recent 10 avg: ${b30.recent10_avg}`);
                 `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}day.jpg`
               );
           } else if (
-            score.song_id === "stager" ||
-            score.song_id === "avril" ||
-            score.song_id === "prism" ||
-            score.song_id === "protoflicker" ||
-            score.song_id === "stasis" ||
-            score.difficulty === 3
+            score.record.song_id === "stager" ||
+            score.record.song_id === "avril" ||
+            score.record.song_id === "prism" ||
+            score.record.song_id === "protoflicker" ||
+            score.record.song_id === "stasis" ||
+            score.record.difficulty === 3
           ) {
             let image=[
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}pst.jpg`,
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}prs.jpg`,
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}.jpg`,
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}byd.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}pst.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}prs.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}byd.jpg`,
             ];
             embed.setThumbnail(
               image[score.difficulty]
@@ -2821,18 +2821,18 @@ Recent 10 avg: ${b30.recent10_avg}`);
               `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}day.jpg`
             );
         } else if (
-            score.song_id === "stager" ||
-            score.song_id === "avril" ||
-            score.song_id === "prism" ||
-            score.song_id === "protoflicker" ||
-            score.song_id === "stasis" ||
-            score.difficulty === 3
+            score.record.song_id === "stager" ||
+            score.record.song_id === "avril" ||
+            score.record.song_id === "prism" ||
+            score.record.song_id === "protoflicker" ||
+            score.record.song_id === "stasis" ||
+            score.record.difficulty === 3
           ) {
             let image=[
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}pst.jpg`,
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}prs.jpg`,
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}.jpg`,
-              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}byd.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}pst.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}prs.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}.jpg`,
+              `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}byd.jpg`,
             ];
             embed.setThumbnail(
               image[score.difficulty]
