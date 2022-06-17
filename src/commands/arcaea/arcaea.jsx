@@ -1481,7 +1481,7 @@ Recent 10 avg: ${b30.recent10_avg}`);
               `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}byd.jpg`,
             ];
             embed.setThumbnail(
-              image[score.difficulty]
+              image[score.record.difficulty]
             );
           }
           else
@@ -2835,7 +2835,7 @@ Recent 10 avg: ${b30.recent10_avg}`);
               `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}byd.jpg`,
             ];
             embed.setThumbnail(
-              image[score.difficulty]
+              image[score.record.difficulty]
             );
           }
         else
