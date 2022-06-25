@@ -1,4 +1,4 @@
-## T404owo's bot (with Arcaea command) Selfhosting
+## T404owo's bot (for Repl with arcaea commands) Selfhosting
 There're some Rules before we start to selfhost my bot.
 1. Code Fixing are not allowed, do it at your own risk.
 2. Asking me for fixing any bugs are tolerated, but please don't ask me for give you more extend codes or ask me about how to fix the bug for your selfhosted bot.
@@ -12,39 +12,11 @@ If you agree with the rules, then we are going to the topic, please scroll under
 
 
 
-With this project, you can Host it 24/7 on `glitch.com` or just use it normal with `node.js` on your PC.
-For PC users, make sure you install all the packages im package.json using `npm i` in terminal(shell, cmd)
 
 
-for glitch and VS code:
-copy the code:
-```env
-DISCORD_BOT_EMBED_COLOR="color in hex, or as word(#1f1e94, blue, white etc)"
-DISCORD_BOT_TOKEN=token here
-GENIUS=
-DISCORD_BOT_USERNAME=
-DISCORD_BOT_OWNER_ID="user id here"
-DISCORD_BOT_OWNER='your username and tag'
-DISCORD_BOT_PREFIX=prefix here(+, -,...)
-DISCORD_BOT_INVITE=the invite code to your server without discord.gg/ or discord.com/invite(like hAFdT3s)
-VERSION=''
-PROJECT_DOMAIN=the project's name if you use it on glitch
-EMOTE_NO='a custom :x: (make sure the custom emote has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:tairitsuno:69383859583> e.g))'
-EMOTE_YES='a custom tick (make sure the custom emote has to be: <a:emote_name:emote_id> if this is an animated or <:emote_name:emote_id> if this is normal (<:hikariok:39382847282> e.g))'
-EMOTE_RIGHT='a custom right arrow'
-EMOTE_LEFT='a custom left arrow'
-ARCAPI_USERAGENT="replace-Useragent_name_here"
-ARCAPI_URL="https://replace.arcapi_link.here/"
-```
-Then create it: go to a `.env` file and put the code in it
-after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
-(For guys who hosts it on PC:start the bot with `npm start` in the console(terminal, shell what ever you call)
-The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`.
-If you didn't use 24/7 host tools (like using premium plan etc.) and want to host the bot 24/7, go to the hosting sections in `main.js` and `shard.ts`, remove the `/*` and `*/`.
 
-for Repl:
 
- copy the code:
+1. copy the code:
 ```json
 
 
@@ -67,7 +39,7 @@ for Repl:
   "ARCAPI_URL":"https://replace.arcapi_link.here/"
 }
 ```
-Then click the button with the lock, then click the Open raw editor and put the code in it
+Then click the button with the lock, then click the "Open raw editor" button and put the code in it
 after that fill the token, genius lyrics token, ... in the variables(after "="), make sure you delete the examples
 The bot is now set up finished! If you want to change the bot's status, use `<prefix>setstatus <stream/watch/play/listening> <twitch username if you use stream> <game, status>`.
 If you didn't use 24/7 host tools (like using hacker plan (repl's premium play) etc.) and want to host the bot 24/7, go to the hosting sections in `main.js` and `shard.ts`, remove the `/*` and `*/`, and paste the bot website url (repl-project.username.repl.co) in uptimerobot and let it ping per 5 mins
