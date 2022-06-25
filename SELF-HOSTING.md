@@ -15,8 +15,11 @@ If you agree with the rules, then we are going to the topic, please scroll under
 
 
 First, create a repl using "nodejs 16 with canvas" template.
-Then git clone this branch. 
+
+Then git clone this branch.
+
 After that copy the files in the "t404owo-bot-discord" folder outside of the folder (or to the project).
+
 Once done, copy the code:
 ```json
 
