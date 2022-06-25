@@ -128,7 +128,7 @@ module.exports = {
           }
         else
           embed.setThumbnail(
-            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_.id}.jpg`
+            `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.song_id}.jpg`
           );
         return message.reply({
           embeds: [embed],
