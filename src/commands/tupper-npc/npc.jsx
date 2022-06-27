@@ -41,9 +41,7 @@ module.exports.run = async (bot, message, args) => {
           " | This Tupper/npc is not existing in this server!"
       );
   }
-  const webhooks = await channel.fetchWebhooks();
-  const webhook = webhooks.first();
-  let foundHook = webhooks.first();
+  
   let a = args.slice(1).join(" ");
   let decide
   try{
@@ -66,12 +64,20 @@ module.exports.run = async (bot, message, args) => {
     }
     message.delete();
     a = args.slice(2).join(" ");
-    if(!foundHook){
-          {
+    
+          
       channel
         .createWebhook(
-          "Tairitsu",
-          bot.user.avatarURL({ dynamic: true, size: 1024 })
+          bot.db.get(
+                `${message.guild.id}npcname_${
+                  args[0].toLowerCase() + " " + args[1].toLowerCase()
+                }`
+              ),
+          bot.db.get(
+                  `${message.guild.id}npcav_${
+                    args[0].toLowerCase() + " " + args[1].toLowerCase()
+                  }`
+                ) || bot.user.avatarURL({ dynamic: true, size: 1024 })
         )
         .then((webhook) => {
           webhook
@@ -97,42 +103,13 @@ module.exports.run = async (bot, message, args) => {
                   process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
                 }` +
                   " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
-                });
-            });
+                , ephemeral: true});
+            })
+        .then(()=>webhook.delete({reason:"Auto-delete after sending."}));
+        
+        message.channel.send({content:`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Sent sucessfully!!`, ephemeral:true})
         });
-    }
-        }
-    else
-      {
-        foundHook
-        .send({
-        content:a, 
-          username: bot.db.get(
-            `${message.guild.id}npcname_${
-              args[0].toLowerCase() + " " + args[1].toLowerCase()
-            }`
-          ),
-          avatarURL:
-            bot.db.get(
-              `${message.guild.id}npcav_${
-                args[0].toLowerCase() + " " + args[1].toLowerCase()
-              }`
-            ) || bot.user.avatarURL({ dynamic: true, size: 1024 }),
-        })
-          .catch((error) => {
-          console.log(error)
-              // We also want to make sure if an error is found, to report it in chat.
-              return message.channel.send(
-                {content:`${
-                  process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
-                }` +
-                  " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
-                });
-            
-            });
     
-      
-      }
     
   } else
   if (bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)) {
@@ -142,8 +119,8 @@ module.exports.run = async (bot, message, args) => {
       );
     
     message.delete();
-    if(!foundHook){
-          {
+    
+          
       channel
         .createWebhook(
           "Tairitsu",
@@ -169,48 +146,20 @@ module.exports.run = async (bot, message, args) => {
                   process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
                 }` +
                   " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
-                });
+                , ephemeral: true});
             
-            });
+            }).then(()=>webhook.delete({reason:"Auto-delete after sending."}))
+        message.channel.send({content:`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Sent sucessfully!!`, ephemeral:true})
         });
-    }
-        }
-    else{
-      foundHook
-        .send({
-        content:a, 
-          username: bot.db.get(
-            `${message.guild.id}npcname_${args[0].toLowerCase()}`
-          ),
-          avatarURL:
-            bot.db.get(`${message.guild.id}npcav_${args[0].toLowerCase()}`) ||
-            bot.user.avatarURL({ dynamic: true, size: 1024 }),
-        })        
-          .catch((error) => {
-        console.log(error)
-              // We also want to make sure if an error is found, to report it in chat.
-              return message.channel.send(
-                {content:`${
-                  process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
-                }` +
-                  " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
-                });
-            
-            });    
-
-    }
+    
+        
+  
     
   }
 };
-module.exports.interaction = async (bot, message, arg) => {
-  let args=[]
-  return console.log(arg)
-  try{
-    args=[arg._hoistedOptions[0].value]
-  } catch(e){
-    args=[]
-  }
+module.exports.interaction = async (bot, message, arg) =>  {
   let channel = message.channel;
+  let args=[arg._hoistedOptions[0].value,arg._hoistedOptions[1].value]
   const {Permissions}=require("discord.js")
   const permissions = channel.permissionsFor(message.client.user);
   if (!permissions.has([Permissions.FLAGS.MANAGE_WEBHOOKS, Permissions.FLAGS.MANAGE_MESSAGES]))
@@ -218,136 +167,28 @@ module.exports.interaction = async (bot, message, arg) => {
       `${process.env.EMOTE_NO || "<:hikarisorry:801419553892073483>"}` +
         " | I'm not able to create webhooks or I can't manage messages in this channel, so that means I'm not able to send npcs/tuppers"
     );
-  if (!args[0])
-    return message.mentionReply(
-      `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
-        " | Tupper/npc is not specified."
-    );
+  
   let tupper = bot.db.get(
     `${message.guild.id}npcname_${args[0].toLowerCase()}`
   );
 
   if (!tupper) {
-    try{
-    tupper = bot.db.get(
-      `${message.guild.id}npcname_${
-        args[0].toLowerCase() + " " + args[1].toLowerCase()
-      }`
-    );
-  } catch (e){
+    
     return message.mentionReply(
         `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
           " | This Tupper/npc is not existing in this server!"
       );
   }
-    if (!tupper)
-      return message.mentionReply(
-        `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
-          " | This Tupper/npc is not existing in this server!"
-      );
-  }
-  const webhooks = await channel.fetchWebhooks();
-  const webhook = webhooks.first();
-  let foundHook = webhooks.first();
-  let a = args.slice(1).join(" ");
-  let decide
-  try{
-    if(bot.db.get(
-      `${message.guild.id}npcname_${
-        args[0].toLowerCase() + " " + args[1].toLowerCase()
-      }`
-    ))decide="a"
-  } catch(e) {
-    decide="b"
-  }
-  if (
-    decide==="a"
-  ) {
-    if (!args[2]){
-      return message.mentionReply(
-        `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
-          " | Message not specified."
-      );
-    }
-    a = args.slice(2).join(" ");
-    if(!foundHook){
-          {
-      channel
-        .createWebhook(
-          "Tairitsu",
-          bot.user.avatarURL({ dynamic: true, size: 1024 })
-        )
-        .then((webhook) => {
-          webhook
-            .send({
-            content:a, 
-              username: bot.db.get(
-                `${message.guild.id}npcname_${
-                  args[0].toLowerCase() + " " + args[1].toLowerCase()
-                }`
-              ),
-              avatarURL:
-                bot.db.get(
-                  `${message.guild.id}npcav_${
-                    args[0].toLowerCase() + " " + args[1].toLowerCase()
-                  }`
-                ) || bot.user.avatarURL({ dynamic: true, size: 1024 }),
-            })
-            .catch((error) => {
-              // We also want to make sure if an error is found, to report it in chat.
-              return message.channel.send(
-                {content:`${
-                  process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
-                }` +
-                  " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
-                });
-            console.log(error);
-            });
-        message.reply({content:process.env.EMOTE_OK || '<:hikariok:801419553841741904>'+" | NPC message sent successfully!", ephemeral: true })
-        });
-    }
-        }
-    else
-      {
-        foundHook
-        .send({
-        content:a, 
-          username: bot.db.get(
-            `${message.guild.id}npcname_${
-              args[0].toLowerCase() + " " + args[1].toLowerCase()
-            }`
-          ),
-          avatarURL:
-            bot.db.get(
-              `${message.guild.id}npcav_${
-                args[0].toLowerCase() + " " + args[1].toLowerCase()
-              }`
-            ) || bot.user.avatarURL({ dynamic: true, size: 1024 }),
-        })
-          .catch((error) => {
-              // We also want to make sure if an error is found, to report it in chat.
-              return message.channel.send(
-                {content:`${
-                  process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
-                }` +
-                  " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
-                });
-            console.log(error);
-            });
-    message.reply({content:process.env.EMOTE_OK || '<:hikariok:801419553841741904>'+" | NPC message sent successfully!", ephemeral: true })
-      
-      }
-    
-  } else
+  
+  else
   if (bot.db.get(`${message.guild.id}npcname_${args[0].toLowerCase()}`)) {
     if (!args[1])return message.mentionReply(
         `${process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"}` +
           " | Message not specified."
       );
+  
     
-    message.delete();
-    if(!foundHook){
-          {
+          
       channel
         .createWebhook(
           "Tairitsu",
@@ -356,7 +197,7 @@ module.exports.interaction = async (bot, message, arg) => {
         .then((webhook) => {
           webhook
             .send({
-            content:a, 
+            content:args[1], 
               username: bot.db.get(
                 `${message.guild.id}npcname_${args[0].toLowerCase()}`
               ),
@@ -366,6 +207,7 @@ module.exports.interaction = async (bot, message, arg) => {
                 ) || bot.user.avatarURL({ dynamic: true, size: 1024 }),
             })
             .catch((error) => {
+            console.log(error)
               // We also want to make sure if an error is found, to report it in chat.
               return message.channel.send(
                 {content:`${
@@ -373,48 +215,26 @@ module.exports.interaction = async (bot, message, arg) => {
                 }` +
                   " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
                 });
-            console.log(error);
-            });
-        message.reply({content:process.env.EMOTE_OK || '<:hikariok:801419553841741904>'+" | NPC message sent successfully!", ephemeral: true })
+            
+            }).then(()=>webhook.delete({reason:"Auto-delete after sending."}))
+        message.reply({content:`${process.env.EMOTE_OK || '<:hikariok:801419553841741904>'} | Sent sucessfully!!`, ephemeral:true})
         });
-    }
-        }
-    else{
-      foundHook
-        .send({
-        content:a, 
-          username: bot.db.get(
-            `${message.guild.id}npcname_${args[0].toLowerCase()}`
-          ),
-          avatarURL:
-            bot.db.get(`${message.guild.id}npcav_${args[0].toLowerCase()}`) ||
-            bot.user.avatarURL({ dynamic: true, size: 1024 }),
-        })        
-          .catch((error) => {
-              // We also want to make sure if an error is found, to report it in chat.
-              return message.channel.send(
-                {content:`${
-                  process.env.EMOTE_NO || "<:tairitsuno:801419553933492245>"
-                }` +
-                  " | **Something went wrong when sending the npc. Please report it to the Developers in my support server.**"
-                });
-            console.log(error);
-            });    
-message.reply({content:process.env.EMOTE_OK || '<:hikariok:801419553841741904>'+" | NPC message sent successfully!", ephemeral: true })
-    }
+    
+        
+  
     
   }
-}
+};
 module.exports.options= [
-    {
-      name: "message",
-      description: "Which npc message do you want to send?",
+  {
+      name: "npc",
+      description: "Which npc do you want to use to send?",
       type: 3,
       required: true,
     },
   {
-      name: "npc",
-      description: "Which npc do you want to use to send?",
+      name: "message",
+      description: "Which npc message do you want to send?",
       type: 3,
       required: true,
     },
