@@ -77,7 +77,7 @@ module.exports = {
               title.rating / 10
             })
 **BPM**: ${title.bpm}
-**Rating**: ${score.rating}`
+**Rating**: ${score.rating.toFixed(2)}`
           )
           .addField(
             "Score",
@@ -609,7 +609,7 @@ Notes: ${result.difficulties.note}`
             .setTitle(`Information from ${result.account_info.name}`)
             .setColor(process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf")
             .addField("Name", result.account_info.name)
-            .addField("Potential", `${result.account_info.rating / 100}`)
+            .addField("Potential", `${(result.account_info.rating / 100).toFixed(2)}`)
             .addField("Friend ID", result.account_info.code)
             .addField(
               "Created At",
@@ -867,9 +867,9 @@ Lost: ${a[4 + parseInt(page * 5)].miss_count}`,
           for (let あ = 0; あ < 6; あ++) {
             arc_embeds[あ].setColor(
               process.env.DISCORD_BOT_EMBED_COLOR || "#0affaf"
-            ).setDescription(`Potential: ${user.rating / 100}
-Best 30 avg: ${b30.best30_avg}
-Recent 10 avg: ${b30.recent10_avg}`);
+            ).setDescription(`Potential: ${(user.rating / 100).toFixed(2)}
+Best 30 avg: ${b30.best30_avg.toFixed(2)}
+Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
             embedcontent(あ);
           }
 
@@ -1074,7 +1074,7 @@ Recent 10 avg: ${b30.recent10_avg}`);
                 title.rating / 10
               })
 **BPM**: ${title.bpm}
-**Rating**: ${score.rating}`
+**Rating**: ${score.rating.toFixed(2)}`
             )
             .addField(
               "Score",
@@ -1436,7 +1436,7 @@ Recent 10 avg: ${b30.recent10_avg}`);
                 title.rating / 10
               })
 **BPM**: ${title.bpm}
-**Rating**: ${score.record.rating}`
+**Rating**: ${score.record.rating.toFixed(2)}`
             )
             .addField(
               "Score",
@@ -1568,7 +1568,7 @@ Recent 10 avg: ${b30.recent10_avg}`);
                 title.rating / 10
               })
 **BPM**: ${title.bpm}
-**Rating**: ${score.rating}`
+**Rating**: ${score.rating.toFixed(2)}`
             )
             .addField(
               "Score",
