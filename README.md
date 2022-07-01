@@ -1,4 +1,4 @@
-# t404owo-bot-discord (repl+djs v13)
+# t404owo-bot-discord (repl)
 [![Node.js CI](https://github.com/t404owo/t404owo-bot-discord/actions/workflows/node_v12.yml/badge.svg)](https://github.com/t404owo/t404owo-bot-discord/)
 
 A Discord.js bot using for music/npcs(tuppers)/moderations/... and more
