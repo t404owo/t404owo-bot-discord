@@ -48,7 +48,7 @@
   },
   "scripts": {
     "start": "ts-node-dev --respawn ./src/shard.ts",
-    "test": "node .test/main.jsx"
+    "test": "node ./test/main.jsx"
   },
   "license": "MIT"
 }
