@@ -12,7 +12,7 @@ on:
 jobs:
   build:
 
-    runs-on: [ubuntu-latest, windows-lastest, macos-lastest]
+    runs-on: [ubuntu-latest, windows-lastest, macos-lastest, self-hosted, linux-lastest, x64, ARM, ARM64, gpu]
 
     strategy:
       matrix:
