@@ -1,7 +1,7 @@
 {
   "scripts": {
     "start": "ts-node-dev --respawn ./src/shard.ts",
-    "test": "node .test/main.jsx"
+    "test": "node ./test/main.jsx"
   },
   "devDependencies": {
     "@types/express": "^4.17.12",
