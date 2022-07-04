@@ -13,7 +13,7 @@ If you agree with the rules, then we are going to the topic, please scroll under
 
 
 With this project, you can Host it 24/7 on `glitch.com` or just use it normal with `node.js` on your PC.
-For PC users, make sure you install all the packages im package.json using `npm i` in terminal(shell, cmd)
+For PC users, make sure you install node.js version 16.9 or higher and install all the packages im package.json using `npm i` in terminal(shell, cmd)
 
 
 for glitch and VS code:
