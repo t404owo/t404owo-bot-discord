@@ -1164,6 +1164,9 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
               if (song_is_defined === true) {
                 if (songisdefined === true) {
                   result = await api.user.info(args[1], true);
+                  let res= await api.song.info(args.slice(2).join(" ").replace(diff, ""), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  
                   a = await api.user
                     .best(
                       args[1],
@@ -1193,6 +1196,9 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
                     bot.db.get(`${message.author.id}_arcaea_acc`),
                     true
                   );
+                  let res= await api.song.info(args.slice(1).join(" ").replace(diff, ""), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  
                   a = await api.user
                     .best(
                       bot.db.get(`${message.author.id}_arcaea_acc`),
@@ -1220,6 +1226,9 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
                 }
               } else {
                 result = await api.user.info(args[1], true);
+                let res= await api.song.info(args.slice(2).join(" ").replace(diff, ""), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  
                 a = await api.user
                   .best(
                     args[1],
@@ -1251,6 +1260,9 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
                   bot.db.get(`${message.author.id}_arcaea_acc`),
                   true
                 );
+                let res= await api.song.info(args.slice(1).join(" ").replace(diff, ""), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  
                 a = await api.user
                   .best(
                     bot.db.get(`${message.author.id}_arcaea_acc`),
@@ -1289,8 +1301,11 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
               if (song_is_defined === true) {
                 if (songisdefined === true) {
                   result = await api.user.info(args[1], true);
+                   let res= await api.song.info(args.slice(2).join(" "), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  else diffi= 2;
                   a = await api.user
-                    .best(args[1], true, args.slice(2).join(" "), 2, true)
+                    .best(args[1], true, args.slice(2).join(" "), diffi, true)
                     .catch((e) => {
                       if (e === "user not found")
                         return message.mentionReply(
@@ -1312,12 +1327,15 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
                     bot.db.get(`${message.author.id}_arcaea_acc`),
                     true
                   );
+                  let res= await api.song.info(args.slice(1).join(" "), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  else diffi= 2;
                   a = await api.user
                     .best(
                       bot.db.get(`${message.author.id}_arcaea_acc`),
                       true,
                       args.slice(1).join(" "),
-                      2,
+                      diffi,
                       true
                     )
                     .catch((e) => {
@@ -1339,8 +1357,11 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
                 }
               } else {
                 result = await api.user.info(args[1], true);
+                let res= await api.song.info(args.slice(2).join(" "), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  else diffi= 2;
                 a = await api.user
-                  .best(args[1], true, args.slice(2).join(" "), 2, true)
+                  .best(args[1], true, args.slice(2).join(" "), diffi, true)
                   .catch((e) => {
                     if (e === "user not found")
                       return message.mentionReply(
@@ -1364,12 +1385,15 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
                   bot.db.get(`${message.author.id}_arcaea_acc`),
                   true
                 );
+                let res= await api.song.info(args.slice(1).join(" "), true)
+                  if (res.song_id==="lasteternity") diffi=3 ;
+                  else diffi= 2;
                 a = await api.user
                   .best(
                     bot.db.get(`${message.author.id}_arcaea_acc`),
                     true,
                     args.slice(1).join(" "),
-                    2,
+                    diffi,
                     true
                   )
                   .catch((e) => {
@@ -1751,24 +1775,24 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
         {
           name: "difficulty",
           description: "Choose a difficulty you want to see for the score.",
-          type: 3,
+          type: 4,
           required: false,
           choices: [
             {
               name: "Beyond",
-              value: "3",
+              value: 3,
             },
             {
               name: "Future",
-              value: "2",
+              value: 2,
             },
             {
               name: "Present",
-              value: "1",
+              value: 1,
             },
             {
               name: "Past",
-              value: "0",
+              value: 0,
             },
           ],
         },
@@ -2683,12 +2707,11 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
         message.deferReply();
         let diffic;
         //define like this would make no errs
-        if (args[3])
+        if (args[3]&&args[3]!==undefined)
           if (args[3].name === "difficulty") diffic = args[3].value;
           else if (args[2] && args[2].name === "difficulty")
             diffic = args[2].value;
           else diffic = 2;
-
         let user_is_defined = true,
           song_is_defined = true,
           error_is_defined = false;
@@ -2720,6 +2743,7 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
             } | Song is not found in Arcaea, please give the correct username or user's friend ID and the correct song!`,
           });
         });
+        if (detect_song.song_id==="lasteternity")diffic= 3;
         if (error_is_defined === true) return;
         let a, result;
         if (user_is_defined === true) {
@@ -2727,7 +2751,7 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
             args[2].value,
             true,
             args[1].value,
-            parseInt(diffic),
+            diffic,
             true
           );
         } else if (bot.db.get(`${message.author.id}_arcaea_acc`)) {
@@ -2735,7 +2759,7 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
             bot.db.get(`${message.author.id}_arcaea_acc`),
             true,
             args[1].value,
-            parseInt(diffic),
+            diffic,
             true
           );
         } else {
@@ -2842,7 +2866,7 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
           embed.setThumbnail(
             `https://cdn.glitch.com/d06daaf0-dbcd-449d-9a2e-c887b887639b/${score.record.song_id}.jpg`
           );
-
+        
         message.editReply({
           embeds: [embed],
           allowedMentions: { repliedUser: false },
