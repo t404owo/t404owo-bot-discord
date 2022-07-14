@@ -2709,7 +2709,7 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
         //define like this would make no errs
         if (args[3]&&args[3]!==undefined)
           if (args[3].name === "difficulty") diffic = args[3].value;
-          else if (args[2] && args[2].name === "difficulty")
+          else if (args[2]!==undefined && args[2].name === "difficulty")
             diffic = args[2].value;
           else diffic = 2;
         let user_is_defined = true,
