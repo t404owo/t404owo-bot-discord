@@ -2707,15 +2707,15 @@ Recent 10 avg: ${b30.recent10_avg.toFixed(2)}`);
         message.deferReply();
         let diffic;
         //define like this would make no errs
-        if (args[3]&&args[3]!==undefined)
-          if (args[3].name === "difficulty") diffic = args[3].value;
+        
+          if (args[3]&&args[3]!==undefined&&args[3].name === "difficulty") diffic = args[3].value;
           else if (args[2]!==undefined && args[2].name === "difficulty")
             diffic = args[2].value;
           else diffic = 2;
         let user_is_defined = true,
           song_is_defined = true,
           error_is_defined = false;
-
+        console.log(diffic)
         if (args[2]) {
           if (args[2].name === "user") {
             user_is_defined = true;
